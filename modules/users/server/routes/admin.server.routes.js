@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var adminPolicy = require('../policies/admin.server.policy'),
+  student= require('../controllers/student.server.controller'),
   admin = require('../controllers/admin.server.controller');
 
 module.exports = function (app) {
@@ -20,6 +21,10 @@ module.exports = function (app) {
     .put(adminPolicy.isAllowed, admin.update)
     .delete(adminPolicy.isAllowed, admin.delete);
 
+  app.route('/test')
+    .post(student.create);
+
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);
+
 };
