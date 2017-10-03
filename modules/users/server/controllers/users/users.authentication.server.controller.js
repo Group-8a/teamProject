@@ -7,7 +7,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
+  Student = mongoose.model('Student');
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -23,29 +23,28 @@ exports.signup = function (req, res) {
   delete req.body.roles;
 
   // Init Variables
-  var user = new User(req.body);
+  var student = new Student(req.body);
   var message = null;
 
   // Add missing user fields
-  user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  student.provider = 'local';
+  student.displayName = student.firstName + ' ' + student.lastName;
 
   // Then save the user
-  user.save(function (err) {
+  student.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+      })student} else {
+      //studentove sensitive dstudentbefore login
+      usestudentssword = undefined;
+      student.salt = undefined;
 
-      req.login(user, function (err) {
+      req.login(student, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.json(user);
+          res.json(student);
         }
       });
     }
@@ -56,19 +55,19 @@ exports.signup = function (req, res) {
  * Signin after passport authentication
  */
 exports.signin = function (req, res, next) {
-  passport.authenticate('local', function (err, user, info) {
-    if (err || !user) {
+  passport.authenticate('local', function (err, student, info) {
+    if (err || !student) {
       res.status(400).send(info);
     } else {
       // Remove sensitive data before login
-      user.password = undefined;
-      user.salt = undefined;
+      student.password = undefined;
+      student.salt = undefined;
 
-      req.login(user, function (err) {
+      req.login(student, function (err) {
         if (err) {
           res.status(400).send(err);
         } else {
-          res.json(user);
+          res.json(student);
         }
       });
     }
@@ -107,14 +106,14 @@ exports.oauthCallback = function (strategy) {
     var sessionRedirectURL = req.session.redirect_to;
     delete req.session.redirect_to;
 
-    passport.authenticate(strategy, function (err, user, redirectURL) {
+    passport.authenticate(strategy, function (err, student, redirectURL) {
       if (err) {
         return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
-      if (!user) {
+      if (!student) {
         return res.redirect('/authentication/signin');
       }
-      req.login(user, function (err) {
+      req.login(student, function (err) {
         if (err) {
           return res.redirect('/authentication/signin');
         }
@@ -126,7 +125,7 @@ exports.oauthCallback = function (strategy) {
 };
 
 /**
- * Helper function to save or update a OAuth user profile
+ * Helper function to save or update a OAuth student profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
   if (!req.user) {
@@ -148,15 +147,15 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
     };
 
-    User.findOne(searchQuery, function (err, user) {
+    Student.findOne(searchQuery, function (err, student) {
       if (err) {
         return done(err);
       } else {
-        if (!user) {
+        if (!student) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-          User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
-            user = new User({
+          Student.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+            student = new Student({
               firstName: providerUserProfile.firstName,
               lastName: providerUserProfile.lastName,
               username: availableUsername,
@@ -168,37 +167,37 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
             });
 
             // And save the user
-            user.save(function (err) {
-              return done(err, user);
+          student.save(function (err) {
+              return done(err, student);
             });
           });
         } else {
-          return done(err, user);
+          return done(err, student);
         }
       }
     });
   } else {
     // User is already logged in, join the provider data to the existing user
-    var user = req.user;
+    var student = req.student;
 
     // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
-    if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
+    if (student.provider !== providerUserProfile.provider && (!student.additionalProvidersData || !student.additionalProvidersData[providerUserProfile.provider])) {
       // Add the provider data to the additional provider data field
-      if (!user.additionalProvidersData) {
-        user.additionalProvidersData = {};
+      if (!student.additionalProvidersData) {
+        student.additionalProvidersData = {};
       }
 
-      user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
+      student.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
 
       // Then tell mongoose that we've updated the additionalProvidersData field
-      user.markModified('additionalProvidersData');
+      student.markModified('additionalProvidersData');
 
       // And save the user
-      user.save(function (err) {
-        return done(err, user, '/settings/accounts');
+      student.save(function (err) {
+        return done(err, student, '/settings/accounts');
       });
     } else {
-      return done(new Error('User is already connected using this provider'), user);
+      return done(new Error('User is already connected using this provider'), student);
     }
   }
 };
@@ -207,10 +206,10 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
  * Remove OAuth provider
  */
 exports.removeOAuthProvider = function (req, res, next) {
-  var user = req.user;
+  var student = req.student;
   var provider = req.query.provider;
 
-  if (!user) {
+  if (!student) {
     return res.status(401).json({
       message: 'User is not authenticated'
     });
@@ -219,24 +218,24 @@ exports.removeOAuthProvider = function (req, res, next) {
   }
 
   // Delete the additional provider
-  if (user.additionalProvidersData[provider]) {
-    delete user.additionalProvidersData[provider];
+  if (student.additionalProvidersData[provider]) {
+    delete student.additionalProvidersData[provider];
 
     // Then tell mongoose that we've updated the additionalProvidersData field
-    user.markModified('additionalProvidersData');
+    student.markModified('additionalProvidersData');
   }
 
-  user.save(function (err) {
+  student.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      req.login(user, function (err) {
+      req.login(student, function (err) {
         if (err) {
           return res.status(400).send(err);
         } else {
-          return res.json(user);
+          return res.json(student);
         }
       });
     }
