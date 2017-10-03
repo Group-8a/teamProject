@@ -23,7 +23,8 @@ module.exports = function (app) {
 
   app.route('/test')
     .post(student.create);
-
+  app.route('/invite')
+    .post(student.create);
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);
 

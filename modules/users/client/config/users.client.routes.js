@@ -38,6 +38,10 @@ angular.module('users').config(['$stateProvider',
         url: '/signup',
         templateUrl: 'modules/users/client/views/authentication/signup.client.view.html'
       })
+      .state('authentication.invite', {
+        url: '/invite',
+        templateUrl: 'modules/users/client/views/authentication/invite.client.view.html'
+      })
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'

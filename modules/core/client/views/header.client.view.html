@@ -28,6 +28,9 @@
       <li ui-sref-active="active">
         <a ui-sref="authentication.signin">Sign In</a>
       </li>
+      <li ui-sref-active="active">
+        <a ui-sref="authentication.invitestudents" ng-show="authentication.user.provider === 'admin'">Invite New User</a>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
       <li class="dropdown" dropdown>
@@ -44,9 +47,6 @@
           </li>
           <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
             <a ui-sref="settings.password">Change Password</a>
-          </li>
-          <li ui-sref-active="active">
-            <a ui-sref="settings.accounts">Manage Social Accounts</a>
           </li>
           <li class="divider"></li>
           <li>

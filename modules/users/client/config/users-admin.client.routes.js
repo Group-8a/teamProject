@@ -9,10 +9,15 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController'
       })
+      .state('admin.user-invite', {
+        url: '/invite_user',
+        templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
+        controller: 'UserController'
+      })
       .state('admin.user', {
         url: '/users/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
-        controller: 'UserController',
+        controller: 'AuthenticationController',
         resolve: {
           userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
             return Admin.get({
