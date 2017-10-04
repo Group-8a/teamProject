@@ -6,8 +6,6 @@
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required>
-          <div>
-          </div>
         </div>
         <div class="form-group" show-errors>
           <label for="lastName">Last Name</label>
@@ -15,7 +13,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="gradDate">Graduation Date</label>
-          <input type="number" id="gradDate" name="gradDate" class="form-control" ng-model="credentials.gradDate" placeholder="Graduation Date" lowercase required>
+          <input type="number" id="gradDate" name="gradDate" class="form-control"  placeholder="Graduation Date">
         </div>
         <div class="form-group" show-errors>
           <label for="major">Major</label>
@@ -26,8 +24,8 @@
           <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase required>
         </div>
         <div class="form-group" show-errors>
-          <label for="altEmail">Alternate Email</label>
-          <input type="email" id="altEmail" name="altEmail" class="form-control" ng-model="credentials.altEmail" placeholder="Alternate Email" lowercase required>
+          <label for="alternateEmail">Alternate Email</label>
+          <input type="email" id="alternateEmail" name="alternateEmail" class="form-control" ng-model="credentials.alternateEmail" placeholder="Alternate Email" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="linkedin">Linkedin</label>
@@ -35,16 +33,16 @@
         </div>
         <div class="form-group" show-errors>
           <label for="joinlab">Date of joining lab</label>
-          <input type="date" id="joinlab" name="joinlab" class="form-control" ng-model="credentials.joinlab" placeholder="Date of joining lab" lowercase required>
+          <input type="date" id="joinlab" name="joinlab" class="form-control"  placeholder="Date of joining lab">
         </div>
-        <div class="form-group" show-errors>
+         <div class="form-group" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="password">Password</label>
             <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
-          </div>
+        </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
           &nbsp;
