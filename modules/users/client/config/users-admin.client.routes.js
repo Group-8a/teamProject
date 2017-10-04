@@ -37,6 +37,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('test', {
         url: '/test',
         templateUrl: 'modules/users/client/views/admin/allStudentsView.html'
+        controller: 'UserListController'
       });
 
   }
