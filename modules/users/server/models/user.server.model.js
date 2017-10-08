@@ -32,13 +32,13 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+  //  validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
   lastName: {
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  //  validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   displayName: {
     type: String,
@@ -55,7 +55,7 @@ var UserSchema = new Schema({
   username: {
     type: String,
     unique: 'Username already exists',
-    required: 'Please fill in a username',
+    //required: 'Please fill in a username',
     lowercase: true,
     trim: true
   },
@@ -97,6 +97,7 @@ var UserSchema = new Schema({
   },
   ufid: {
     type: String
+    //required: 'Please provide a UF Id'
   },
   resetPasswordToken: {
     type: String

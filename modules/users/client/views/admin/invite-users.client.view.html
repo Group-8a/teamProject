@@ -1,16 +1,16 @@
-<div>
+<div ng-controller="AuthenticationController">
   <h3 class="col-md-12 text-center">Invite New User</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
-  <form name="userForm" ng-submit="invite(userForm.$valid)" class="signin" novalidate autocomplete="off">
+  <form name="newUserForm" ng-submit="invite(newUserForm.$valid)" class="signin" novalidate autocomplete="off">
     <fieldset>
       <div class="form-group" show-errors>
         <label for="username">New User Email</label>
-        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="newUser.email" placeholder="Email">
+        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="credentials.email" placeholder="Email">
         <div ng-messages="userForm.username.$error" role="alert">
           <p class="help-block error-text" ng-message="required">Email is required.</p>
         </div>
         <label for="username">New User UF Id</label>
-        <input type="text" id="userId" name="userId" class="form-control" ng-model="newUser.ufid" placeholder="UF Id">
+        <input type="text" id="userId" name="userId" class="form-control" ng-model="credentials.ufid" placeholder="UF Id">
       </div>
       <button type="submit" class="btn btn-primary">Invite User</button>
       &nbsp; or&nbsp;

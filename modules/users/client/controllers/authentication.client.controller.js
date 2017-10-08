@@ -21,8 +21,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-      console.log('made it here');
-      $http.post('api/auth/invite', $scope.newUser).success(function (response) {
+      console.log($scope.credentials);
+      $http.post('api/auth/invite', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
       // And redirect to the previous or home page

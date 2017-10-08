@@ -18,7 +18,7 @@
         <a ui-sref="authentication.signin">Sign In</a>
       </li>
       <li ui-sref-active="active">
-        <a ui-sref="authentication.invitestudents">Invite New User</a>
+        <a ui-sref="authentication.invitestudents" ng-show="authentication.admin">Invite New User</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">

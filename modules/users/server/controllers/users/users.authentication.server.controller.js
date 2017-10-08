@@ -46,12 +46,10 @@ exports.invite = function(req, res){
   var token = Math.random().toString(36).substr(2, 5);
   user.ufid = req.body.ufid;
   user.email = req.body.email;
-  user.lastName = 'b ';
-  user.firstName = 'c ';
-  user.username = ' q';
   user.provider = 'local';
+  user.role = 'user';
+  user.username = token;
   user.inviteToken = token;
-  user.displayName = user.firstName + ' ' + user.lastName;
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
