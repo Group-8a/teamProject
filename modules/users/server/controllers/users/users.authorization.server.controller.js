@@ -5,7 +5,7 @@
  */
 var _ = require('lodash'),
   mongoose = require('mongoose'),
-  Student = mongoose.model('Student');
+  User = mongoose.model('User');
 
 /**
  * User middleware
@@ -17,16 +17,16 @@ exports.userByID = function (req, res, next, id) {
     });
   }
 
-  Student.findOne({
+  User.findOne({
     _id: id
-  }).exec(function (err, student) {
+  }).exec(function (err, user) {
     if (err) {
       return next(err);
-    } else if (!student) {
+    } else if (!user) {
       return next(new Error('Failed to load User ' + id));
     }
 
-    req.profile = student;
+    req.profile = user;
     next();
   });
 };

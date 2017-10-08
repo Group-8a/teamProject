@@ -39,16 +39,24 @@ angular.module('users').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/authentication/signup.client.view.html'
       })
       .state('authentication.invitestudents', {
-        url: '/invite',
+        url: '/invite_user',
         templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html'
       })
       .state('authentication.invite', {
         url: '/invite',
         templateUrl: 'modules/users/client/views/authentication/invite.client.view.html'
       })
+      .state('authentication.checkuser', {
+        url: '/check_invitation',
+        templateUrl: 'modules/users/client/views/authentication/check_invite.client.view.html'
+      })
       .state('authentication.signin', {
         url: '/signin?err',
         templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
+      })
+      .state('authentication.inviteSignin', {
+        url: '/inviteSignin?err',
+        templateUrl: 'modules/users/client/views/authentication/invite.client.view.html'
       })
       .state('password', {
         abstract: true,

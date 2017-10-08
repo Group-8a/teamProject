@@ -1,22 +1,24 @@
-<div ng-controller="AuthenticationController">
+<div>
   <h3 class="col-md-12 text-center">Invite New User</h3>
-  <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin" novalidate autocomplete="off">
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+  <form name="userForm" ng-submit="invite(userForm.$valid)" class="signin" novalidate autocomplete="off">
     <fieldset>
       <div class="form-group" show-errors>
         <label for="username">New User Email</label>
-        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="credentials.useremail" placeholder="Email">
+        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="newUser.email" placeholder="Email">
         <div ng-messages="userForm.username.$error" role="alert">
           <p class="help-block error-text" ng-message="required">Email is required.</p>
         </div>
         <label for="username">New User UF Id</label>
-        <input type="text" id="userId" name="userId" class="form-control" ng-model="credentials.userId" placeholder="UF Id">
+        <input type="text" id="userId" name="userId" class="form-control" ng-model="newUser.ufid" placeholder="UF Id">
       </div>
       <button type="submit" class="btn btn-primary">Invite User</button>
       &nbsp; or&nbsp;
-      <a ui-sref="home">Cancel</a>
+      <a ui-sref="authentication.invite">Cancel</a>
       <alert type="danger" ng-show="error" class="text-center text-danger">
         <span ng-bind="error"></span>
       </alert>
     </fieldset>
   </form>
+</div>
 </div>

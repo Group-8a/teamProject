@@ -1,9 +1,29 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', '$stateParams', '$http', 'Authentication', 'userResolve',
+  function ($scope, $state, $stateParams, $http, Authentication, userResolve) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
+
+    $scope.invite = function (isValid) {
+      $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+
+        return false;
+      }
+
+      $http.post('api/users/invite', $scope.newUser).success(function (response) {
+        // If successful we assign the response to the global user model
+        //$scope.authentication.user = response;
+
+        // And redirect to the previous or home page
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    };
 
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {

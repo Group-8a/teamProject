@@ -7,7 +7,7 @@ var path = require('path'),
   config = require(path.resolve('./config/config')),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
-  Student = mongoose.model('Student'),
+  User = mongoose.model('User'),
   nodemailer = require('nodemailer'),
   async = require('async'),
   crypto = require('crypto');
@@ -29,23 +29,23 @@ exports.forgot = function (req, res, next) {
     // Lookup user by username
     function (token, done) {
       if (req.body.username) {
-        Student.findOne({
+        User.findOne({
           username: req.body.username.toLowerCase()
-        }, '-salt -password', function (err, student) {
-          if (!student) {
+        }, '-salt -password', function (err, user) {
+          if (!user) {
             return res.status(400).send({
               message: 'No account with that username has been found'
             });
-          } else if (student.provider !== 'local') {
+          } else if (user.provider !== 'local') {
             return res.status(400).send({
-              message: 'It seems like you signed up using your ' + student.provider + ' account'
+              message: 'It seems like you signed up using your ' + user.provider + ' account'
             });
           } else {
-            student.resetPasswordToken = token;
-            student.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-            student.save(function (err) {
-              done(err, token, student);
+            user.save(function (err) {
+              done(err, token, user);
             });
           }
         });
@@ -55,24 +55,24 @@ exports.forgot = function (req, res, next) {
         });
       }
     },
-    function (token, student, done) {
+    function (token, user, done) {
 
       var httpTransport = 'http://';
       if (config.secure && config.secure.ssl === true) {
         httpTransport = 'https://';
       }
       res.render(path.resolve('modules/users/server/templates/reset-password-email'), {
-        name: student.displayName,
+        name: user.displayName,
         appName: config.app.title,
         url: httpTransport + req.headers.host + '/api/auth/reset/' + token
       }, function (err, emailHTML) {
-        done(err, emailHTML, student);
+        done(err, emailHTML, user);
       });
     },
     // If valid email, send reset email using service
-    function (emailHTML, student, done) {
+    function (emailHTML, user, done) {
       var mailOptions = {
-        to: student.email,
+        to: user.email,
         from: config.mailer.from,
         subject: 'Password Reset',
         html: emailHTML
@@ -102,13 +102,13 @@ exports.forgot = function (req, res, next) {
  * Reset password GET from email token
  */
 exports.validateResetToken = function (req, res) {
-  Student.findOne({
+  User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: {
       $gt: Date.now()
     }
-  }, function (err, student) {
-    if (!student) {
+  }, function (err, user) {
+    if (!user) {
       return res.redirect('/password/reset/invalid');
     }
 
@@ -127,35 +127,35 @@ exports.reset = function (req, res, next) {
   async.waterfall([
 
     function (done) {
-      Student.findOne({
+      User.findOne({
         resetPasswordToken: req.params.token,
         resetPasswordExpires: {
           $gt: Date.now()
         }
-      }, function (err, student) {
-        if (!err && student) {
+      }, function (err, user) {
+        if (!err && user) {
           if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-            student.password = passwordDetails.newPassword;
-            student.resetPasswordToken = undefined;
-            student.resetPasswordExpires = undefined;
+            user.password = passwordDetails.newPassword;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
 
-            student.save(function (err) {
+            user.save(function (err) {
               if (err) {
                 return res.status(400).send({
                   message: errorHandler.getErrorMessage(err)
                 });
               } else {
-                req.login(student, function (err) {
+                req.login(user, function (err) {
                   if (err) {
                     res.status(400).send(err);
                   } else {
                     // Remove sensitive data before return authenticated user
-                    student.password = undefined;
-                    student.salt = undefined;
+                    user.password = undefined;
+                    user.salt = undefined;
 
-                    res.json(student);
+                    res.json(user);
 
-                    done(err, student);
+                    done(err, user);
                   }
                 });
               }
@@ -172,18 +172,18 @@ exports.reset = function (req, res, next) {
         }
       });
     },
-    function (student, done) {
+    function (user, done) {
       res.render('modules/users/server/templates/reset-password-confirm-email', {
-        name: student.displayName,
+        name: user.displayName,
         appName: config.app.title
       }, function (err, emailHTML) {
-        done(err, emailHTML, student);
+        done(err, emailHTML, user);
       });
     },
     // If valid email, send reset email using service
-    function (emailHTML, student, done) {
+    function (emailHTML, user, done) {
       var mailOptions = {
-        to: student.email,
+        to: user.email,
         from: config.mailer.from,
         subject: 'Your password has been changed',
         html: emailHTML
@@ -208,21 +208,21 @@ exports.changePassword = function (req, res, next) {
   var passwordDetails = req.body;
   var message = null;
 
-  if (req.student) {
+  if (req.user) {
     if (passwordDetails.newPassword) {
-      Student.findById(req.student.id, function (err, student) {
-        if (!err && student) {
-          if (student.authenticate(passwordDetails.currentPassword)) {
+      User.findById(req.user.id, function (err, user) {
+        if (!err && user) {
+          if (user.authenticate(passwordDetails.currentPassword)) {
             if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
-              student.password = passwordDetails.newPassword;
+              user.password = passwordDetails.newPassword;
 
-              student.save(function (err) {
+              user.save(function (err) {
                 if (err) {
                   return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
                   });
                 } else {
-                  req.login(student, function (err) {
+                  req.login(user, function (err) {
                     if (err) {
                       res.status(400).send(err);
                     } else {

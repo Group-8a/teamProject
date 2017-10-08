@@ -10,35 +10,35 @@ var _ = require('lodash'),
   mongoose = require('mongoose'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
-  Student = mongoose.model('Student');
+  User = mongoose.model('User');
 
 /**
  * Update user details
  */
 exports.update = function (req, res) {
   // Init Variables
-  var student = req.student;
+  var user = req.user;
 
   // For security measurement we remove the roles from the req.body object
   delete req.body.roles;
 
-  if (student) {
+  if (user) {
     // Merge existing user
-    student = _.extend(student, req.body);
-    student.updated = Date.now();
-    student.displayName = student.firstName + ' ' + student.lastName;
+    user = _.extend(user, req.body);
+    user.updated = Date.now();
+    user.displayName = user.firstName + ' ' + user.lastName;
 
-    student.save(function (err) {
+    user.save(function (err) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        req.login(student, function (err) {
+        req.login(user, function (err) {
           if (err) {
             res.status(400).send(err);
           } else {
-            res.json(student);
+            res.json(user);
           }
         });
       }
@@ -54,7 +54,7 @@ exports.update = function (req, res) {
  * Update profile picture
  */
 exports.changeProfilePicture = function (req, res) {
-  var student = req.student;
+  var user = req.user;
   var message = null;
   var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
@@ -62,26 +62,26 @@ exports.changeProfilePicture = function (req, res) {
   // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;
 
-  if (student) {
+  if (user) {
     upload(req, res, function (uploadError) {
       if(uploadError) {
         return res.status(400).send({
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        student.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
+        user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
 
-        student.save(function (saveError) {
+        user.save(function (saveError) {
           if (saveError) {
             return res.status(400).send({
               message: errorHandler.getErrorMessage(saveError)
             });
           } else {
-            req.login(student, function (err) {
+            req.login(user, function (err) {
               if (err) {
                 res.status(400).send(err);
               } else {
-                res.json(student);
+                res.json(user);
               }
             });
           }
@@ -99,5 +99,5 @@ exports.changeProfilePicture = function (req, res) {
  * Send User
  */
 exports.me = function (req, res) {
-  res.json(req.student || null);
+  res.json(req.user || null);
 };
