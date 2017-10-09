@@ -1,4 +1,45 @@
-<!DOCTYPE html>
+<section>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Users</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="list-group" > <!-- changed this line -->
+      <a ng-repeat="user in pagedItems" ng-click="displayDetails($index)" class="list-group-item">
+        <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
+        <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
+        <p class="list-group-item-text" ng-bind="user.email"></p>
+      </a>
+    </div>
+    <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+
+  </div>
+
+
+
+  <div class="col-md-6" style="background-color: gray">
+      <h2>Name: </h2>
+
+      <p>Graduation Date: </p>
+      <p> Linkedin: {{detailedInfo.linkedin}} </p>
+      <p>Major: {{detailedInfo.major}} </p>
+      <p>UF ID: {{detailedInfo.ufid}}</p>
+      <p>Email: {{detailedInfo.email}} </p>
+      <p>Phone Number: {{detailedInfo.phonenumber}}</p>
+      <p>Bio: {{detailedInfo.bio}}</p>
+      <span class="glyphicons glyphicons-remove-sign"></span>
+  </div>
+
+
+</section>
+
+<!--<!DOCTYPE html>
 <html>
 <head>
 </head>
@@ -18,3 +59,4 @@
 
 </body>
 </html>
+->
