@@ -1,0 +1,28 @@
+<div ng-controller="AuthenticationController">
+  <h3 class="col-md-12 text-center">Join MIL</h3>
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+    <form name="inviteForm" ng-submit = "inviteSignin(inviteForm.$valid)" class="invitation" novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="username">Invite Code</label>
+          <input type="text" id="invitecode" name="invitecode" ng-model="credentials.inviteToken" class="form-control" placeholder="Invite Code" >
+        </div>
+        <div class="form-group" show-errors>
+          <label for="ufid">UF Id</label>
+          <input type="text" id="ufid" name="ufid" ng-model="credentials.ufid" class="form-control" placeholder="UF Id" required>
+        </div>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">Register</button>
+          &nbsp; or&nbsp;
+          <a ui-sref="home">Cancel</a>
+        </div>
+        <div class="text-center forgot-password">
+          <a ui-sref="authentication.checkuser">Don't have an invite code? Check if you were invited</a>
+        </div>
+        <alert type="danger" ng-show="error" class="text-center text-danger">
+          <span ng-bind="error"></span>
+        </alert>
+      </fieldset>
+    </form>
+  </div>
+</div>
