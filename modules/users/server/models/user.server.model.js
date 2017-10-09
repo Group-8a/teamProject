@@ -59,9 +59,28 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
+  alternateEmail: {
+    type: String,
+    default: ''
+  },
+  major: {
+    type: String,
+    default: ''
+  },
+  gradDate: {
+    type: Number,
+    default: ''
+  },
   password: {
     type: String,
     default: ''
+  },
+  linkedin: {
+    type: String,
+    default: ''
+  },
+  joinlab: {
+    type: Date,
   },
   salt: {
     type: String
