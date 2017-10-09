@@ -5,64 +5,43 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required><br>
-          <br>
+          <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required>
         </div>
         <div class="form-group" show-errors>
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="Last Name" required><br>
-          <br>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="Last Name" required>
         </div>
         <div class="form-group" show-errors>
           <label for="gradDate">Graduation Date</label>
-          <input type="month" id="gradDate" name="gradDate" class="form-control" placeholder="Graduation Date" required><br>
-          <br>
+          <input type="number" id="gradDate" name="gradDate" class="form-control"  placeholder="Graduation Date">
         </div>
         <div class="form-group" show-errors>
           <label for="major">Major</label>
-          <input type="text" id="major" name="major" class="form-control" ng-model="credentials.major" placeholder="Major" required><br>
-          <br>
+          <input type="text" id="major" name="major" class="form-control" ng-model="credentials.major" placeholder="Major" required>
         </div>
         <div class="form-group" show-errors>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase required><br>
-          <br>
+          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="alternateEmail">Alternate Email</label>
-          <input type="email" id="alternateEmail" name="alternateEmail" class="form-control" ng-model="credentials.alternateEmail" placeholder="Alternate Email" lowercase required><br>
-          <br>
+          <input type="email" id="alternateEmail" name="alternateEmail" class="form-control" ng-model="credentials.alternateEmail" placeholder="Alternate Email" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="linkedin">Linkedin</label>
-          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin" placeholder="Linkedin" required><br>
-          <br>
+          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin" placeholder="Linkedin" required>
         </div>
         <div class="form-group" show-errors>
           <label for="joinlab">Date of joining lab</label>
-          <input type="date" id="joinlab" name="joinlab" class="form-control" placeholder="Date of joining lab" required><br>
-          <br>
+          <input type="date" id="joinlab" name="joinlab" class="form-control" placeholder="Date of joining lab" required>
         </div>
-        <div class="form-group" show-errors>
+         <div class="form-group" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required><br>
           <br>
         </div>
         <div class="form-group" show-errors>
           <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required><br>
-            <br>
-          </div>
-          <div class="text-center form-group" ng-hide="uploader.queue.length">
-            <span class="btn btn-default btn-file">
-                Select Image <input type="file" nv-file-select uploader="uploader">
-            </span>
-          </div>
-          <div class="text-center form-group" ng-show="uploader.queue.length">
-            <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
-            <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button><br>
-            <br>
-          </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
         </div>

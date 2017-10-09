@@ -39,5 +39,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/admin/test.html'
       });
 
+
+
   }
 ]);
