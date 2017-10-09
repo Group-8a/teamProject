@@ -300,45 +300,40 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 exports.sendInvite = function (req, res) {
     //send email
-  async.waterfall([
-    function(req, res, done){
-      var user = new User(req.body);
-      var token = Math.random().toString(36).substr(2, 5);
-      user.ufid = req.body.ufid;
-      user.email = req.body.email;
-      user.lastName = 'b ';
-      user.firstName = 'c ';
-      user.username = ' q';
-      user.provider = 'local';
-      user.inviteToken = token;
-      user.displayName = user.firstName + ' ' + user.lastName;
-      user.save(function (err) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        }
+/*  var user = new User(req.body);
+  user.ufid = req.body.ufid;
+  user.email = req.body.email;
+  user.inviteToken = req.body.initeToken;
+*/
 
-        res.json(user);
-        done(user, req, res);
+  async.waterfall([
+    function(done){
+      User.findOne({ inviteToken: req.body.inviteToken }, 'email', function(err, user){
+        if (!user){
+          res.status(200).send('no invite token');
+        }
+        else{
+          var emailaddress = user.email;
+          console.log(user);
+          done(user);
+        }
       });
     },
-    function (user, req, res, done) {
+    function(user, done){
       var httpTransport = 'http://';
       if (config.secure && config.secure.ssl === true) {
         httpTransport = 'https://';
       }
       res.render(path.resolve('modules/users/server/templates/invite-email'), {
-        name: user.firstName,
-        url: httpTransport + req.headers.host + '/api/auth/signup',
-        token: user.inviteToken
+        url: 'url',
+        token: req.body.inviteToken
         //invite: token
-      }, function (err, emailHTML) {
-        done(err, emailHTML, user);
+      }, function (err, emailHTML, user, done) {
+        done(err, emailHTML);
       });
     },
   // If valid email, send reset email using service
-    function (emailHTML, user, req, res, done) {
+    function (emailHTML, user, done) {
       var mailOptions = {
         to: user.email,
         from: config.mailer.from,

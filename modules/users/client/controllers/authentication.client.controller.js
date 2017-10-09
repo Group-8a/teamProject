@@ -21,11 +21,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-      console.log($scope.credentials);
       $http.post('api/auth/invite', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
       // And redirect to the previous or home page
+        $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }).error(function(response){
+          $scope.error = response.message;
+        });
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function(response){
         $scope.error = response.message;

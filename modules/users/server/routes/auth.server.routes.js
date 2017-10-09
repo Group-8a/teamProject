@@ -18,7 +18,7 @@ module.exports = function (app) {
   app.route('/api/auth/signup').post(users.signup);
   app.route('/api/auth/invite').post(users.invite);
   app.route('/api/auth/inviteSignin').post(users.inviteSignin);
-  app.route('api/auth/sendInvite').post(users.sendInvite);
+  app.route('/api/auth/sendInvite').post(users.sendInvite);
   app.route('/api/auth/signin').post(users.signin);
   app.route('/api/auth/signout').get(users.signout);
   //app.route('/api/auth/invite').post(users.sendInvite);
