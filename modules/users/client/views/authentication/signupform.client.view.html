@@ -17,7 +17,7 @@
         </div>
         <div class="form-group" show-errors>
           <label for="major">Major</label>
-          <input type="text" id="major" name="major" class="form-control" ng-model="credentials.major" placeholder="Major" required>
+          <input type="text" id="major" name="major" class="form-control" ng-model="credentials.major" placeholder="Major" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="email">Email</label>
@@ -29,21 +29,23 @@
         </div>
         <div class="form-group" show-errors>
           <label for="linkedin">Linkedin</label>
-          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin" placeholder="Linkedin" required>
+          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin" placeholder="Linkedin" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="joinlab">Date of joining lab</label>
-          <input type="date" id="joinlab" name="joinlab" class="form-control" placeholder="Date of joining lab" required>
+          <input type="date" id="joinlab" name="joinlab" class="form-control"  placeholder="Date of joining lab">
         </div>
          <div class="form-group" show-errors>
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required><br>
-          <br>
+          <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username" lowercase required>
         </div>
         <div class="form-group" show-errors>
           <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+        </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
+          &nbsp;
         </div>
         <div ng-show="error" class="text-center text-danger">
           <strong ng-bind="error"></strong>
