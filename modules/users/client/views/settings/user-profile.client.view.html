@@ -1,0 +1,20 @@
+<div class="row" controller="UserListController">
+  <div class="col">
+    <h1>Profile</h1>
+    <div style="display:inline-block">
+      <ui-sref="admin.user({userId: user._id})" class="list-group-item" >
+        <img ng-src="modules/users/client/img/profile/default.png" src="modules/users/client/img/profile/default.png">
+        <h3 class="list-group-item-text" ng-bind="user.displayName"></h4>
+        <h4 class="list-group-item-text" ng-bind="user.major"></h4>
+        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
+        <h4 class="list-group-item-text" ng-bind="user.linkedin"></h4>
+        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
+        </a>
+      </div>
+    </div>
+    <div class="col">
+      <h1>Blog Posts</h1>
+      <ui-sref="admin.user({userId: user._id})" class="list-group-item"></a>
+    </div>
+
+</div>

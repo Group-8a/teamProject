@@ -56,5 +56,16 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.error = errorResponse.data.message;
       });
     };
+
+    $scope.find = function() {
+      $scope.loading = true;
+      userResolve.getAll().then(function(response) {
+        console.log("here");
+        $scope.user = response.data;
+      }, function(error) {
+        $scope.error = 'Unable to retrieve student' + error;
+      });
+    };
+
   }
 ]);

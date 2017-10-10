@@ -17,6 +17,10 @@ angular.module('users').config(['$stateProvider',
         url: '/profile',
         templateUrl: 'modules/users/client/views/settings/edit-profile.client.view.html'
       })
+      .state('settings.user', {
+        url: '/user',
+        templateUrl: 'modules/users/client/views/settings/user-profile.client.view.html'
+      })
       .state('settings.password', {
         url: '/password',
         templateUrl: 'modules/users/client/views/settings/change-password.client.view.html'
@@ -79,6 +83,10 @@ angular.module('users').config(['$stateProvider',
       .state('password.reset.form', {
         url: '/:token',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html'
+      })
+      .state('formpage', {
+        url:'/formpage',
+        templateUrl: 'modules/users/client/views/authentication/signupform.client.view.html'
       });
   }
 ]);
