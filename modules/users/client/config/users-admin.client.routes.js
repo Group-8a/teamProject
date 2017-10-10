@@ -30,13 +30,13 @@ angular.module('users.admin.routes').config(['$stateProvider',
         url: '/invite_user',
         templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
         controller: 'AuthenticationController',
-        resolve: {
+        /*resolve: {
           userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
             return Admin.get({
               userId: $stateParams.userId
             });
           }]
-        }
+        }*/
       })
       .state('admin.user-edit', {
         url: '/users/:userId/edit',

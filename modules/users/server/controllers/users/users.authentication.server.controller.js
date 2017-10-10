@@ -320,6 +320,7 @@ exports.sendInvite = function (req, res) {
       });
     },
     function(user, done){
+      res.status(400).send(user);
       var httpTransport = 'http://';
       if (config.secure && config.secure.ssl === true) {
         httpTransport = 'https://';

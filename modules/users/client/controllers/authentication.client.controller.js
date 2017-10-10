@@ -83,7 +83,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-
+      console.log('here');
       $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log(response);
