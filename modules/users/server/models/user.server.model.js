@@ -32,13 +32,13 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+  //  validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
   lastName: {
     type: String,
     trim: true,
     default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  //  validate: [validateLocalStrategyProperty, 'Please fill in your last name']
   },
   displayName: {
     type: String,
@@ -55,13 +55,32 @@ var UserSchema = new Schema({
   username: {
     type: String,
     unique: 'Username already exists',
-    required: 'Please fill in a username',
+    //required: 'Please fill in a username',
     lowercase: true,
     trim: true
+  },
+  alternateEmail: {
+    type: String,
+    default: ''
+  },
+  major: {
+    type: String,
+    default: ''
+  },
+  gradDate: {
+    type: Number,
+    default: ''
   },
   password: {
     type: String,
     default: ''
+  },
+  linkedin: {
+    type: String,
+    default: ''
+  },
+  joinlab: {
+    type: Date,
   },
   salt: {
     type: String
@@ -92,6 +111,13 @@ var UserSchema = new Schema({
     default: Date.now
   },
   /* For reset password */
+  inviteToken: {
+    type: String
+  },
+  ufid: {
+    type: String
+    //required: 'Please provide a UF Id'
+  },
   resetPasswordToken: {
     type: String
   },
@@ -177,7 +203,7 @@ UserSchema.statics.generateRandomPassphrase = function () {
     var password = '';
     var repeatingCharacters = new RegExp('(.)\\1{2,}', 'g');
 
-    // iterate until the we have a valid passphrase. 
+    // iterate until the we have a valid passphrase.
     // NOTE: Should rarely iterate more than once, but we need this to ensure no repeating characters are present.
     while (password.length < 20 || repeatingCharacters.test(password)) {
       // build the random password

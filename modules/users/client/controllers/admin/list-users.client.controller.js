@@ -24,6 +24,10 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       $scope.pagedItems = $scope.filteredItems.slice(begin, end);
     };
 
+    $scope.displayDetails = function(index) {
+      $scope.detailedInfo = $scope.users[index];
+    };
+
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
     };

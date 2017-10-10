@@ -8,6 +8,22 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+exports.sendInvite = function(req, res){
+  var user = new User(req.body);
+  user.ufid = req.body.ufid;
+  user.email = req.body.email;
+  user.provider = 'local';
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+
+    res.json(user);
+  });
+};
+
 /**
  * Show the current user
  */

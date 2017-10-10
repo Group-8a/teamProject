@@ -13,6 +13,29 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/');
     }
 
+    $scope.invite = function (isValid) {
+      $scope.error = null;
+
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+
+        return false;
+      }
+      $http.post('api/auth/invite', $scope.credentials).success(function (response) {
+        // If successful we assign the response to the global user model
+        //$scope.authentication.user = response;
+      // And redirect to the previous or home page
+        $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
+          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        }).error(function(response){
+          $scope.error = response.message;
+        });
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      }).error(function(response){
+        $scope.error = response.message;
+      });
+    };
+
     $scope.signup = function (isValid) {
       $scope.error = null;
 
@@ -21,7 +44,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-
+      console.log("here");
       $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
@@ -29,6 +52,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {
+        console.log(response.message);
         $scope.error = response.message;
       });
     };
@@ -53,14 +77,36 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
-    // OAuth provider request
-    $scope.callOauthProvider = function (url) {
-      if ($state.previous && $state.previous.href) {
-        url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+    $scope.inviteSignin = function (isValid) {
+      $scope.error = null;
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'userForm');
+
+        return false;
       }
 
-      // Effectively call OAuth authentication route:
-      $window.location.href = url;
+      $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
+        // If successful we assign the response to the global user model
+        console.log(response);
+        if (response === 'True'){
+          $state.go('authentication.signup');
+        }
+        else {
+          $scope.error = 'Sorry, invite code and UF id combination does not match our database.';
+
+        }
+        // And redirect to the previous or home page
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    /*  $scope.authentication.user = response;
+
+      // And redirect to the previous or home page
+      $state.go('authentication.signup');
+    }).error(function (response) {
+      $scope.error = response.message;
+    });*/
+    // OAuth provider request
     };
   }
 ]);
