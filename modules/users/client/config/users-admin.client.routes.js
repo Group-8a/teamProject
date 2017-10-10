@@ -69,9 +69,9 @@ angular.module('users.admin.routes').config(['$stateProvider',
       })
       .state('profile', {
         url: '/user',
-        templateUrl: 'modules/users/client/views/admin/user-profile.client.view.html'
+        templateUrl: 'modules/users/client/views/admin/user-profile.client.view.html',
+        controller: 'UserListController'
       });
-      controller: 'UserListController'
 
 
 
