@@ -31,6 +31,14 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         ignoreState: true
       }
     })
+    .state('recruiter', {
+      url: '/recruiter',
+      templateUrl: 'modules/core/client/views/recruiter.view.html',
+      controller: 'UserListController',
+      data: {
+        ignoreState: true
+      }
+    })
     .state('forbidden', {
       url: '/forbidden',
       templateUrl: 'modules/core/client/views/403.client.view.html',
