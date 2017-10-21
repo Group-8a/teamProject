@@ -32,54 +32,91 @@ var UserSchema = new Schema({
     type: String,
     trim: true,
     default: '',
-  //  validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-  //  validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  last: {
+    lastName: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    lastNameDontShow: {
+      type: Boolean,
+      trim: true,
+      default: false,
+      validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    }
   },
   displayName: {
     type: String,
     trim: true
   },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+  primaryEmail: {
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      default: '',
+      validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    },
+    emailDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   username: {
     type: String,
     unique: 'Username already exists',
-    //required: 'Please fill in a username',
+    required: 'Please fill in a username',
     lowercase: true,
     trim: true
   },
-  alternateEmail: {
-    type: String,
-    default: ''
+  secondaryEmail: {
+    email: {
+      type: String,
+      default: ''
+    },
+    secondaryEmailDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   major: {
-    type: String,
-    default: ''
+    major: {
+      type: String,
+      default: ''
+    },
+    majorDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   gradDate: {
-    type: Number,
-    default: ''
+    date: {
+      type: Date,
+      default: ''
+    },
+    dateDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   password: {
     type: String,
     default: ''
   },
   linkedin: {
-    type: String,
-    default: ''
+    url: {
+      type: String,
+      default: ''
+    },
+    linkedinDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
-  joinlab: {
+  joinLab: {
     type: Date,
   },
   salt: {
