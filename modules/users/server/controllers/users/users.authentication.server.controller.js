@@ -62,14 +62,17 @@ exports.invite = function(req, res){
 
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
+  console.log(req);
+  console.log(req.body.roles);
   delete req.body.roles;
 
   // Init user and add missing fields
-  var user = new User(req.body);
+  console.log(req.body);
+  var user = new User(req.body.credentials);
 
 
   user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.displayName = user.firstName + ' ' + user.last.lastName;
 
   // Then save the user
   user.save(function (err) {
