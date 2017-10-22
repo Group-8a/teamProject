@@ -32,7 +32,7 @@ exports.inviteSignin = function(req, res){
     }
     else {
       if (user.ufid === req.body.ufid){
-        res.status(200).send('True');
+        res.status(200).send(['True', req.body.inviteToken]);
       }
       else {
         res.status(200).send('Ufid does not match');
@@ -56,7 +56,6 @@ exports.invite = function(req, res){
         message: errorHandler.getErrorMessage(err)
       });
     }
-
     res.json(user);
   });
 };
@@ -300,61 +299,37 @@ exports.removeOAuthProvider = function (req, res, next) {
   });
 };
 
-exports.sendInvite = function (req, res) {
-    //send email
-/*  var user = new User(req.body);
-  user.ufid = req.body.ufid;
-  user.email = req.body.email;
-  user.inviteToken = req.body.initeToken;
-*/
+exports.sendInvite = function (req, res, next) {
+  //var emailhtml = undefined;
+  var inviteToken = 1;
+  User.findOne({ email: req.body.email }, 'inviteToken', function (err, user) {
+    if (!err && user) {
+      inviteToken = user.inviteToken;
 
-  async.waterfall([
-    function(done){
-      User.findOne({ inviteToken: req.body.inviteToken }, 'email', function(err, user){
-        if (!user){
-          res.status(200).send('no invite token');
-        }
-        else{
-          var emailaddress = user.email;
-          console.log(user);
-          done(user);
-        }
-      });
-    },
-    function(user, done){
-      res.status(400).send(user);
-      var httpTransport = 'http://';
-      if (config.secure && config.secure.ssl === true) {
-        httpTransport = 'https://';
-      }
-      res.render(path.resolve('modules/users/server/templates/invite-email'), {
-        url: 'url',
-        token: req.body.inviteToken
-        //invite: token
-      }, function (err, emailHTML, user, done) {
-        done(err, emailHTML);
-      });
-    },
-  // If valid email, send reset email using service
-    function (emailHTML, user, done) {
-      var mailOptions = {
-        to: user.email,
-        from: config.mailer.from,
-        subject: 'Inviation to signup to MIL',
-        html: emailHTML
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        if (!err) {
-          res.send({
-            message: 'An email has been sent to the provided email with further instructions.'
-          });
-        } else {
-          return res.status(400).send({
-            message: 'Failure sending email'
-          });
-        }
-        done(err);
+    } else {
+      return res.status(400).send({
+        message: 'email is invalid or has expired.'
       });
     }
-  ]);
+  }).then(function (inviteToken) {
+    console.log(inviteToken);
+    var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + inviteToken.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
+    var mailOptions = {
+      to: req.body.email,
+      from: config.mailer.from,
+      subject: 'You are invited to MIL!',
+      text: textemail
+    };
+    smtpTransport.sendMail(mailOptions, function (err) {
+      if (!err) {
+        res.send({
+          message: 'An email has been sent to the provided email with further instructions.'
+        });
+      } else {
+        return res.status(400).send({
+          message: 'Failure sending email'
+        });
+      }
+    });
+  });
 };

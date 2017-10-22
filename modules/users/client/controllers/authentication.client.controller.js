@@ -21,11 +21,11 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-      $http.post('api/auth/invite', $scope.credentials).success(function (response) {
+      $http.post('api/auth/invite', $scope.newUser).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
       // And redirect to the previous or home page
-        $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
+        $http.post('api/auth/sendInvite', $scope.newUser).success(function (response){
           $state.go($state.previous.state.name || 'home', $state.previous.params);
         }).error(function(response){
           $scope.error = response.message;
@@ -88,8 +88,10 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log(response);
-        if (response === 'True'){
-          $state.go('authentication.signup');
+        if (response[0] === 'True'){
+          $state.go('formpage', {
+            token: response[1]
+          });
         }
         else {
           $scope.error = 'Sorry, invite code and UF id combination does not match our database.';
