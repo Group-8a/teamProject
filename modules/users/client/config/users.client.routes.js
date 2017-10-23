@@ -85,8 +85,11 @@ angular.module('users').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html'
       })
       .state('formpage', {
-        url:'/formpage',
-        templateUrl: 'modules/users/client/views/authentication/signupform.client.view.html'
+        url:'/formpage/:inviteToken',
+        templateUrl: 'modules/users/client/views/authentication/signupform.client.view.html',
+        /*resolve: {
+              inviteToken: $stateParams.inviteToken
+          }*/
       });
   }
 ]);
