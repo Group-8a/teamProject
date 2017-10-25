@@ -6,9 +6,10 @@
     <fieldset>
       <div class="form-group" show-errors>
         <label for="username">New User Email</label>
-        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="newUser.email" placeholder="Email">
-        <div ng-messages="userForm.username.$error" role="alert">
-          <p class="help-block error-text" ng-message="required">Email is required.</p>
+        <input type="text" id="useremail" name="useremail" class="form-control" ng-model="newUser.primaryEmail.email" placeholder="Email">
+        <div ng-messages="newUserForm.email.$error" role="alert">
+          <p class="help-block error-text" ng-message="required">Email address is required.</p>
+          <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
         </div>
         <label for="username">New User UF Id</label>
         <input type="text" id="userId" name="userId" class="form-control" ng-model="newUser.ufid" placeholder="UF Id">

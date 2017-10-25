@@ -72,7 +72,7 @@ exports.forgot = function (req, res, next) {
     // If valid email, send reset email using service
     function (emailHTML, user, done) {
       var mailOptions = {
-        to: user.email,
+        to: user.primaryEmail.email,
         from: config.mailer.from,
         subject: 'Password Reset',
         html: emailHTML
