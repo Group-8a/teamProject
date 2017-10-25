@@ -17,7 +17,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'userForm');
+        $scope.$broadcast('show-errors-check-validity', 'newUserForm');
 
         return false;
       }
