@@ -116,7 +116,7 @@ exports.verifyForm = function (req, res) {
     } else if (user === null) {
       res.status(400).send('Not a valid invite token');
     } else if (user !== null && user.inviteTokenExpired === true) {
-       res.status(400).send('Invite token has been used already');
+      res.status(400).send('Invite token has been used already');
     } else {
       console.log(user);
       //user[0].provider = 'local';
