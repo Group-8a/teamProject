@@ -16,6 +16,7 @@ module.exports = function (app) {
 
   // Setting up the users authentication api
   app.route('/api/auth/signup').post(users.signup);
+  app.route('/api/auth/signup').put(users.verifyForm);
   app.route('/api/auth/invite').post(users.invite);
   app.route('/api/auth/inviteSignin').post(users.inviteSignin);
   app.route('/api/auth/sendInvite').post(users.sendInvite);

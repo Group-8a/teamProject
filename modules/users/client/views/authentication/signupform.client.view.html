@@ -4,6 +4,10 @@
     <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group" show-errors>
+          <label for="inviteToken">Invite Token</label>
+          <input type="text" id="inviteToken" name="inviteToken" class="form-control" ng-model="credentials.inviteToken" placeholder="Invite Token" required>
+        </div>
+        <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required>
         </div>
@@ -70,23 +74,12 @@
           <label for="password">Password</label>
           <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
         </div>
-
-        <div class="text-center form-group" ng-hide="uploader.queue.length">
-           <span class="btn btn-default btn-file">
-            Select Image <input type="file" nv-file-select uploader="uploader">
-            </span>
-          </div>
-          <div class="text-center form-group" ng-show"uploader.queue.length">
-            <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
-            <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button><br>
-          </div>
-
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
           &nbsp;
-        </div>
-        <div ng-show="error" class="text-center text-danger">
-          <strong ng-bind="error"></strong>
         </div>
       </fieldset>
     </form>
