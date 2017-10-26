@@ -36,6 +36,16 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
+    $scope.checkforinvite = function () {
+      $scope.error = null;
+
+      $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      }).error(function(response){
+        $scope.error = response.message;
+      });
+    };
+
     $scope.signup = function (isValid) {
       $scope.error = null;
 
@@ -86,7 +96,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-      console.log('here');
       $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log(response);
