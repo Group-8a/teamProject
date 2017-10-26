@@ -101,6 +101,52 @@ exports.signup = function (req, res) {
   });
 };
 
+exports.verifyForm = function (req, res) {
+  console.log("here");
+  var token = req.body.credentials.inviteToken;
+  User.findOne({ inviteToken: req.body.inviteToken }, 'ufid', function(err, user){
+    if (!user){
+      res.status(200).send('no invite token');
+    }
+  });
+
+  User.findOne({ inviteToken: req.body.credentials.inviteToken }, function(err, user) {
+    console.log(user);
+    if (err) {
+      res.status(400).send('An error occured');
+    } else if (user === null) {
+      res.status(400).send('Not a valid invite token');
+    } else if (user !== null && user.inviteTokenExpired === true) {
+      res.status(400).send('Invite token has been used already');
+    } else {
+      console.log(user);
+      //user[0].provider = 'local';
+      user.firstName = req.body.credentials.firstName;
+      user.last.lastName = req.body.credentials.last.lastName;
+      user.last.lastNameDontShow = req.body.credentials.last.lastNameDontShow;
+      user.primaryEmail.email = req.body.credentials.primaryEmail.email;
+      user.primaryEmail.emailDontShow = req.body.credentials.primaryEmail.emailDontShow;
+      user.username = req.body.credentials.username;
+      user.secondaryEmail.email = req.body.credentials.secondaryEmail.email;
+      user.secondaryEmail.secondaryEmailDontShow = req.body.credentials.secondaryEmail.secondaryEmailDontShow;
+      user.major.major = req.body.credentials.major.major;
+      user.major.majorDontShow = req.body.credentials.major.majorDontShow;
+      user.password = req.body.credentials.password;
+
+
+      user.displayName = user.firstName + ' ' + user.last.lastName;
+      user.inviteTokenExpired = true;
+      user.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+        res.json(user);
+      });
+    }
+  });
+};
 /**
  * Signin after passport authentication
  */

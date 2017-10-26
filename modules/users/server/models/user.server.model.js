@@ -151,6 +151,10 @@ var UserSchema = new Schema({
   inviteToken: {
     type: String
   },
+  inviteTokenExpired: {
+    type: Boolean,
+    default: false
+  },
   ufid: {
     type: String,
     unique: "UFID is already invited"
