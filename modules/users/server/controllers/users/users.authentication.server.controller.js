@@ -46,6 +46,7 @@ exports.invite = function(req, res){
   var token = Math.random().toString(36).substr(2, 5);
   //user.ufid = req.body.ufid;
   //user.primaryEmail.email = req.body.pemail;
+  console.log(req.body);
   user.ufid = req.body.ufid;
   user.primaryEmail.email = req.body.primaryEmail.email;
   user.provider = 'local';
@@ -309,18 +310,22 @@ exports.removeOAuthProvider = function (req, res, next) {
 exports.sendInvite = function (req, res, next) {
   //var emailhtml = undefined;
   var inviteToken = 1;
-  User.findOne({ ufid: req.body.ufid }, 'inviteToken', function (err, user) {
+  var email = "";
+  User.findOne({ ufid: req.body.ufid }, 'inviteToken primaryEmail.email', function (err, user) {
     if (!err && user) {
       inviteToken = user.inviteToken;
+      email = user.primaryEmail.email;
     } else {
       return res.status(400).send({
         message: 'email is invalid or has expired.'
       });
     }
-  }).then(function (inviteToken) {
-    var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + inviteToken.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
+  }).then(function (user, inviteToken, email) {
+    //console.log(user.primaryEmail.email);
+    //console.log(user.inviteToken);
+    var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + user.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
     var mailOptions = {
-      to: req.body.primaryEmail.email,
+      to: user.primaryEmail.email,
       from: config.mailer.from,
       subject: 'You are invited to MIL!',
       text: textemail

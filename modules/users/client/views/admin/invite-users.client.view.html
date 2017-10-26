@@ -13,6 +13,7 @@
         </div>
         <label for="username">New User UF Id</label>
         <input type="text" id="userId" name="userId" class="form-control" ng-model="newUser.ufid" placeholder="UF Id">
+        <input type="checkbox" id="makeAdmin" name="makeAdmin" ng-model="newUser.roles.admin"> Make invited user an Administrater?
       </div>
       <button type="submit" class="btn btn-primary">Invite User</button>
       &nbsp; or&nbsp;

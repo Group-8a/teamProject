@@ -152,7 +152,8 @@ var UserSchema = new Schema({
     type: String
   },
   ufid: {
-    type: String
+    type: String,
+    unique: "UFID is already invited"
     //required: 'Please provide a UF Id'
   },
   resetPasswordToken: {
