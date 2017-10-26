@@ -1,40 +1,87 @@
 'use strict';
 
 /**
- * Module dependencies.
+ * Module dependencies
  */
 var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
-  User = mongoose.model('User');
-
+  User = mongoose.model('User'),
+  config = require(path.resolve('./config/config')),
+  nodemailer = require('nodemailer'),
+  async = require('async'),
+  crypto = require('crypto');
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
   '/authentication/signin',
-  '/authentication/signup'
+  '/authentication/signup',
+  './authentication/invite'
 ];
 
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Signup
  */
+exports.inviteSignin = function(req, res){
+  var ufid = req.body.ufid;
+  var token = req.body.inviteToken;
+  User.findOne({ inviteToken: req.body.inviteToken }, 'ufid', function(err, user){
+    if (!user){
+      res.status(200).send('no invite token');
+    }
+    else {
+      if (user.ufid === req.body.ufid){
+        res.status(200).send(['True', req.body.inviteToken]);
+      }
+      else {
+        res.status(200).send('Ufid does not match');
+      }
+    }
+  });
+};
+
+exports.invite = function(req, res){
+  var user = new User(req.body.newUser);
+  var token = Math.random().toString(36).substr(2, 5);
+  //user.ufid = req.body.ufid;
+  //user.primaryEmail.email = req.body.pemail;
+  user.ufid = req.body.ufid;
+  user.primaryEmail.email = req.body.primaryEmail.email;
+  user.provider = 'local';
+  user.role = 'user';
+  user.username = token;
+  user.inviteToken = token;
+  user.firstName = "Invited User";
+  user.last.lastName = token;
+  user.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    res.json(user);
+  });
+};
+
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
+  console.log(req);
+  console.log(req.body.roles);
   delete req.body.roles;
 
-  // Init Variables
-  var user = new User(req.body);
-  var message = null;
-  console.log("aliceDarrow");
+  // Init user and add missing fields
   console.log(req.body);
-  // Add missing user fields
+  var user = new User(req.body.credentials);
+
+
   user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.displayName = user.firstName + ' ' + user.last.lastName;
 
   // Then save the user
   user.save(function (err) {
     if (err) {
-      return res.status(400).send({
+      return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
@@ -59,7 +106,7 @@ exports.signup = function (req, res) {
 exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
-      res.status(400).send(info);
+      res.status(422).send(info);
     } else {
       // Remove sensitive data before login
       user.password = undefined;
@@ -89,11 +136,9 @@ exports.signout = function (req, res) {
  */
 exports.oauthCall = function (strategy, scope) {
   return function (req, res, next) {
-    // Set redirection path on session.
-    // Do not redirect to a signin or signup page
-    if (noReturnUrls.indexOf(req.query.redirect_to) === -1) {
+    if (req.query && req.query.redirect_to)
       req.session.redirect_to = req.query.redirect_to;
-    }
+
     // Authenticate
     passport.authenticate(strategy, scope)(req, res, next);
   };
@@ -104,11 +149,9 @@ exports.oauthCall = function (strategy, scope) {
  */
 exports.oauthCallback = function (strategy) {
   return function (req, res, next) {
-    // Pop redirect URL from session
-    var sessionRedirectURL = req.session.redirect_to;
-    delete req.session.redirect_to;
 
-    passport.authenticate(strategy, function (err, user, redirectURL) {
+    // info.redirect_to contains inteded redirect path
+    passport.authenticate(strategy, function (err, user, info) {
       if (err) {
         return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
       }
@@ -120,7 +163,7 @@ exports.oauthCallback = function (strategy) {
           return res.redirect('/authentication/signin');
         }
 
-        return res.redirect(redirectURL || sessionRedirectURL || '/');
+        return res.redirect(info.redirect_to || '/');
       });
     })(req, res, next);
   };
@@ -130,60 +173,81 @@ exports.oauthCallback = function (strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
-  if (!req.user) {
-    // Define a search query fields
-    var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
-    var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
+  // Setup info and user objects
+  var info = {};
+  var user;
 
-    // Define main provider search query
-    var mainProviderSearchQuery = {};
-    mainProviderSearchQuery.provider = providerUserProfile.provider;
-    mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+  // Set redirection path on session.
+  // Do not redirect to a signin or signup page
+  if (noReturnUrls.indexOf(req.session.redirect_to) === -1) {
+    info.redirect_to = req.session.redirect_to;
+  }
 
-    // Define additional provider search query
-    var additionalProviderSearchQuery = {};
-    additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
+  // Define a search query fields
+  var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
+  var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
 
-    // Define a search query to find existing user with current provider profile
-    var searchQuery = {
-      $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
-    };
+  // Define main provider search query
+  var mainProviderSearchQuery = {};
+  mainProviderSearchQuery.provider = providerUserProfile.provider;
+  mainProviderSearchQuery[searchMainProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
-    User.findOne(searchQuery, function (err, user) {
-      if (err) {
-        return done(err);
-      } else {
-        if (!user) {
-          var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+  // Define additional provider search query
+  var additionalProviderSearchQuery = {};
+  additionalProviderSearchQuery[searchAdditionalProviderIdentifierField] = providerUserProfile.providerData[providerUserProfile.providerIdentifierField];
 
-          User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
-            user = new User({
-              firstName: providerUserProfile.firstName,
-              lastName: providerUserProfile.lastName,
-              username: availableUsername,
-              displayName: providerUserProfile.displayName,
-              email: providerUserProfile.email,
-              profileImageURL: providerUserProfile.profileImageURL,
-              provider: providerUserProfile.provider,
-              providerData: providerUserProfile.providerData
-            });
+  // Define a search query to find existing user with current provider profile
+  var searchQuery = {
+    $or: [mainProviderSearchQuery, additionalProviderSearchQuery]
+  };
 
-            // And save the user
-            user.save(function (err) {
-              return done(err, user);
-            });
+  // Find existing user with this provider account
+  User.findOne(searchQuery, function (err, existingUser) {
+    if (err) {
+      return done(err);
+    }
+
+    if (!req.user) {
+      if (!existingUser) {
+        var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+
+        User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+          user = new User({
+            firstName: providerUserProfile.firstName,
+            lastName: providerUserProfile.lastName,
+            username: availableUsername,
+            displayName: providerUserProfile.displayName,
+            profileImageURL: providerUserProfile.profileImageURL,
+            provider: providerUserProfile.provider,
+            providerData: providerUserProfile.providerData
           });
-        } else {
-          return done(err, user);
-        }
-      }
-    });
-  } else {
-    // User is already logged in, join the provider data to the existing user
-    var user = req.user;
 
-    // Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
-    if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
+          // Email intentionally added later to allow defaults (sparse settings) to be applid.
+          // Handles case where no email is supplied.
+          // See comment: https://github.com/meanjs/mean/pull/1495#issuecomment-246090193
+          user.email = providerUserProfile.email;
+
+          // And save the user
+          user.save(function (err) {
+            return done(err, user, info);
+          });
+        });
+      } else {
+        return done(err, existingUser, info);
+      }
+    } else {
+      // User is already logged in, join the provider data to the existing user
+      user = req.user;
+
+      // Check if an existing user was found for this provider account
+      if (existingUser) {
+        if (user.id !== existingUser.id) {
+          return done(new Error('Account is already connected to another user'), user, info);
+        }
+
+        return done(new Error('User is already connected using this provider'), user, info);
+      }
+
       // Add the provider data to the additional provider data field
       if (!user.additionalProvidersData) {
         user.additionalProvidersData = {};
@@ -196,12 +260,10 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 
       // And save the user
       user.save(function (err) {
-        return done(err, user, '/settings/accounts');
+        return done(err, user, info);
       });
-    } else {
-      return done(new Error('User is already connected using this provider'), user);
     }
-  }
+  });
 };
 
 /**
@@ -229,7 +291,7 @@ exports.removeOAuthProvider = function (req, res, next) {
 
   user.save(function (err) {
     if (err) {
-      return res.status(400).send({
+      return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
@@ -241,5 +303,38 @@ exports.removeOAuthProvider = function (req, res, next) {
         }
       });
     }
+  });
+};
+
+exports.sendInvite = function (req, res, next) {
+  //var emailhtml = undefined;
+  var inviteToken = 1;
+  User.findOne({ ufid: req.body.ufid }, 'inviteToken', function (err, user) {
+    if (!err && user) {
+      inviteToken = user.inviteToken;
+    } else {
+      return res.status(400).send({
+        message: 'email is invalid or has expired.'
+      });
+    }
+  }).then(function (inviteToken) {
+    var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + inviteToken.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
+    var mailOptions = {
+      to: req.body.primaryEmail.email,
+      from: config.mailer.from,
+      subject: 'You are invited to MIL!',
+      text: textemail
+    };
+    smtpTransport.sendMail(mailOptions, function (err) {
+      if (!err) {
+        res.send({
+          message: 'An email has been sent to the provided email with further instructions.'
+        });
+      } else {
+        return res.status(400).send({
+          message: 'Failure sending email'
+        });
+      }
+    });
   });
 };

@@ -34,23 +34,36 @@ var UserSchema = new Schema({
     default: '',
     validate: [validateLocalStrategyProperty, 'Please fill in your first name']
   },
-  lastName: {
-    type: String,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+  last: {
+    lastName: {
+      type: String,
+      trim: true,
+      default: '',
+      validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+    },
+    lastNameDontShow: {
+      type: Boolean,
+      trim: true,
+      default: false
+    }
   },
   displayName: {
     type: String,
     trim: true
   },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
-    trim: true,
-    default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+  primaryEmail: {
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      default: '',
+      validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+    },
+    emailDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   username: {
     type: String,
@@ -59,27 +72,51 @@ var UserSchema = new Schema({
     lowercase: true,
     trim: true
   },
-  alternateEmail: {
-    type: String,
-    default: ''
+  secondaryEmail: {
+    email: {
+      type: String,
+      default: ''
+    },
+    secondaryEmailDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   major: {
-    type: String,
-    default: ''
+    major: {
+      type: String,
+      default: ''
+    },
+    majorDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   gradDate: {
-    type: Number,
-    default: ''
+    date: {
+      type: Date,
+      default: ''
+    },
+    dateDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
   password: {
     type: String,
     default: ''
   },
   linkedin: {
-    type: String,
-    default: ''
+    url: {
+      type: String,
+      default: ''
+    },
+    linkedinDontShow: {
+      type: Boolean,
+      default: false
+    }
   },
-  joinlab: {
+  joinLab: {
     type: Date,
   },
   salt: {
@@ -111,6 +148,13 @@ var UserSchema = new Schema({
     default: Date.now
   },
   /* For reset password */
+  inviteToken: {
+    type: String
+  },
+  ufid: {
+    type: String
+    //required: 'Please provide a UF Id'
+  },
   resetPasswordToken: {
     type: String
   },

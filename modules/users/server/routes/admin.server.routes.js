@@ -23,8 +23,10 @@ module.exports = function (app) {
 
   app.route('/test')
     .post(student.create);
-
   // Finish by binding the user middleware
+  //app.route('/api/invite')
+    //.post(adminPolicy.isAllowed, admin.sendInvite);
+
   app.param('userId', admin.userByID);
 
 };
