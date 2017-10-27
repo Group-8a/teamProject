@@ -1,4 +1,4 @@
-<section>
+<section ng-controller="UserListController">
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
@@ -9,8 +9,10 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="list-group" > <!-- changed this line -->
+  <div class="col-md-6"> <!--ADD in ng-controller="UserListController"-->
+    <div class="list-group"> <!-- changed this line -->
+      <!-- <a ng-repeat="user in users.admin" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
+    <!--  <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
       <a ng-repeat="user in pagedItems" ng-click="displayDetails($index)" class="list-group-item">
         <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
         <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
@@ -20,43 +22,74 @@
     <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
 
   </div>
+  <div class="col-md-6" style="background-color: #d3d3d3">
 
-
-
-  <div class="col-md-6" style="background-color: gray">
       <h2>Name: </h2>
 
       <p>Graduation Date: </p>
       <p> Linkedin: {{detailedInfo.linkedin}} </p>
       <p>Major: {{detailedInfo.major}} </p>
       <p>UF ID: {{detailedInfo.ufid}}</p>
-      <p>Email: {{detailedInfo.email}} </p>
+      <p>Email: {{detailedInfo.primaryEmail.email}} </p>
       <p>Phone Number: {{detailedInfo.phonenumber}}</p>
       <p>Bio: {{detailedInfo.bio}}</p>
       <span class="glyphicons glyphicons-remove-sign"></span>
+
+
+
   </div>
 
 
 </section>
 
-<!--<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-  <h1>Students</h1>
-  <div ng-controller="UserListController">
-    <table>
-      <tr>
-        <th>Name</th>
-      </tr>
-      <tr ng-repeat="user in users.admin">
-        <th>{{user.firstName}}</th>
-      </tr>
+<section ng-controller="ArticlesController" ng-init="find()">
+  <div class="col-md-6">
+    <!-- Make sure blog posts are on the right side of the page -->
+  </div>
+  <div class="col-md-6">
 
-    </table>
+      <div class="page-header">
+        <h1>Blog Posts</h1>
+      </div>
+      <div class="list-group">
+        <a ng-repeat="article in articles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+          <small class="list-group-item-text">
+            Posted on
+            <span ng-bind="article.created | date:'mediumDate'"></span>
+            by
+            <span ng-bind="article.user.displayName"></span>
+          </small>
+          <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
+          <p class="list-group-item-text" ng-bind="article.content"></p>
+        </a>
+      </div>
+      <div class="alert alert-warning text-center" ng-if="articles.$resolved && !articles.length">
+        No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
+      </div>
+
+
   </div>
 
-</body>
-</html>
-->
+</section>
+
+
+<!--<section ng-controller="ArticlesController">
+  <p>HEYYYYYYYY</p>
+  <div class = "col-md-6" style="background-color: #d3d3d3">
+    <div  ng-repeat="entry in articles">
+      <p>Article</p>
+      <p>{{entry.title}}</p>
+    </div>
+  </div>
+
+</section>
+-->
+
+<!--
+<p>article</p>
+<div ng-controller="ArticlesController">
+  <div  ng-repeat="entry in articles">
+    <p>Article</p>
+    <p>{{entry}}</p>
+  </div>
+</div> -->
