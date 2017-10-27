@@ -46,11 +46,12 @@ exports.invite = function(req, res){
   var token = Math.random().toString(36).substr(2, 5);
   //user.ufid = req.body.ufid;
   //user.primaryEmail.email = req.body.pemail;
-  console.log(req.body);
   user.ufid = req.body.ufid;
   user.primaryEmail.email = req.body.primaryEmail.email;
   user.provider = 'local';
-  user.role = 'user';
+  if(req.body.roles.admin === true){
+    user.roles = ['admin'];
+  }
   user.username = token;
   user.inviteToken = token;
   user.firstName = "Invited User";
