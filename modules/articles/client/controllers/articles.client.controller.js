@@ -80,5 +80,11 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         articleId: $stateParams.articleId
       });
     };
+
+    $scope.findbyUserID = function(index) {
+      //$scope.articles = Articles.get({user: $stateParams.user});
+      $scope.user = $scope.users[index];
+      console.log('here');
+    };
   }
 ]);
