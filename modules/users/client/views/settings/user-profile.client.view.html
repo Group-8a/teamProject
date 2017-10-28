@@ -1,15 +1,35 @@
 <div class="row" controller="UserListController">
   <div class="col">
-    <h1>Profile</h1>
+    <h1 class="list-group-item-text" ng-bind="user.displayName"></h1>
+
     <div style="display:inline-block">
       <ui-sref="admin.user({userId: user._id})" class="list-group-item" >
         <img ng-src="modules/users/client/img/profile/default.png" src="modules/users/client/img/profile/default.png">
-        <h3 class="list-group-item-text" ng-bind="user.displayName"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.major"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.linkedin"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
+
+        <table>
+        <tbody>
+        <tr>
+        <td>Major: </td>
+        <td class="list-group-item-text" ng-bind="user.major.major"></td>
+        </tr>
+        <tr>
+        <td>UF E-mail:</td>
+        <td class="list-group-item-text" ng-bind="user.primaryEmail.email">&nbsp;</td>
+        </tr>
+        <tr>
+        <td>E-mail:</td>
+        <td class="list-group-item-text" ng-bind="user.secondaryEmail.email">&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Linkedin:</td>
+        <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
         </a>
+      </div>
+      <div>
+      <a href="settings/profile"> edit profile<i class="glyphicon glyphicon-edit"></i> </a>
       </div>
     </div>
     <div class="col">
