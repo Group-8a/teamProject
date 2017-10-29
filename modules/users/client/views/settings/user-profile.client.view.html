@@ -12,9 +12,16 @@
         </a>
       </div>
     </div>
-    <div class="col">
-      <h1>Blog Posts</h1>
-      <ui-sref="admin.user({userId: user._id})" class="list-group-item"></a>
+    <h1>Blog</h1>
+    <div ng-controller="ArticlesController" ng-init="find()">
+      <div class="list-group">
+        <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+          <h3 class="list-group-item-heading" ng-bind="article.title"></h3>
+          <small class="list-group-item-text">
+            <span ng-bind="article.created | date:'mediumDate'"></span>
+          </small>
+          <p class="list-group-item-text" ng-bind="article.content"></p>
+        </a>
+      </div>
     </div>
-
 </div>

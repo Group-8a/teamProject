@@ -80,5 +80,13 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         articleId: $stateParams.articleId
       });
     };
+
+    // On the profile, only show articles that belong to the user logged in
+    $scope.filterArticles = function (article) {
+      if(article.user.displayName === user.displayName){
+        return true;
+      }
+      return false;
+    };
   }
 ]);
