@@ -4,7 +4,9 @@
 
     <div style="display:inline-block">
       <ui-sref="admin.user({userId: user._id})" class="list-group-item" >
-        <img ng-src="modules/users/client/img/profile/default.png" src="modules/users/client/img/profile/default.png">
+      <div class="col" ng-controller="ChangeProfilePictureController">
+            <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture"
+      </div>
 
         <table>
         <tbody>
