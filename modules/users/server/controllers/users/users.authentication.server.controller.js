@@ -133,6 +133,11 @@ exports.verifyForm = function (req, res) {
       user.major.major = req.body.credentials.major.major;
       user.major.majorDontShow = req.body.credentials.major.majorDontShow;
       user.password = req.body.credentials.password;
+      user.gradDate.date = req.body.credentials.gradDate.date;
+      user.gradDate.dateDontShow = req.body.credentials.gradDate.dateDontShow;
+      user.linkedin.url = req.body.credentials.linkedin.url;
+      //user.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
+      user.joinLab = req.body.credentials.joinLab;
 
 
       user.displayName = user.firstName + ' ' + user.last.lastName;
