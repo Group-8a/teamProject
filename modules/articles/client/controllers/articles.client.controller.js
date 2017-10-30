@@ -88,5 +88,6 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       }
       return false;
     };
+
   }
 ]);

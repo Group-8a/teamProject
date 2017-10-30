@@ -15,6 +15,7 @@ var user1, user2, user3;
 /**
  * Unit tests
  */
+
 describe('User Model Unit Tests:', function () {
 
   before(function () {

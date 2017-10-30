@@ -39,8 +39,8 @@ exports.update = function (req, res) {
 
   //For security purposes only merge these parameters
   user.firstName = req.body.firstName;
-  user.lastName = req.body.lastName;
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.last.lastName = req.body.last.lastName;
+  user.displayName = user.firstName + ' ' + user.last.lastName;
   user.roles = req.body.roles;
 
   user.save(function (err) {
