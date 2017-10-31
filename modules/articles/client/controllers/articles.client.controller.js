@@ -83,7 +83,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 
     // On the profile, only show articles that belong to the user logged in
     $scope.filterArticles = function (article) {
-      if(article.user.displayName === user.displayName){
+      if(article.user.displayName === $scope.user.displayName){
         return true;
       }
       return false;
