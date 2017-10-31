@@ -23,16 +23,29 @@
 
   </div>
   <div class="col-md-6" style="background-color: #d3d3d3">
+    <table>
+      <tr>
+        <th>
+          <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px" >
+        </th>
+      <th>
+      <h2> {{ detailedInfo.displayName}} </h2>
+    </th>
+  </tr>
 
-      <h2>Name: </h2>
+  </table>
 
-      <p>Graduation Date: </p>
-      <p> Linkedin: {{detailedInfo.linkedin}} </p>
-      <p>Major: {{detailedInfo.major}} </p>
+    <!--  <p>Graduation Date: {{detailedinfo.gradDate.date}}</p>-->
+      <div>
+      <p> Linkedin: {{detailedInfo.linkedin.url}} </p>
+      <p>Major: {{detailedInfo.major.major}} </p>
       <p>UF ID: {{detailedInfo.ufid}}</p>
       <p>Email: {{detailedInfo.primaryEmail.email}} </p>
-      <p>Phone Number: {{detailedInfo.phonenumber}}</p>
-      <p>Bio: {{detailedInfo.bio}}</p>
+      <p>NON-UF Email: {{detailedInfo.secondaryEmail.email}}</p>
+      <p>Role: {{detailedInfo.roles}}</p>
+    </div>
+    <!--  <p>Date Joined Lab: {{detailedInfo.joinLab}} </p>-->
+
       <span class="glyphicons glyphicons-remove-sign"></span>
 
 
@@ -67,9 +80,16 @@
         No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
       </div>
 
-
   </div>
-
+  <style>
+  .img {
+    position: relative;
+    float: left;
+    width:  100px;
+    height: 100px;
+    border: 1px solid #ddd
+  }
+  </style>
 </section>
 
 
