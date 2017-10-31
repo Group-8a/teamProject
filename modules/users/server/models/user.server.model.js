@@ -102,7 +102,7 @@ var UserSchema = new Schema({
       default: false
     }
   },
-    password: {
+  password: {
     type: String,
     default: ''
   },
