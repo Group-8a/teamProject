@@ -18,7 +18,7 @@ var noReturnUrls = [
   '/authentication/signup',
   './authentication/invite'
 ];
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Signup
@@ -361,6 +361,7 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 exports.sendInvite = function (req, res, next) {
   //var emailhtml = undefined;
+  console.log('here');
   var inviteToken = 1;
   var email = "";
   User.findOne({ ufid: req.body.ufid }, 'inviteToken primaryEmail.email', function (err, user) {
@@ -373,8 +374,6 @@ exports.sendInvite = function (req, res, next) {
       });
     }
   }).then(function (user, inviteToken, email) {
-    //console.log(user.primaryEmail.email);
-    //console.log(user.inviteToken);
     var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + user.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
     var mailOptions = {
       to: user.primaryEmail.email,
@@ -382,12 +381,14 @@ exports.sendInvite = function (req, res, next) {
       subject: 'You are invited to MIL!',
       text: textemail
     };
+
     smtpTransport.sendMail(mailOptions, function (err) {
       if (!err) {
         res.send({
           message: 'An email has been sent to the provided email with further instructions.'
         });
       } else {
+        console.log(err);
         return res.status(400).send({
           message: 'Failure sending email'
         });

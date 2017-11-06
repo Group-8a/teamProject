@@ -24,13 +24,17 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       if($scope.newUser.roles === undefined){
         $scope.newUser.roles = ['user'];
       }
+  
       $http.post('api/auth/invite', $scope.newUser).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
       // And redirect to the previous or home page
+        console.log($scope.newUser);
         $http.post('api/auth/sendInvite', $scope.newUser).success(function (response){
+          console.log(response);
           $state.go('home', $state.previous.params);
         }).error(function(response){
+          console.log(response);
           $scope.error = response.message;
         });
         $state.go($state.previous.state.name || 'home', $state.previous.params);
