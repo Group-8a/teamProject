@@ -28,6 +28,10 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       $scope.detailedInfo = $scope.users[index];
     };
 
+    $scope.returnUser = function(index) {
+      $scope.userID = $scope.users[index];
+    }; //Added this!!!!
+
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
     };

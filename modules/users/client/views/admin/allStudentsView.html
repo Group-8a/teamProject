@@ -42,10 +42,9 @@
 
 </section>
 
-<section ng-controller="ArticlesController" ng-init="find()">
+<section ng-controller="ArticlesController" ng-init="findbyUserID(detailedInfo._id)">
+  <!--"findbyUserID(detailedInfo._id)"-->
   <div class="col-md-6">
-    <!-- Make sure blog posts are on the right side of the page -->
-  </div>
   <div class="col-md-6">
 
       <div class="page-header">
@@ -71,25 +70,3 @@
   </div>
 
 </section>
-
-
-<!--<section ng-controller="ArticlesController">
-  <p>HEYYYYYYYY</p>
-  <div class = "col-md-6" style="background-color: #d3d3d3">
-    <div  ng-repeat="entry in articles">
-      <p>Article</p>
-      <p>{{entry.title}}</p>
-    </div>
-  </div>
-
-</section>
--->
-
-<!--
-<p>article</p>
-<div ng-controller="ArticlesController">
-  <div  ng-repeat="entry in articles">
-    <p>Article</p>
-    <p>{{entry}}</p>
-  </div>
-</div> -->

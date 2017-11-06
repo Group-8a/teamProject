@@ -81,10 +81,24 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       });
     };
 
-  /*  $scope.findbyUserID = function(index) {
-      //$scope.articles = Articles.get({user: $stateParams.user});
-      $scope.user = $scope.users[index];
+    $scope.findbyUserID = function(id) {
+    //  $scope.articles = Articles.get({ userID: id });
+      //Articles.query({ userID: id });
+      $scope.articles = Articles.query({ userID: id });
+      $scope.queryList = Articles.query({ userID: id });
+      for (var i in $scope.articles) {
+        if (!filterArticles($scope.articles[i])) {
+          $scope.articles.splice(a, 1);
+        }
+      }
       console.log('here');
-    }; */
+    };
+
+    $scope.filterArticles = function(article) {
+      if (article.user.displayName === user.displayName) {
+        return true;
+      }
+      return false;
+    };
   }
 ]);
