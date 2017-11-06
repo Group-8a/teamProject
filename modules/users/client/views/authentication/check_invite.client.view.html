@@ -1,0 +1,22 @@
+<section class="row" ng-controller="AuthenticationController">
+  <h3 class="col-md-12 text-center">Were you invited?</h3>
+  <p class="small text-center">Enter your account UF ID.</p>
+  <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+    <form name="checkInviteForm" class="form-horizontal" ng-submit = 'checkforinvite(credentials)' novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group" show-errors>
+          <input type="text" id="userid" name="userid" ng-model="credentials.ufid" class="form-control" placeholder="UF ID" >
+        </div>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+        <div ng-show="success" class="text-center text-success">
+          <strong ng-bind="success"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

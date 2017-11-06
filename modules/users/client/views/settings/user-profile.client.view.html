@@ -1,20 +1,49 @@
 <div class="row" controller="UserListController">
   <div class="col">
-    <h1>Profile</h1>
+    <h1 class="list-group-item-text" ng-bind="user.displayName"></h1>
+
     <div style="display:inline-block">
       <ui-sref="admin.user({userId: user._id})" class="list-group-item" >
-        <img ng-src="modules/users/client/img/profile/default.png" src="modules/users/client/img/profile/default.png">
-        <h3 class="list-group-item-text" ng-bind="user.displayName"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.major"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.linkedin"></h4>
-        <h4 class="list-group-item-text" ng-bind="user.email"></h4>
+      <div class="col" ng-controller="ChangeProfilePictureController">
+            <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture"
+      </div>
+
+        <table>
+        <tbody>
+        <tr>
+        <td>Major: </td>
+        <td class="list-group-item-text" ng-bind="user.major.major"></td>
+        </tr>
+        <tr>
+        <td>UF E-mail:</td>
+        <td class="list-group-item-text" ng-bind="user.primaryEmail.email">&nbsp;</td>
+        </tr>
+        <tr>
+        <td>E-mail:</td>
+        <td class="list-group-item-text" ng-bind="user.secondaryEmail.email">&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Linkedin:</td>
+        <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        </a>
+      </div>
+      <div>
+      <a href="settings/profile"> edit profile<i class="glyphicon glyphicon-edit"></i> </a>
+      </div>
+    </div>
+    <h1>Blog</h1>
+    <div ng-controller="ArticlesController" ng-init="find()">
+      <div class="list-group">
+        <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+          <h3 class="list-group-item-heading" ng-bind="article.title"></h3>
+          <small class="list-group-item-text">
+            <span ng-bind="article.created | date:'mediumDate'"></span>
+          </small>
+          <p class="list-group-item-text" ng-bind="article.content"></p>
         </a>
       </div>
     </div>
-    <div class="col">
-      <h1>Blog Posts</h1>
-      <ui-sref="admin.user({userId: user._id})" class="list-group-item"></a>
-    </div>
-
 </div>

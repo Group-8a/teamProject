@@ -81,24 +81,13 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       });
     };
 
-    $scope.findbyUserID = function(id) {
-    //  $scope.articles = Articles.get({ userID: id });
-      //Articles.query({ userID: id });
-      $scope.articles = Articles.query({ userID: id });
-      $scope.queryList = Articles.query({ userID: id });
-      for (var i in $scope.articles) {
-        if (!filterArticles($scope.articles[i])) {
-          $scope.articles.splice(a, 1);
-        }
-      }
-      console.log('here');
-    };
-
-    $scope.filterArticles = function(article) {
-      if (article.user.displayName === user.displayName) {
+    // On the profile, only show articles that belong to the user logged in
+    $scope.filterArticles = function (article) {
+      if(article.user.displayName === $scope.user.displayName){
         return true;
       }
       return false;
     };
+
   }
 ]);

@@ -4,11 +4,11 @@
 angular.module('users.admin.routes').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
-      .state('admin.users', {
-        url: '/users',
-        templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'UserListController'
-      })
+      // .state('admin.users', {
+      //   url: '/users',
+      //   templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
+      //   controller: 'UserListController'
+      // })
     /*  .state('admin.user-invite', {
         url: '/invite_user',
         templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
@@ -62,8 +62,8 @@ angular.module('users.admin.routes').config(['$stateProvider',
           }]
         }
       })
-      .state('test', {
-        url: '/test',
+      .state('admin.users', {
+        url: '/users',
         templateUrl:'modules/users/client/views/admin/allStudentsView.html',
         //controller: 'UserListController'
         //controller: 'ArticlesController'
