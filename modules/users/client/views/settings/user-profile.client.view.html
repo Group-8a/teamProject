@@ -35,6 +35,7 @@
       </div>
     </div>
     <h1>Blog</h1>
+<div>
     <div ng-controller="ArticlesController" ng-init="find()">
       <div class="list-group">
         <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
@@ -46,4 +47,3 @@
         </a>
       </div>
     </div>
-</div>

@@ -26,18 +26,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
           }]
         }
       })
-      .state('admin.inviteUsers', {
-        url: '/invite_user',
-        templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
-        controller: 'AuthenticationController',
-        /*resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }*/
-      })
+
       .state('admin.user-edit', {
         url: '/users/:userId/edit',
         templateUrl: 'modules/users/client/views/admin/edit-user.client.view.html',
@@ -67,6 +56,12 @@ angular.module('users.admin.routes').config(['$stateProvider',
         templateUrl:'modules/users/client/views/admin/allStudentsView.html',
         //controller: 'UserListController'
         //controller: 'ArticlesController'
+      })
+      .state('admin.inviteUsers', {
+        url: '/invite_user',
+        templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
+        //controller: 'AuthenticationController',
+
       })
       .state('profile', {
         url: '/user',
