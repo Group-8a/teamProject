@@ -4,6 +4,7 @@
 angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
   function ($scope, $stateParams, $location, Authentication, Articles) {
     $scope.authentication = Authentication;
+    $scope.tags = [];
 
     // Create new Article
     $scope.create = function (isValid) {
@@ -18,7 +19,8 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       // Create new Article object
       var article = new Articles({
         title: this.title,
-        content: this.content
+        content: this.content,
+        tags: this.tags.split(",")
       });
 
       // Redirect after save
@@ -28,6 +30,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         // Clear form fields
         $scope.title = '';
         $scope.content = '';
+        $scope.tags = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -59,7 +62,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 
         return false;
       }
-
+      console.log($scope.article);
       var article = $scope.article;
 
       article.$update(function () {
@@ -89,5 +92,35 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       return false;
     };
 
+    $scope.filterByTags = function(article){
+      if($scope.tags.length > 0){
+        for(var i in $scope.tags){
+          if(article.tags.indexOf($scope.tags[i]) !== -1){
+            return true;
+          }
+        }
+        return false;
+      }
+      else{
+        return true;
+      }
+    };
+
+    $scope.addTags = function(tag){
+      if(tag !== null){
+        //var tags = $scope.article.tags;
+        if($scope.tags.indexOf(tag) === -1){
+          $scope.tags.push(tag);
+        }
+      }
+    };
+    $scope.deleteTags = function(tag){
+      if(tag !== null){
+        var index = $scope.tags.indexOf(tag);
+        if(index !== -1){
+          $scope.tags.splice(index);
+        }
+      }
+    };
   }
 ]);
