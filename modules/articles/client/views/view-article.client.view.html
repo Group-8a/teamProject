@@ -16,6 +16,7 @@
       <span ng-bind="article.created | date:'mediumDate'"></span>
       by
       <span ng-bind="article.user.displayName"></span>
+      <h5>Tags: <span ng-bind="article.tags"></span></h5>
     </em>
   </small>
   <p class="lead" ng-bind="article.content"></p>

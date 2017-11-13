@@ -2,8 +2,13 @@
   <div class="page-header">
     <h1>MIL Blog Posts</h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="article in articles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+  <div class="list-group | col-md-10" style="margin-top: 2em">
+    <h3>Filters:</h3>
+    <a ng-repeat="tag in tags" ng-click=deleteTags(tag)>
+      <font color="red"><span>&#10006 </span></font>{{tag}}
+    </a>
+    <h3> </h3>
+    <a ng-repeat="article in articles | filter:filterByTags" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
       <small class="list-group-item-text">
         Posted on
         <span ng-bind="article.created | date:'mediumDate'"></span>
@@ -12,9 +17,23 @@
       </small>
       <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
       <p class="list-group-item-text" ng-bind="article.content"></p>
+      <h5>Tags: <span ng-bind="article.tags"></span></h5>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="articles.$resolved && !articles.length">
     No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
   </div>
+  <div class="col-md-2">
+    <table cell-spacing="0">
+      <tr>
+        <th>
+          <h3>Tags</h3>
+        </th>
+      </tr>
+      <tr ng-repeat= "article in articles">
+        <td ng-repeat="tags in article.tags" ng-click=addTags(tags)>
+          <h5><a href = "">{{tags}}</a></h5>
+        </td>
+      </tr>
+    </div>
 </section>
