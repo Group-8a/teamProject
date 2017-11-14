@@ -30,6 +30,11 @@
           <h3>Tags</h3>
         </th>
       </tr>
+      <tr ng-repeat="tag in commonTags" >
+        <td ng-click=addTags(tag)>
+          <h5><a href = "">{{tag}}</a></h5>
+        </td>
+      </tr>
       <tr ng-repeat= "article in articles">
         <td ng-repeat="tags in article.tags" ng-click=addTags(tags)>
           <h5><a href = "">{{tags}}</a></h5>
