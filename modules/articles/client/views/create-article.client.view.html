@@ -16,9 +16,18 @@
           <label for="content">Content</label>
           <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
+        <label for="title">Tags</label>
         <div class="form-group" >
-          <label for="title">Tags</label>
-          <input name="tags" type="text" ng-model="tags" id="tags" class="form-control" placeholder="Tags" required>
+          <a ng-repeat="tag in tags">
+          <button type = "button" ng-click = "deleteTags(tag)">{{tag}} x</button>
+          </a>
+          <input type="text" style="width: 150px" placeholder="New Tag" ng-model="newTag"><span class="glyphicon glyphicon-plus-sign" ng-click = "addTags(newTag)"></span>
+        </div>
+        <div class="form-group">
+          <h4> Common Tags: </h4>
+          <a ng-repeat="ctag in commonTags">
+            <button type="button" ng-click = "addTags(ctag)">{{ctag}} +</button>
+          </a>
         </div>
         <div class="form-group">
           <input type="submit" class="btn btn-default">
