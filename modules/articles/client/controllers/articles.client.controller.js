@@ -5,6 +5,8 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
   function ($scope, $stateParams, $location, Authentication, Articles) {
     $scope.authentication = Authentication;
     $scope.tags = [];
+    $scope.commonTags= ['SubjuGator', 'NaviGator', 'PropaGator'];
+    $scope.newTag='';
 
     // Create new Article
     $scope.create = function (isValid) {
@@ -20,7 +22,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
       var article = new Articles({
         title: this.title,
         content: this.content,
-        tags: this.tags.split(",")
+        tags: this.tags
       });
 
       // Redirect after save
@@ -62,9 +64,11 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 
         return false;
       }
-      console.log($scope.article);
       var article = $scope.article;
-
+      console.log($scope.article);
+      if ($scope.article.tags === undefined){
+        $scope.article.tags = $scope.tags;
+      }
       article.$update(function () {
         $location.path('articles/' + article._id);
       }, function (errorResponse) {
@@ -107,20 +111,54 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
 
     $scope.addTags = function(tag){
-      if(tag !== null){
+      if(tag !== null && tag !== ''){
         //var tags = $scope.article.tags;
         if($scope.tags.indexOf(tag) === -1){
           $scope.tags.push(tag);
         }
       }
+      $scope.newTag = '';
     };
     $scope.deleteTags = function(tag){
-      if(tag !== null){
+      if(tag !== null && tag !== ''){
         var index = $scope.tags.indexOf(tag);
-        if(index !== -1){
-          $scope.tags.splice(index);
+        if(index !== -1 && $scope.tags.length !== 1){
+          $scope.tags.splice(index, 1);
+        }
+        else if($scope.tags.length === 1){
+          $scope.tags = [];
         }
       }
+    };
+    $scope.editTags= function(tag, type){
+      $scope.tags = $scope.article.tags;
+      if (type === "add"){
+        if(tag !== null && tag !== ''){
+          //var tags = $scope.article.tags;
+          if($scope.tags.indexOf(tag) === -1){
+            $scope.tags.push(tag);
+          }
+        }
+        $scope.newTag = '';
+        $scope.article.tags = $scope.tags;
+      }
+      else{
+        if(tag !== null && tag !== ''){
+          var index = $scope.tags.indexOf(tag);
+          if(index !== -1 && $scope.tags.length !== 1){
+            $scope.tags.splice(index, 1);
+          }
+          else if($scope.tags.length === 1){
+            $scope.tags = [];
+          }
+          $scope.article.tags = $scope.tags;
+        }
+      }
+    };
+
+    $scope.setTags = function(){
+      $scope.tags = $scope.article.tags;
+      console.log('here');
     };
   }
 ]);
