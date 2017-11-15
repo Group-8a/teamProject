@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
-  function ($scope, $filter, Admin) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', '$http', 'Admin',
+  function ($scope, $filter, $state, $http, Admin) {
+    $scope.currentUser = undefined;
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -26,6 +27,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.displayDetails = function(index) {
       $scope.detailedInfo = $scope.users[index];
+      $scope.currentUser = $scope.users[index];
     };
 
     $scope.returnUser = function(index) {
@@ -34,6 +36,23 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+
+    $scope.remove = function () {
+      var user = $scope.currentUser;
+      console.log(user);
+      if (confirm('Are you sure you want to delete this user?')) {
+        if (user !== undefined) {
+          $http.post('/api/admin/removeUser', $scope.currentUser).success(function (response) {
+            $state.go($state.previous.state.name || 'home', $state.previous.params);
+          }).error(function (response) {
+            $scope.error = response.message;
+          });
+        }
+        else{
+          alert('Cannot delete user');
+        }
+      }
     };
   }
 ]);

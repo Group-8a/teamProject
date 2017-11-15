@@ -20,7 +20,6 @@
       </a>
     </div>
     <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
-
   </div>
   <div class="col-md-6" style="background-color: #d3d3d3">
     <table>
@@ -28,31 +27,24 @@
         <th>
           <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px" >
         </th>
-      <th>
-      <h2> {{ detailedInfo.displayName}} </h2>
-    </th>
-  </tr>
-
-  </table>
-
+        <th>
+          <h2> {{ detailedInfo.displayName}} </h2>
+        </th>
+      </tr>
+    </table>
     <!--  <p>Graduation Date: {{detailedinfo.gradDate.date}}</p>-->
-      <div>
+    <div>
       <p> Linkedin: {{detailedInfo.linkedin.url}} </p>
       <p>Major: {{detailedInfo.major.major}} </p>
       <p>UF ID: {{detailedInfo.ufid}}</p>
       <p>Email: {{detailedInfo.primaryEmail.email}} </p>
       <p>NON-UF Email: {{detailedInfo.secondaryEmail.email}}</p>
       <p>Role: {{detailedInfo.roles}}</p>
+      <button type="button" ng-click="remove()">Remove User x </button>
+      <button type ="button">Make User an Admin + </button>
     </div>
     <!--  <p>Date Joined Lab: {{detailedInfo.joinLab}} </p>-->
-
-      <span class="glyphicons glyphicons-remove-sign"></span>
-
-
-
   </div>
-
-
 </section>
 
 <section ng-controller="ArticlesController" ng-init="findbyUserID(detailedInfo._id)">
