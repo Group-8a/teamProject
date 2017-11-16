@@ -68,12 +68,12 @@ exports.invite = function(req, res){
 
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
-
-
+  console.log(req);
+  console.log(req.body.roles);
   delete req.body.roles;
 
   // Init user and add missing fields
-  
+  console.log(req.body);
   var user = new User(req.body.credentials);
 
 
@@ -103,6 +103,7 @@ exports.signup = function (req, res) {
 };
 
 exports.verifyForm = function (req, res) {
+  console.log("here");
   var token = req.body.credentials.inviteToken;
   User.findOne({ inviteToken: req.body.inviteToken }, 'ufid', function(err, user){
     if (!user){
@@ -111,6 +112,7 @@ exports.verifyForm = function (req, res) {
   });
 
   User.findOne({ inviteToken: req.body.credentials.inviteToken }, function(err, user) {
+    console.log(user);
     if (err) {
       res.status(400).send('An error occured');
     } else if (user === null) {
@@ -359,7 +361,7 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 exports.sendInvite = function (req, res, next) {
   //var emailhtml = undefined;
-  console.log('here');
+  //console.log('here');
   var inviteToken = 1;
   var email = "";
   User.findOne({ ufid: req.body.ufid }, 'inviteToken primaryEmail.email', function (err, user) {

@@ -56,9 +56,12 @@ exports.update = function (req, res) {
 
 exports.makeAdmin = function(req, res){
   var user = new User(req.body);
-  user.roles=['admin'];
+  console.log(req.body);
+  console.log(user);
+  user.roles = ['admin'];
   user.save(function (err) {
     if (err) {
+      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
@@ -82,7 +85,6 @@ exports.removeUser = function (req, res) {
     res.json(user);
   });
 };
-
 exports.delete = function (req, res) {
   var user = req.model;
 

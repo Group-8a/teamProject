@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', '$http', 'Admin',
-  function ($scope, $filter, $state, $http, Admin) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', '$http','Users', 'Admin',
+  function ($scope, $filter, $state, $http, Users, Admin) {
     $scope.currentUser = undefined;
     Admin.query(function (data) {
       $scope.users = data;
@@ -37,7 +37,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
     };
-
+/*
     $scope.makeAdmin = function(){
       if (confirm('Are you sure you want to give this user Administrator privledges?')) {
         if ($scope.currentUser !== undefined) {
@@ -48,7 +48,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
           });
         }
       }
-    };
+    }; */
 
     $scope.remove = function () {
       var user = $scope.currentUser;
@@ -62,6 +62,19 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
         }
         else{
           alert('Cannot delete user');
+        }
+      }
+    };
+
+    $scope.makeAdmin = function () {
+      var user = $scope.currentUser;
+      if (confirm('Are you sure you want to give this user Administrator priveledges?')) {
+        if (user !== undefined) {
+          user.roles = ['admin'];
+          
+        }
+        else{
+          alert('Cannot make user an Admin');
         }
       }
     };
