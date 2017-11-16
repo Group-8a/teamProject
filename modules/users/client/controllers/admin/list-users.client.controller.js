@@ -38,9 +38,20 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       $scope.figureOutItemsToDisplay();
     };
 
+    $scope.makeAdmin = function(){
+      if (confirm('Are you sure you want to give this user Administrator privledges?')) {
+        if ($scope.currentUser !== undefined) {
+          $http.post('/api/admin/makeAdmin', $scope.currentUser).success(function (response) {
+            $state.go('admin.users', $state.previos.params);
+          }).error(function (response) {
+            $scope.error = response.message;
+          });
+        }
+      }
+    };
+
     $scope.remove = function () {
       var user = $scope.currentUser;
-      console.log(user);
       if (confirm('Are you sure you want to delete this user?')) {
         if (user !== undefined) {
           $http.post('/api/admin/removeUser', $scope.currentUser).success(function (response) {
