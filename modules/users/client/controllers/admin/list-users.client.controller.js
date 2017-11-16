@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
-  function ($scope, $filter, Admin) {
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', '$http','Users', 'Admin',
+  function ($scope, $filter, $state, $http, Users, Admin) {
+    $scope.currentUser = undefined;
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -26,6 +27,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.displayDetails = function(index) {
       $scope.detailedInfo = $scope.users[index];
+      $scope.currentUser = $scope.users[index];
     };
 
     $scope.returnUser = function(index) {
@@ -34,6 +36,47 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+/*
+    $scope.makeAdmin = function(){
+      if (confirm('Are you sure you want to give this user Administrator privledges?')) {
+        if ($scope.currentUser !== undefined) {
+          $http.post('/api/admin/makeAdmin', $scope.currentUser).success(function (response) {
+            $state.go('admin.users', $state.previos.params);
+          }).error(function (response) {
+            $scope.error = response.message;
+          });
+        }
+      }
+    }; */
+
+    $scope.remove = function () {
+      var user = $scope.currentUser;
+      if (confirm('Are you sure you want to delete this user?')) {
+        if (user !== undefined) {
+          $http.post('/api/admin/removeUser', $scope.currentUser).success(function (response) {
+            $state.go($state.previous.state.name || 'home', $state.previous.params);
+          }).error(function (response) {
+            $scope.error = response.message;
+          });
+        }
+        else{
+          alert('Cannot delete user');
+        }
+      }
+    };
+
+    $scope.makeAdmin = function () {
+      var user = $scope.currentUser;
+      if (confirm('Are you sure you want to give this user Administrator priveledges?')) {
+        if (user !== undefined) {
+          user.roles = ['admin'];
+          
+        }
+        else{
+          alert('Cannot make user an Admin');
+        }
+      }
     };
   }
 ]);

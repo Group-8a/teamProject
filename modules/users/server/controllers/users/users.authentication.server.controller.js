@@ -361,7 +361,7 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 exports.sendInvite = function (req, res, next) {
   //var emailhtml = undefined;
-  console.log('here');
+  //console.log('here');
   var inviteToken = 1;
   var email = "";
   User.findOne({ ufid: req.body.ufid }, 'inviteToken primaryEmail.email', function (err, user) {
