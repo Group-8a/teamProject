@@ -10,7 +10,6 @@ var path = require('path'),
 
 exports.sendInvite = function(req, res){
   var user = new User(req.body);
-  user.ufid = req.body.ufid;
   user.email = req.body.email;
   user.provider = 'local';
   user.save(function (err) {
