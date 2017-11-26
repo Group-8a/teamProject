@@ -22,6 +22,7 @@ module.exports = function (app) {
   app.route('/api/auth/sendInvite').post(users.sendInvite);
   app.route('/api/auth/signin').post(users.signin);
   app.route('/api/auth/signout').get(users.signout);
+  app.route('/api/auth/createStudent').post(users.student);
   //app.route('/api/auth/invite').post(users.sendInvite);
     //.post(adminPolicy.isAllowed, admin.sendInvite);
 

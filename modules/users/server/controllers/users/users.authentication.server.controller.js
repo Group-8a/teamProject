@@ -65,6 +65,18 @@ exports.invite = function(req, res){
   });
 };
 
+exports.student = function(req, res){
+  var astudent = new Student(req.body.credentials);
+  astudent.save(function (err) {
+    if (err) {
+    console.log(errorHandler.getErrorMessage(err));
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+  });
+};
+
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
   console.log(req);
@@ -111,16 +123,6 @@ exports.verifyForm = function (req, res) {
     } else if (user !== null && user.inviteTokenExpired === true) {
       res.status(400).send('Invite token has been used already');
     } else {
-      var student = new Student();
-      student.firstName = req.body.credentials.firstName;
-      student.save(function (err) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        }
-        res.json(student);
-      });
       user.firstName = req.body.credentials.firstName;
       user.last.lastName = req.body.credentials.last.lastName;
       user.last.lastNameDontShow = req.body.credentials.last.lastNameDontShow;
@@ -138,7 +140,7 @@ exports.verifyForm = function (req, res) {
       //user.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
       user.joinLab = req.body.credentials.joinLab;
       user.displayName = user.firstName + ' ' + user.last.lastName;
-      user.inviteTokenExpired = true;
+      user.inviteTokenExpired = false;
 
       user.save(function (err) {
         if (err) {

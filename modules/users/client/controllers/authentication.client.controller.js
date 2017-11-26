@@ -71,6 +71,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+        $http.post('/api/auth/createStudent', test).success(function (response) {
+          console.log(response);
+        }).error(function (response) {
+          console.log(response);
+        });
       }).error(function (response) {
         $scope.error = response;
       });

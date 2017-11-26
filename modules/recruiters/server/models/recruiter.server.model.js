@@ -30,7 +30,6 @@ var RecruiterSchema = new Schema({
   primaryEmail: {
     email: {
       type: String,
-      unique: true,
       lowercase: true,
       trim: true,
       default: '',
