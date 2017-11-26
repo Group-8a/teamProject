@@ -10,19 +10,85 @@ var mongoose = require('mongoose'),
  * Recruiter Schema
  */
 var RecruiterSchema = new Schema({
-  name: {
+  firstName: {
     type: String,
+    trim: true,
     default: '',
-    required: 'Please fill Recruiter name',
-    trim: true
+  },
+  last: {
+    lastName: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    lastNameDontShow: {
+      type: Boolean,
+      trim: true,
+      default: false
+    }
+  },
+  primaryEmail: {
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      default: '',
+    },
+    emailDontShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  secondaryEmail: {
+    email: {
+      type: String,
+      default: ''
+    },
+    secondaryEmailDontShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  major: {
+    major: {
+      type: String,
+      default: ''
+    },
+    majorDontShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  gradDate: {
+    date: {
+      type: Date,
+      default: ''
+    },
+    dateDontShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  linkedin: {
+    url: {
+      type: String,
+      default: ''
+    },
+    linkedinDontShow: {
+      type: Boolean,
+      default: false
+    }
+  },
+  joinLab: {
+    type: Date,
+  },
+  updated: {
+    type: Date
   },
   created: {
     type: Date,
     default: Date.now
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
   }
 });
 

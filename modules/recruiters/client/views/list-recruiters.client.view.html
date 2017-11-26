@@ -6,13 +6,14 @@
     <a ng-repeat="recruiter in vm.recruiters"
        ui-sref="recruiters.view({ recruiterId: recruiter._id })"
        class="list-group-item">
-      <small class="list-group-item-text">
+       <p> {{recruiter.firstName}} </p>
+      <!--<small class="list-group-item-text">
         Posted on
         <span ng-bind="recruiter.created | date:'mediumDate'"></span>
         by
         <span ng-if="recruiter.user" ng-bind="recruiter.user.displayName"></span>
         <span ng-if="!recruiter.user">Deleted User</span>
-      </small>
+      </small>-->
       <h4 class="list-group-item-heading" ng-bind="recruiter.name"></h4>
     </a>
   </div>

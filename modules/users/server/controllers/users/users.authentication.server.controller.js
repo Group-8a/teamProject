@@ -8,6 +8,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   User = mongoose.model('User'),
+  Student = mongoose.model('Recruiter'),
   config = require(path.resolve('./config/config')),
   nodemailer = require('nodemailer'),
   async = require('async'),
@@ -110,6 +111,16 @@ exports.verifyForm = function (req, res) {
     } else if (user !== null && user.inviteTokenExpired === true) {
       res.status(400).send('Invite token has been used already');
     } else {
+      var student = new Student();
+      student.firstName = req.body.credentials.firstName;
+      student.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        }
+        res.json(student);
+      });
       user.firstName = req.body.credentials.firstName;
       user.last.lastName = req.body.credentials.last.lastName;
       user.last.lastNameDontShow = req.body.credentials.last.lastNameDontShow;
