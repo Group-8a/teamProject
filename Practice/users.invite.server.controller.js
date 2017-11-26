@@ -17,13 +17,12 @@ exports.sendInvite = function (req, res, next) {
   var user = new User(req.body);
   console.log('body');
   console.log(req.body);
-  user.ufid = req.body.ufid;
   user.primaryEmail.email = req.body.primaryEmail.email;
   user.last.lastName = 'b ';
   user.firstName = 'c ';
   user.username = ' b';
   user.provider = 'local';
-  
+
   user.save(function (err) {
     if (err) {
       return res.status(400).send({

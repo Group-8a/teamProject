@@ -149,16 +149,12 @@ var UserSchema = new Schema({
   },
   /* For reset password */
   inviteToken: {
-    type: String
+    type: String,
+    unique: 'Already in Database'
   },
   inviteTokenExpired: {
     type: Boolean,
     default: false
-  },
-  ufid: {
-    type: String,
-    unique: "UFID is already invited"
-    //required: 'Please provide a UF Id'
   },
   resetPasswordToken: {
     type: String
