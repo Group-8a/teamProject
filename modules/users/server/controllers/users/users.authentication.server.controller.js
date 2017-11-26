@@ -101,16 +101,8 @@ exports.signup = function (req, res) {
 };
 
 exports.verifyForm = function (req, res) {
-  console.log("here");
   var token = req.body.credentials.inviteToken;
-  User.findOne({ inviteToken: req.body.inviteToken }, 'ufid', function(err, user){
-    if (!user){
-      res.status(200).send('no invite token');
-    }
-  });
-
   User.findOne({ inviteToken: req.body.credentials.inviteToken }, function(err, user) {
-    console.log(user);
     if (err) {
       res.status(400).send('An error occured');
     } else if (user === null) {
@@ -118,8 +110,6 @@ exports.verifyForm = function (req, res) {
     } else if (user !== null && user.inviteTokenExpired === true) {
       res.status(400).send('Invite token has been used already');
     } else {
-      console.log(user);
-      //user[0].provider = 'local';
       user.firstName = req.body.credentials.firstName;
       user.last.lastName = req.body.credentials.last.lastName;
       user.last.lastNameDontShow = req.body.credentials.last.lastNameDontShow;
@@ -136,17 +126,27 @@ exports.verifyForm = function (req, res) {
       user.linkedin.url = req.body.credentials.linkedin.url;
       //user.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
       user.joinLab = req.body.credentials.joinLab;
-
-
       user.displayName = user.firstName + ' ' + user.last.lastName;
       user.inviteTokenExpired = true;
+
       user.save(function (err) {
         if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
+        } else {
+          user.password = undefined;
+          user.salt = undefined;
+
+          req.login(user, function (err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
         }
-        res.json(user);
+
       });
     }
   });
