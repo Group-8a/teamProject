@@ -65,7 +65,7 @@ exports.invite = function(req, res){
   });
 };
 
-exports.student = function(req, res){
+exports.student = function(req, res) {
   var astudent = new Student(req.body.credentials);
   astudent.save(function (err) {
     if (err) {
@@ -140,7 +140,7 @@ exports.verifyForm = function (req, res) {
       //user.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
       user.joinLab = req.body.credentials.joinLab;
       user.displayName = user.firstName + ' ' + user.last.lastName;
-      user.inviteTokenExpired = false;
+      user.inviteTokenExpired = true;
 
       user.save(function (err) {
         if (err) {
