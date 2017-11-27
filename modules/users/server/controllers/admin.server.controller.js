@@ -10,7 +10,6 @@ var path = require('path'),
 
 exports.sendInvite = function(req, res){
   var user = new User(req.body);
-  user.ufid = req.body.ufid;
   user.email = req.body.email;
   user.provider = 'local';
   user.save(function (err) {
@@ -54,9 +53,37 @@ exports.update = function (req, res) {
   });
 };
 
+exports.makeAdmin = function(req, res){
+  var user = new User(req.body);
+  console.log(req.body);
+  console.log(user);
+  user.roles = ['admin'];
+  user.save(function (err) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    res.json(user);
+  });
+
+};
 /**
  * Delete a user
  */
+exports.removeUser = function (req, res) {
+  var user = new User(req.body);
+
+  user.remove(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+    res.json(user);
+  });
+};
 exports.delete = function (req, res) {
   var user = req.model;
 

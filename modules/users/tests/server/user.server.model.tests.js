@@ -21,24 +21,38 @@ describe('User Model Unit Tests:', function () {
   before(function () {
     user1 = {
       firstName: 'Full',
-      lastName: 'Name',
+      last: {
+        lastName: 'Name'
+      },
       displayName: 'Full Name',
-      email: 'test@test.com',
+      primaryEmail: {
+        email: 'test@test.com'
+      },
+      secondaryEmail: {
+        email: 'seconday@secondary.com'
+      },
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3',
-      provider: 'local'
+      provider: 'local',
+      inviteToken: '12345'
     };
     // user2 is a clone of user1
     user2 = user1;
     user3 = {
-      firstName: 'Different',
-      lastName: 'User',
-      displayName: 'Full Different Name',
-      email: 'test3@test.com',
-      username: 'different_username',
-      password: 'Different_Password1!',
-      provider: 'local'
+      firstName: 'User',
+      last: {
+        lastName: 'Three'
+      },
+      displayName: 'User Three',
+      primaryEmail: {
+        email: 'test3@test.com'
+      },
+      username: 'username3',
+      password: 'M3@n.jsI$Aw3$0m3',
+      provider: 'local',
+      inviteToken: '54321'
     };
+
   });
 
   describe('Method Save', function () {
@@ -60,7 +74,6 @@ describe('User Model Unit Tests:', function () {
         });
       });
     });
-
     it('should fail to save an existing user again', function (done) {
       var _user1 = new User(user1);
       var _user2 = new User(user2);
@@ -75,7 +88,6 @@ describe('User Model Unit Tests:', function () {
         });
       });
     });
-
     it('should be able to show an error when trying to save without first name', function (done) {
       var _user1 = new User(user1);
 
@@ -83,6 +95,25 @@ describe('User Model Unit Tests:', function () {
       _user1.save(function (err) {
         should.exist(err);
         done();
+      });
+    });
+
+    it('should be able to show an error when trying to save with an existing invite code', function (done) {
+      var _user1 = new User(user1);
+      var _user3 = new User(user3);
+
+      _user1.save(function (err) {
+        should.not.exist(err);
+      });
+
+      _user3.inviteToken = '12345';
+
+      _user3.save(function (err) {
+        should.exist(err);
+        _user1.remove(function (err) {
+          should.not.exist(err);
+          done();
+        });
       });
     });
 
@@ -108,6 +139,22 @@ describe('User Model Unit Tests:', function () {
       _user1.save(function (err) {
         should.not.exist(err);
         _user1.roles = [];
+        _user1.save(function (err) {
+          should.exist(err);
+          _user1.remove(function (err) {
+            should.not.exist(err);
+            done();
+          });
+        });
+      });
+    });
+
+    it('should be able to show an error when trying to update an existing user without an email', function (done) {
+      var _user1 = new User(user1);
+
+      _user1.save(function (err) {
+        should.not.exist(err);
+        _user1.primaryEmail.email = "";
         _user1.save(function (err) {
           should.exist(err);
           _user1.remove(function (err) {
@@ -180,7 +227,7 @@ describe('User Model Unit Tests:', function () {
 
       _user1.save(function (err) {
         should.not.exist(err);
-        _user3.email = _user1.email;
+        _user3.primaryEmail.email = _user1.primaryEmail.email;
         _user3.save(function (err) {
           should.exist(err);
           _user1.remove(function(err) {
@@ -329,7 +376,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid email address - "123"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = '123';
+      _user1.primaryEmail.email = '123';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -348,7 +395,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid email address - "123@123"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = '123@123';
+      _user1.primaryEmail.email = '123@123';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -367,7 +414,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid email address - "123.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = '123.com';
+      _user1.primaryEmail.email = '123.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -386,7 +433,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid email address - "@123.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = '@123.com';
+      _user1.primaryEmail.email = '@123.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -404,7 +451,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid email address - "abc@abc@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc@abc@abc.com';
+      _user1.primaryEmail.email = 'abc@abc@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -422,7 +469,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow invalid characters in email address - "abc~@#$%^&*()ef=@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc~@#$%^&*()ef=@abc.com';
+      _user1.primaryEmail.email = 'abc~@#$%^&*()ef=@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -440,7 +487,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow space characters in email address - "abc def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc def@abc.com';
+      _user1.primaryEmail.email = 'abc def@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -458,7 +505,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow doudble quote characters in email address - "abc\"def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc\"def@abc.com';
+      _user1.primaryEmail.email = 'abc\"def@abc.com';
       _user1.save(function (err) {
         if (err) {
           _user1.remove(function (err_remove) {
@@ -476,7 +523,7 @@ describe('User Model Unit Tests:', function () {
     it('should not allow double dotted characters in email address - "abcdef@abc..com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abcdef@abc..com';
+      _user1.primaryEmail.email = 'abcdef@abc..com';
       _user1.save(function (err) {
         if (err) {
           _user1.remove(function (err_remove) {
@@ -494,7 +541,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow single quote characters in email address - "abc\'def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc\'def@abc.com';
+      _user1.primaryEmail.email = 'abc\'def@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -512,7 +559,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow valid email address - "abc@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc@abc.com';
+      _user1.primaryEmail.email = 'abc@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -530,7 +577,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow valid email address - "abc+def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc+def@abc.com';
+      _user1.primaryEmail.email = 'abc+def@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -548,7 +595,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow valid email address - "abc.def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc.def@abc.com';
+      _user1.primaryEmailemail = 'abc.def@abc.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -566,7 +613,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow valid email address - "abc.def@abc.def.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc.def@abc.def.com';
+      _user1.primaryEmail.email = 'abc.def@abc.def.com';
       _user1.save(function (err) {
         if (!err) {
           _user1.remove(function (err_remove) {
@@ -584,7 +631,7 @@ describe('User Model Unit Tests:', function () {
     it('should allow valid email address - "abc-def@abc.com"', function (done) {
       var _user1 = new User(user1);
 
-      _user1.email = 'abc-def@abc.com';
+      _user1.primaryEmail.email = 'abc-def@abc.com';
       _user1.save(function (err) {
         should.not.exist(err);
         if (!err) {

@@ -21,6 +21,8 @@ module.exports = function (app) {
     .put(adminPolicy.isAllowed, admin.update)
     .delete(adminPolicy.isAllowed, admin.delete);
 
+  app.route('/api/admin/removeUser').post(admin.removeUser);
+  app.route('/api/admin/makeAdmin').post(admin.makeAdmin);
   app.route('/test')
     .post(student.create);
   // Finish by binding the user middleware
