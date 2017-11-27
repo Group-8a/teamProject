@@ -1,3 +1,38 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+
+.navbar-nav {
+  background-color: #0021A5;
+}
+
+.navbar-header {
+  background-color: #fa4616;
+}
+
+.navbar .navbar-brand {
+  background-color:  #0021A5 !important;
+}
+
+.navbar-collapse {
+  background-color: #0021A5;
+}
+
+.navbar-header .navbar-toggle {
+  background-color: #fa4616;
+}
+
+.navbar-default {
+  background-color: #fa4616;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white !important;
+}
+
+.active{
+  color: white;
+}
+
 .content {
   margin-top: 50px;
 }
@@ -34,4 +69,20 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+
+h1, h2, h3, a {
+  font-family: 'Ubuntu', serif;
+}
+
+p, body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.well {
+    background: rgba(250, 70, 22, 0.3) !important;
+}
+
+.jumbotron{
+    background: rgba(250, 70, 22, 0.3) !important;
 }
