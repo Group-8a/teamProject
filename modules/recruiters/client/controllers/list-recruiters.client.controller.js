@@ -13,7 +13,7 @@
     vm.recruiters = RecruitersService.query();
 
 
-}
+  }
 
 
 
