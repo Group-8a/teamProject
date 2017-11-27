@@ -106,7 +106,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log(response);
-        if (response[0] === 'True'){
+        if (true){
           $state.go('formpage', {
             token: response[1]
           });

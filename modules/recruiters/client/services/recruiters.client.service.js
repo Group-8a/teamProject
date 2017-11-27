@@ -16,5 +16,6 @@
         method: 'PUT'
       }
     });
+    console.log(recruiterId);
   }
 }());

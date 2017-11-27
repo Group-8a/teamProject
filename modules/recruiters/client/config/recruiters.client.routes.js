@@ -46,7 +46,7 @@
         },
         data: {
           roles: ['user', 'admin'],
-          pageTitle: 'Edit Recruiter {{ recruiterResolve.name }}'
+          pageTitle: 'Edit Recruiter {{ recruiterResolve.firstName }}'
         }
       })
       .state('recruiters.view', {
@@ -58,7 +58,7 @@
           recruiterResolve: getRecruiter
         },
         data: {
-          pageTitle: 'Recruiter {{ recruiterResolve.name }}'
+          pageTitle: 'Recruiter {{ recruiterResolve.firstName }}'
         }
       });
   }

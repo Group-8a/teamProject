@@ -11,5 +11,13 @@
     var vm = this;
 
     vm.recruiters = RecruitersService.query();
-  }
+
+
+}
+
+
+
+
+
+
 }());
