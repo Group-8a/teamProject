@@ -65,7 +65,6 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         return false;
       }
       var article = $scope.article;
-      console.log($scope.article);
       if ($scope.article.tags === undefined){
         $scope.article.tags = $scope.tags;
       }
@@ -79,6 +78,8 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     // Find a list of Articles
     $scope.find = function () {
       $scope.articles = Articles.query();
+      $scope.currentUser = undefined;
+
     };
 
     // Find existing Article
@@ -130,6 +131,12 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         }
       }
     };
+    $scope.commonTagFilter = function(tag){
+      if($scope.commonTags.indexOf(tag) === -1){
+        return true;
+      }
+      return false;
+    };
     $scope.editTags= function(tag, type){
       $scope.tags = $scope.article.tags;
       if (type === "add"){
@@ -155,10 +162,25 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         }
       }
     };
-
     $scope.setTags = function(){
       $scope.tags = $scope.article.tags;
-      console.log('here');
+    };
+    $scope.clearUser = function(){
+      $scope.currentUser = undefined;
+    };
+    $scope.testFilter = function(article){
+    //  console.log('di ' + detailedInfo);
+      if($scope.currentUser !== undefined){
+        if(article.user.displayName === $scope.currentUser.displayName){
+          return true;
+        }
+        return false;
+      }
+      return false;
+    };
+    $scope.getUser = function(detailedInfo){
+      $scope.currentUser = detailedInfo;
+      
     };
   }
 ]);

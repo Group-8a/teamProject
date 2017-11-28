@@ -36,7 +36,7 @@
         </td>
       </tr>
       <tr ng-repeat= "article in articles">
-        <td ng-repeat="tags in article.tags" ng-click=addTags(tags)>
+        <td ng-repeat="tags in article.tags | filter:commonTagFilter" ng-click=addTags(tags)>
           <h5><a href = "">{{tags}}</a></h5>
         </td>
       </tr>

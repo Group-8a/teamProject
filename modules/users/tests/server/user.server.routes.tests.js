@@ -121,92 +121,92 @@ describe('User CRUD tests', function () {
   //     });
   // });
   //
-  // it('should not be able to retrieve a list of users if not admin', function (done) {
-  //   agent.post('/api/auth/signin')
-  //     .send(credentials)
-  //     .expect(200)
-  //     .end(function (signinErr, signinRes) {
-  //       // Handle signin error
-  //       if (signinErr) {
-  //         return done(signinErr);
-  //       }
-  //
-  //       // Request list of users
-  //       agent.get('/api/users')
-  //         .expect(403)
-  //         .end(function (usersGetErr, usersGetRes) {
-  //           if (usersGetErr) {
-  //             return done(usersGetErr);
-  //           }
-  //
-  //           return done();
-  //         });
-  //     });
-  // });
-  //
-  // it('should be able to retrieve a list of users if admin', function (done) {
-  //   user.roles = ['user', 'admin'];
-  //
-  //   user.save(function (err) {
-  //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
-  //       .send(credentials)
-  //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
-  //         }
-  //
-  //         // Request list of users
-  //         agent.get('/api/users')
-  //           .expect(200)
-  //           .end(function (usersGetErr, usersGetRes) {
-  //             if (usersGetErr) {
-  //               return done(usersGetErr);
-  //             }
-  //
-  //             usersGetRes.body.should.be.instanceof(Array).and.have.lengthOf(1);
-  //
-  //             // Call the assertion callback
-  //             return done();
-  //           });
-  //       });
-  //   });
-  // });
-  //
-  // it('should be able to get a single user details if admin', function (done) {
-  //   user.roles = ['user', 'admin'];
-  //
-  //   user.save(function (err) {
-  //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
-  //       .send(credentials)
-  //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
-  //         }
-  //
-  //         // Get single user information from the database
-  //         agent.get('/api/users/' + user._id)
-  //           .expect(200)
-  //           .end(function (userInfoErr, userInfoRes) {
-  //             if (userInfoErr) {
-  //               return done(userInfoErr);
-  //             }
-  //
-  //             userInfoRes.body.should.be.instanceof(Object);
-  //             userInfoRes.body._id.should.be.equal(String(user._id));
-  //
-  //             // Call the assertion callback
-  //             return done();
-  //           });
-  //       });
-  //   });
-  // });
-  //
+  it('should not be able to retrieve a list of users if not admin', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Request list of users
+        agent.get('/api/users')
+          .expect(403)
+          .end(function (usersGetErr, usersGetRes) {
+            if (usersGetErr) {
+              return done(usersGetErr);
+            }
+
+            return done();
+          });
+      });
+  });
+
+  it('should be able to retrieve a list of users if admin', function (done) {
+    user.roles = ['user', 'admin'];
+
+    user.save(function (err) {
+      should.not.exist(err);
+      agent.post('/api/auth/signin')
+        .send(credentials)
+        .expect(200)
+        .end(function (signinErr, signinRes) {
+          // Handle signin error
+          if (signinErr) {
+            return done(signinErr);
+          }
+
+          // Request list of users
+          agent.get('/api/users')
+            .expect(200)
+            .end(function (usersGetErr, usersGetRes) {
+              if (usersGetErr) {
+                return done(usersGetErr);
+              }
+
+              usersGetRes.body.should.be.instanceof(Array).and.have.lengthOf(1);
+
+              // Call the assertion callback
+              return done();
+            });
+        });
+    });
+  });
+
+  it('should be able to get a single user details if admin', function (done) {
+    user.roles = ['user', 'admin'];
+
+    user.save(function (err) {
+      should.not.exist(err);
+      agent.post('/api/auth/signin')
+        .send(credentials)
+        .expect(200)
+        .end(function (signinErr, signinRes) {
+          // Handle signin error
+          if (signinErr) {
+            return done(signinErr);
+          }
+
+          // Get single user information from the database
+          agent.get('/api/users/' + user._id)
+            .expect(200)
+            .end(function (userInfoErr, userInfoRes) {
+              if (userInfoErr) {
+                return done(userInfoErr);
+              }
+
+              userInfoRes.body.should.be.instanceof(Object);
+              userInfoRes.body._id.should.be.equal(String(user._id));
+
+              // Call the assertion callback
+              return done();
+            });
+        });
+    });
+  });
+
   // it('should be able to update a single user details if admin', function (done) {
   //   user.roles = ['user', 'admin'];
   //
@@ -225,7 +225,6 @@ describe('User CRUD tests', function () {
   //
   //         var userUpdate = {
   //           firstName: 'admin_update_first',
-  //           lastName: 'admin_update_last',
   //           roles: ['admin']
   //         };
   //
@@ -239,7 +238,6 @@ describe('User CRUD tests', function () {
   //
   //             userInfoRes.body.should.be.instanceof(Object);
   //             userInfoRes.body.firstName.should.be.equal('admin_update_first');
-  //             userInfoRes.body.lastName.should.be.equal('admin_update_last');
   //             userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
   //             userInfoRes.body._id.should.be.equal(String(user._id));
   //
@@ -249,38 +247,38 @@ describe('User CRUD tests', function () {
   //       });
   //   });
   // });
-  //
-  // it('should be able to delete a single user if admin', function (done) {
-  //   user.roles = ['user', 'admin'];
-  //
-  //   user.save(function (err) {
-  //     should.not.exist(err);
-  //     agent.post('/api/auth/signin')
-  //       .send(credentials)
-  //       .expect(200)
-  //       .end(function (signinErr, signinRes) {
-  //         // Handle signin error
-  //         if (signinErr) {
-  //           return done(signinErr);
-  //         }
-  //
-  //         agent.delete('/api/users/' + user._id)
-  //           //.send(userUpdate)
-  //           .expect(200)
-  //           .end(function (userInfoErr, userInfoRes) {
-  //             if (userInfoErr) {
-  //               return done(userInfoErr);
-  //             }
-  //
-  //             userInfoRes.body.should.be.instanceof(Object);
-  //             userInfoRes.body._id.should.be.equal(String(user._id));
-  //
-  //             // Call the assertion callback
-  //             return done();
-  //           });
-  //       });
-  //   });
-  // });
+
+  it('should be able to delete a single user if admin', function (done) {
+    user.roles = ['user', 'admin'];
+
+    user.save(function (err) {
+      should.not.exist(err);
+      agent.post('/api/auth/signin')
+        .send(credentials)
+        .expect(200)
+        .end(function (signinErr, signinRes) {
+          // Handle signin error
+          if (signinErr) {
+            return done(signinErr);
+          }
+
+          agent.delete('/api/users/' + user._id)
+            //.send(userUpdate)
+            .expect(200)
+            .end(function (userInfoErr, userInfoRes) {
+              if (userInfoErr) {
+                return done(userInfoErr);
+              }
+
+              userInfoRes.body.should.be.instanceof(Object);
+              userInfoRes.body._id.should.be.equal(String(user._id));
+
+              // Call the assertion callback
+              return done();
+            });
+        });
+    });
+  });
   //
   // it('forgot password should return 400 for non-existent username', function (done) {
   //   user.roles = ['user'];
