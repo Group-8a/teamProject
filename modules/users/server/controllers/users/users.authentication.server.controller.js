@@ -79,12 +79,10 @@ exports.student = function(req, res) {
 
 exports.signup = function (req, res) {
   // For security measurement we remove the roles from the req.body object
-  console.log(req);
-  console.log(req.body.roles);
   delete req.body.roles;
 
   // Init user and add missing fields
-  console.log(req.body);
+
   var user = new User(req.body.credentials);
 
 

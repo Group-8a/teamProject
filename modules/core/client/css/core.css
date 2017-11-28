@@ -71,7 +71,7 @@ a:hover .header-profile-image {
   display: inline;
 }
 
-h1, h2, h3, a {
+h1, h2, h3, a, div {
   font-family: 'Ubuntu', serif;
 }
 

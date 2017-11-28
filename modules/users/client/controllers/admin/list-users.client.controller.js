@@ -3,6 +3,8 @@
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', '$http','Users', 'Admin',
   function ($scope, $filter, $state, $http, Users, Admin) {
     $scope.currentUser = undefined;
+    $scope.userProfile = false;
+    $scope.userBlogs = false;
     Admin.query(function (data) {
       $scope.users = data;
       $scope.buildPager();
@@ -28,6 +30,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.displayDetails = function(index) {
       $scope.detailedInfo = $scope.users[index];
       $scope.currentUser = $scope.users[index];
+      $scope.userBlogs = false;
     };
 
     $scope.returnUser = function(index) {
@@ -36,6 +39,12 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+    $scope.showProfile = function(){
+      $scope.userProfile=true;
+    };
+    $scope.showBlog = function(){
+      $scope.userBlogs=true;
     };
 /*
     $scope.makeAdmin = function(){
@@ -49,7 +58,17 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
         }
       }
     }; */
-
+    $scope.date = function(index){
+      $scope.currentUser = $scope.users[index];
+      $scope.gradDate = $scope.currentUser.gradDate.date;
+      $scope.joinDate = $scope.currentUser.joinLab;
+      if ($scope.gradDate !== null && $scope.gradDate !== undefined){
+        $scope.gradDate = $scope.gradDate.substring(0, 10);
+      }
+      if ($scope.joinDate !== null && $scope.joinDate !== undefined){
+        $scope.joinDate = $scope.joinDate.substring(0, 10);
+      }
+    };
     $scope.remove = function () {
       var user = $scope.currentUser;
       if (confirm('Are you sure you want to delete this user?')) {
@@ -71,7 +90,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       if (confirm('Are you sure you want to give this user Administrator priveledges?')) {
         if (user !== undefined) {
           user.roles = ['admin'];
-          
+
         }
         else{
           alert('Cannot make user an Admin');
