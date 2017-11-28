@@ -89,9 +89,6 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
 }
-.dropdown-menu ng-scope{
-    background: #000000;
-}
 .error-text {
   display: none;
 }
@@ -102,7 +99,7 @@ a:hover .header-profile-image {
   display: inline;
 }
 
-h1, h2, h3, a, div {
+h1, h2, h3, a {
   font-family: 'Ubuntu', serif;
 }
 
