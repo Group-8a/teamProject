@@ -18,13 +18,13 @@ function (RecruitersService, $scope) {
       if(matched === true) {
         return true;
       }
-      if(recruiters.last.lastNameDontShow === false){
+      if(recruiters.last.lastNameDontShow === false && recruiters.last.lastName !== null){
         matched = recruiters.last.lastName.includes($scope.searchUsersText);
         if (matched === true){
           return true;
         }
       }
-      if(recruiters.major.majorDontShow === false){
+      if(recruiters.major.majorDontShow === false && recruiters.major.major !== null){
         matched = recruiters.major.major.includes($scope.searchUsersText);
         if (matched === true){
           return true;
