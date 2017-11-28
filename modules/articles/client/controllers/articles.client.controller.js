@@ -170,8 +170,10 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
     $scope.testFilter = function(article){
     //  console.log('di ' + detailedInfo);
+      console.log($scope.currentUser);
+      console.log(article);
       if($scope.currentUser !== undefined){
-        if(article.user.displayName === $scope.currentUser.displayName){
+        if(article.user._id === $scope.currentUser._id){
           return true;
         }
         return false;
@@ -180,7 +182,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
     $scope.getUser = function(detailedInfo){
       $scope.currentUser = detailedInfo;
-      
+
     };
   }
 ]);
