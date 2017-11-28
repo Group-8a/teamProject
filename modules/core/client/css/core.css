@@ -1,24 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu);
 
-.navbar-nav {
+.navbar-collapse .dropdown-menu{
   background-color: #0021A5;
 }
 
-.navbar-header {
+.navbar-collapse .navbar-nav .navbar-right{
+  background-color: #fa4616;
+}
+
+.navbar-nav {
   background-color: #fa4616;
 }
 
 .navbar .navbar-brand {
-  background-color:  #0021A5 !important;
+  background-color:  #0021A5;
 }
 
-.navbar-collapse {
-  background-color: #0021A5;
-}
-
-.navbar-header .navbar-toggle {
-  background-color: #fa4616;
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active{
+  background-color: #0021A5 !important;
+  color: #fa4616 !important;
 }
 
 .navbar-default {
@@ -27,6 +29,32 @@
 
 .navbar-default .navbar-toggle .icon-bar {
     background-color: white !important;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    background-color: #0021A5;
+  }
+
+  .navbar-header {
+    background-color: #fa4616;
+  }
+
+  .navbar .navbar-brand {
+    background-color:  #0021A5 !important;
+  }
+
+  .navbar-collapse {
+    background-color: #0021A5;
+  }
+
+  .navbar-header .navbar-toggle {
+    background-color: #fa4616;
+  }
+
+  .navbar-default {
+    background-color: #fa4616;
+  }
 }
 
 .active{
@@ -61,9 +89,6 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
 }
-.dropdown-menu ng-scope{
-    background: #000000;
-}
 .error-text {
   display: none;
 }
@@ -74,7 +99,7 @@ a:hover .header-profile-image {
   display: inline;
 }
 
-h1, h2, h3, a, div {
+h1, h2, h3, a {
   font-family: 'Ubuntu', serif;
 }
 
@@ -83,9 +108,13 @@ p, body {
 }
 
 .well {
-    background: rgba(250, 70, 22, 0.3) !important;
+    background: rgba(0, 33, 165, 0.1) !important;
 }
 
 .jumbotron{
-    background: rgba(250, 70, 22, 0.3) !important;
+    background: rgba(0, 33, 165, 0.1) !important;
+}
+
+.html{
+  background: url("https://com-psychiatry-pep.sites.medinfo.ufl.edu/files/2014/07/Century-Tower-APA-Cropped.jpg") !important;
 }
