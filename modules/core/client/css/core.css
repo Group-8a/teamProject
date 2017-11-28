@@ -61,6 +61,9 @@ a:hover .header-profile-image {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
 }
+.dropdown-menu ng-scope{
+    background: #000000;
+}
 .error-text {
   display: none;
 }
