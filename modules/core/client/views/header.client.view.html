@@ -1,5 +1,5 @@
 <html lang="en">
-<div class="container" ng-controller="HeaderController">
+<div class="container-fluid" ng-controller="HeaderController">
   <div class="navbar-header">
     <body>
     <button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
@@ -8,7 +8,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a ui-sref="home" class="navbar-brand" style="color: #FFF">MIL</a>
+    <a ui-sref="home" class="navbar-brand" style="font-size: 25px; color: #FFF">MIL</a>
   </div>
   <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
     <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
@@ -28,14 +28,14 @@
       </li> -->
       <li class="divider-vertical"></li>
       <li ui-sref-active="active">
-        <a ui-sref="authentication.signin" style="color: #FFF">Sign In</a>
+        <a ui-sref="authentication.signin" style="color: #FFF"><span class="glyphicon glyphicon-log-in"></span> Sign In</a>
       </li>
       <li ui-sref-active="active">
-        <a ui-sref="formpage" style="color: #FFF">Sign Up</a>
+        <a ui-sref="formpage" style="color: #FFF"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
       </li>
       <li class="divider-vertical" ></li>
       <li ui-sref-active="active">
-        <a ui-sref="contactForm" style="color: #FFF">Contact Form</a>
+        <a ui-sref="contactForm" style="color: #FFF"><span class="glyphicon glyphicon-envelope"></span> Contact Form</a>
        </li>
     </ul>
     <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">

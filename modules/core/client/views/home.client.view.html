@@ -1,3 +1,9 @@
+<style>
+.html{
+  background: url("https://com-psychiatry-pep.sites.medinfo.ufl.edu/files/2014/07/Century-Tower-APA-Cropped.jpg");
+  background-image: cover;
+}
+</style>
 <html lang="en">
 <head>
   <title>Home Page</title>
@@ -8,15 +14,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <br><br>
+<div class="container-full-bg">
 <div class="jumbotron text-center">
-  <div class="row">
-    <div class="col-md-12 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-12">
-      <h1>The Machine Intelligence Lab</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12">
+        <h1>The Machine Intelligence Lab</h1>
+      </div>
     </div>
   </div>
 </div>
-<div class="container-fluid">
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+</div>
+<div class="container">
+  <div id="Carousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -28,23 +38,51 @@
     <div class="carousel-inner">
       <div class="item active">
         <img src="https://farm1.staticflickr.com/300/31645359894_a4c919ba60_k.jpg" alt="NaviGator" style="width:100%;">
-      </div>
-
-      <div class="item">
-        <img src="http://propagator.org/wp-content/uploads/2014/09/PropaGator1.jpg" alt="PropaGator" style="width:100%;">
+          <div class="carousel-caption">
+              <h3>Navigator</h3>
+              <p>Autonomous Maritime System</p>
+            </div>
       </div>
 
       <div class="item">
         <img src="http://subjugator.org/wp-content/uploads/2012/05/slider3-980x360.jpg" alt="Subjugator" style="width:100%;">
+        <div class="carousel-caption">
+            <h3>SubjaGator</h3>
+            <p>Autonomous Underwater Vehicle</p>
+          </div>
+      </div>
+
+      <div class="item">
+        <img src="http://propagator.org/wp-content/uploads/2014/09/PropaGator1.jpg" alt="PropaGator" style="width:100%;">
+        <div class="carousel-caption">
+            <h3>PropaGator</h3>
+            <p>Autonomous Water Surface Vehicle</p>
+          </div>
+      </div>
+
+      <div class="item">
+        <img src="https://www.mil.ufl.edu/images/InstiGator2_sml.jpg" alt="InstiGator" style="width:100%;">
+        <div class="carousel-caption">
+            <h3>InstiGator</h3>
+            <p>Autonomous Lawn Mower</p>
+          </div>
+      </div>
+
+      <div class="item">
+        <img src="https://www.mil.ufl.edu/images/Swarm0.jpg" alt="CongreGators" style="width:100%;">
+        <div class="carousel-caption">
+            <h3>Congregators</h3>
+            <p>A swarm of Air and Ground Vehicles</p>
+          </div>
       </div>
     </div>
 
     <!-- Left and right controls -->
-    <a ng-non-bindable class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <a ng-non-bindable class="left carousel-control" href="#Carousel" data-slide="prev" target="_self">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Previous</span>
     </a>
-    <a ng-non-bindable class="right carousel-control" href="#myCarousel" data-slide="next">
+    <a ng-non-bindable class="right carousel-control" href="#Carousel" data-slide="next" target="_self">
       <span class="glyphicon glyphicon-chevron-right"></span>
       <span class="sr-only">Next</span>
     </a>
@@ -54,11 +92,11 @@
   <div class="row">
     <div class="col-sm">
         <h2><b>About</b></h2>
-        <p>The Machine Intelligence Laboratory (<b>MIL</b>) provides a synergistic environment dedicated to the study and development of intelligent, autonomous robots. The faculty and students associated with the laboratory conduct research in the theory and realization of machine intelligence covering topics such as machine learning, real-time computer vision, statistical modeling, robot kinematics, autonomous vehicles, teleoperation and human interfaces, robot and nonlinear control, computational intelligence, neural networks, and general robotics. Applications of MIL research include autonomous underwater vehicles (<b>AUVs</b>), autonomous water surface vehicles (<b>ASVs</b>), autonomous land vehicles, autonomous air vehicles (AAVs including quadcopters and micro air vehicles, MAVs) , swarm robots, humanoid robots, and autonomous household robots.
+        <p>The Machine Intelligence Laboratory (<b>MIL</b>) provides a synergistic environment dedicated to the study and development of intelligent, autonomous robots. The faculty and students associated with the laboratory conduct research in the theory and realization of machine intelligence covering topics such as machine learning, real-time computer vision, statistical modeling, robot kinematics, autonomous vehicles, teleoperation and human interfaces, robot and nonlinear control, computational intelligence, neural networks, and general robotics. Applications of MIL research include autonomous underwater vehicles (<b>AUVs</b>), autonomous water surface vehicles (<b>ASVs</b>), autonomous land vehicles, autonomous air vehicles (<b>AAVs including quadcopters and micro air vehicles, MAVs</b>) , swarm robots, humanoid robots, and autonomous household robots.
         <br><br>
-        MIL's SubjuGator is the three time champion autonomous submarine of the RoboSub AUVSI/ONR underwater competition (2005 - 2007), and placed in the top 3 in eleven of the 17 years of the competition (including second place in 2012, 2013 and 2014). In 2013, MIL participated for the first time in the RoboBoat AUVSI/ONR water surface vechicle competition with our PropaGator robot boat; we won! In 2014, we earned second place in the RoboBoat competition. We also won the static division of the 2011 ION Robot Lawnmower competition with MIL's InstiGator robot lawnmower.
+        MIL's SubjuGator is the three time champion autonomous submarine of the RoboSub AUVSI/ONR underwater competition (<b>2005 - 2007</b>), and placed in the top 3 in eleven of the 17 years of the competition (<b>including second place in 2012, 2013 and 2014</b>). In 2013, MIL participated for the first time in the RoboBoat AUVSI/ONR water surface vechicle competition with our PropaGator robot boat; we won! In 2014, we earned second place in the RoboBoat competition. We also won the static division of the 2011 ION Robot Lawnmower competition with MIL's InstiGator robot lawnmower.
         <br><br>
-        In the fall of 2005, MIL physically moved next door to CIMAR (The Center for Intelligent Machines and Robotics) in the Mechanical and Aerospace Engineering Department. We relocated our lab facilities and faculty offices adjacent to the CIMAR labs and offices in order to streamline our collaborations. With MIL (from Electrical and Computer Engineering Department) and CIMAR working together, the possibilities are incredible.</p>
+        In the fall of 2005, MIL physically moved next door to CIMAR (<b>The Center for Intelligent Machines and Robotics</b>) in the Mechanical and Aerospace Engineering Department. We relocated our lab facilities and faculty offices adjacent to the CIMAR labs and offices in order to streamline our collaborations. With MIL (<b>from Electrical and Computer Engineering Department</b>) and CIMAR working together, the possibilities are incredible.</p>
     </div>
     <div class="col-sm">
         <h2><b>Projects</b></h2>
@@ -69,10 +107,10 @@
               NaviGator ASV is an autonomous water surface vehicle designed on a WAM-V platform and built by undergraduate and graduate students.
             </p></td>
             <td><a href="http://subjugator.org" style="color: black"><h3>SubjuGator</h3></a>
-              <p>SubjuGator is an autonomous underwater vehicle designed and built by graduate and undergraduate students of the Machine Intelligence Lab (MIL). SubjuGator has competed seventeen times in the RoboSub competition, placing in the top 3 eleven times including <b>first place</b> in 2005, 2006 and 2007.
+              <p>SubjuGator is an autonomous underwater vehicle designed and built by graduate and undergraduate students of the Machine Intelligence Lab (<b>MIL</b>). SubjuGator has competed seventeen times in the RoboSub competition, placing in the top 3 eleven times including <b>first place</b> in 2005, 2006 and 2007.
           </p></td>
             <td><a href="http://propagator.org" style="color: black"><h3>PropaGator</h3></a>
-              <p>PropaGator is an autonomous water surface vehicle designed and built by graduate and undergraduate students of the Machine Intelligence Lab (MIL). PropaGator competed for the first time in the AUVSI Foundation and ONR's 6th International RoboBoat Competition in July, 2013 and won! We earned second in 7th RoboBoat competition in July, 2014.
+              <p>PropaGator is an autonomous water surface vehicle designed and built by graduate and undergraduate students of the Machine Intelligence Lab (<b>MIL</b>). PropaGator competed for the first time in the AUVSI Foundation and ONR's 6th International RoboBoat Competition in July, 2013 and won! We earned second in 7th RoboBoat competition in July, 2014.
             </p></td>
           </tr>
         </tbody></table>
@@ -80,10 +118,10 @@
           <tbody>
           <tr>
             <td><h3>InstiGator</h3>
-              <p>InstiGator is an autonomous lawn mower designed and built by  undergraduate and graduate students of the Machine Intelligence Lab (<b>MIL</b>). InstiGator has competed twice in Annual ION Robotic Lawn Mower Competitions, earning a second place in 2010 and <b>first place</b> in 2011 (both in the static division).
+              <p>InstiGator is an autonomous lawn mower designed and built by  undergraduate and graduate students of the Machine Intelligence Lab (<b>MIL</b>). InstiGator has competed twice in Annual ION Robotic Lawn Mower Competitions, earning a second place in 2010 and <b>first place</b> in 2011 (<b>both in the static division</b>).
               </p></td>
             <td><h3>CongreGators</h3>
-              <p>We are developing a swarm of air and ground vehicles, starting with a heterogeneous group (presently three) of hex- and quad-copters and 6 dune buggies...
+              <p>We are developing a swarm of air and ground vehicles, starting with a heterogeneous group (<b>presently three</b>) of hex- and quad-copters and 6 dune buggies...
             </p></td>
           </tr>
         </tbody></table>
