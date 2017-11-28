@@ -52,12 +52,12 @@ exports.update = function (req, res) {
 };
 
 exports.studentUpdate = function (req, res) {
-  User.findOne({'_id': req.body._id}, function(err, user) {
+  User.findOne({ '_id': req.body._id }, function(err, user) {
     if (err) {
       res.status(400).send('An error occured');
     } else {
-    var  username = req.body.username;
-      Student.findOne({'primaryEmail.email': req.body.primaryEmail.email}, function(err, student){
+      var username = req.body.username;
+      Student.findOne({ 'primaryEmail.email' : req.body.primaryEmail.email }, function(err, student){
         if (err) {
           res.status(400).send('An error occured');
         } else if (student === null) {
