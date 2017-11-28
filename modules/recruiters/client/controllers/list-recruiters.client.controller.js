@@ -9,8 +9,9 @@
 
   function RecruitersListController(RecruitersService) {
     var vm = this;
-
+    
     vm.recruiters = RecruitersService.query();
+
 
 
 }

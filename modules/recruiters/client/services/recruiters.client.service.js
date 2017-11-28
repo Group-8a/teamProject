@@ -8,7 +8,7 @@
 
   RecruitersService.$inject = ['$resource'];
 
-  function RecruitersService($resource) {
+  function RecruitersService($resource) {    
     return $resource('api/recruiters/:recruiterId', {
       recruiterId: '@_id'
     }, {
@@ -16,6 +16,6 @@
         method: 'PUT'
       }
     });
-    console.log(recruiterId);
+
   }
 }());
