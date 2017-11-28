@@ -65,12 +65,12 @@ exports.studentUpdate = function (req, res) {
         } else {
           student.firstName = req.body.firstName;
           student.last.lastName = req.body.last.lastName;
-          student.last.lastName = req.body.last.lastNameDontShow;
+          student.last.lastNameDontShow = req.body.last.lastNameDontShow;
           student.username = req.body.username;
           student.secondaryEmail.email = req.body.secondaryEmail.email;
           student.secondaryEmail.emailDontShow = req.body.secondaryEmail.emailDontShow;
           student.major.major = req.body.major.major;
-          student.major.majorDontShow = req.body.major.major;
+          student.major.majorDontShow = req.body.major.majorDontShow;
           student.gradDate.date = req.body.gradDate.date;
           student.gradDate.dateDontShow = req.body.gradDate.dateDontShow;
           student.linkedin.url = req.body.linkedin.url;
