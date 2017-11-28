@@ -15,7 +15,7 @@ var path = require('path'),
 exports.create = function(req, res) {
   var recruiter = new Recruiter(req.body);
   recruiter.user = req.user;
-
+  console.log(recruiter);
   recruiter.save(function(err) {
     if (err) {
       return res.status(400).send({
@@ -46,7 +46,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
   var recruiter = req.recruiter;
-
+  console.log('here');
   recruiter = _.extend(recruiter, req.body);
 
   recruiter.save(function(err) {
