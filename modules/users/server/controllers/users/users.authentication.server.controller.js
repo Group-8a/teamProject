@@ -69,7 +69,7 @@ exports.student = function(req, res) {
   var astudent = new Student(req.body.credentials);
   astudent.save(function (err) {
     if (err) {
-    console.log(errorHandler.getErrorMessage(err));
+      console.log(errorHandler.getErrorMessage(err));
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });

@@ -21,9 +21,17 @@ angular.module('users').controller('EditProfileController', ['$scope', '$http', 
 
         $scope.success = true;
         Authentication.user = response;
+
+        $http.put('/api/students', $scope.user).success(function (response) {
+          console.log("sucess");
+        }).error(function (response) {
+          console.log(response.message);
+        });
       }, function (response) {
         $scope.error = response.data.message;
       });
+
+
     };
   }
 ]);
