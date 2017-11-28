@@ -14,7 +14,7 @@
     <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
       <li class="divider-vertical"></li>
       <li>
-        <a ui-sref="recruiters" style="color: #FFF"><span class="glyphicon glyphicon-eye-open"></span> Recruiters</a>
+        <a ui-sref="recruiters.list" style="color: #FFF"><span class="glyphicon glyphicon-eye-open"></span> Recruiters</a>
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" style="color: #FFF" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
         <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button" style="color: #FFF">{{::item.title}}&nbsp;<span class="caret"></span></a>
