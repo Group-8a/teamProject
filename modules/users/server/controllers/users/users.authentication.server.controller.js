@@ -371,12 +371,9 @@ exports.removeOAuthProvider = function (req, res, next) {
 exports.sendInvite = function (req, res, next) {
   //var emailhtml = undefined;
   //console.log('here');
-  var inviteToken = 1;
-  var email = "";
-  User.findOne({ ufid: req.body.ufid }, 'inviteToken primaryEmail.email', function (err, user) {
+  User.findOne({ 'primaryEmail.email': req.body.primaryEmail.email }, 'inviteToken', function (err, user) {
     if (!err && user) {
-      inviteToken = user.inviteToken;
-      email = user.primaryEmail.email;
+      var inviteToken = user.inviteToken;
     } else {
       return res.status(400).send({
         message: 'email is invalid or has expired.'
@@ -385,7 +382,7 @@ exports.sendInvite = function (req, res, next) {
   }).then(function (user, inviteToken, email) {
     var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + user.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
     var mailOptions = {
-      to: user.primaryEmail.email,
+      to: req.body.primaryEmail.email,
       from: config.mailer.from,
       subject: 'You are invited to MIL!',
       text: textemail
