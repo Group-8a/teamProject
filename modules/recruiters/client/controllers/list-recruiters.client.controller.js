@@ -33,7 +33,6 @@ function (RecruitersService, $scope) {
       return false;
     }
     return true;
-    };
-
-  }
+  };
+}
 ]);
