@@ -1,0 +1,44 @@
+<section ng-controller="RecruitersListController">
+  <div class="page-header">
+    <h1>Recruiters</h1>
+  </div>
+
+<div class="col-xs-12 col-sm-8">
+  <div class="input-group">
+       <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+       <span class="input-group-btn">
+         <button class="btn btn-secondary" type="button">Go!</button>
+       </span>
+  </div>
+</div>
+
+
+
+  <div class="list-group">
+    <a ng-repeat="recruiter in vm.recruiters | filter:searchText"
+       ui-sref="recruiters.view({ recruiterId: recruiter._id })"
+       class="list-group-item">
+     <h4 class="list-group-item-heading" ng-bind="(recruiter.firstName)+(recruiter.last.lastName)"></h4>
+
+      <b class="list-group-item-text" ng-if="recruiter.major.majorDontShow">Major:</b>
+      <p class="list-group-item-text" ng-if="recruiter.major.majorDontShow" ng-bind="recruiter.major.major"></p>
+
+      <b class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow">Graduation:</b>
+      <p class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow" ng-bind="recruiter.gradDate.date | date:'MMMM-yyyy'"></p>
+
+      <b class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow">E-mail:</b>
+      <p class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow" ng-bind="recruiter.secondaryEmail.email"></p>
+
+      <b class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow">Linkedin:</b>
+      <p class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow" ng-bind="recruiter.linkedin.url"></p>
+
+      <!-- Major Status: <p class="list-group-item-text" ng-bind="recruiter.major.majorDontShow"></p>
+         Graduation Status: <p class="list-group-item-text"  ng-bind="recruiter.gradDate.dateDontShow"></p>
+         E-mail Status: <p class="list-group-item-text" ng-bind="recruiter.secondaryEmail.secondaryEmailDontShow"></p>
+          Linkedin Status: <p class="list-group-item-text" ng-bind="recruiter.linkedin.linkedinDontShow"></p>
+
+-->
+    </a>
+  </div>
+
+</section>
