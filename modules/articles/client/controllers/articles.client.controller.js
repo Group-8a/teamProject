@@ -65,7 +65,6 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
         return false;
       }
       var article = $scope.article;
-      console.log($scope.article);
       if ($scope.article.tags === undefined){
         $scope.article.tags = $scope.tags;
       }
@@ -80,7 +79,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     $scope.find = function () {
       $scope.articles = Articles.query();
       $scope.currentUser = undefined;
-      console.log('find');
+
     };
 
     // Find existing Article
@@ -181,6 +180,7 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
     $scope.getUser = function(detailedInfo){
       $scope.currentUser = detailedInfo;
+      
     };
   }
 ]);

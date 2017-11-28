@@ -74,11 +74,10 @@
         </td>
       </tr>
     </table>
+    <div class="col" ng-controller="ArticlesController" ng-init="find()">
       <button type="button" ng-click="remove()">Remove User x </button>
-      <div class="col" ng-controller="ArticlesController" ng-init="find()">
-      <div class="col-md-6">
+      <button type="button" ng-click="getUser(detailedInfo); showBlog()">Show Blogs </button>
           <div class="list-group">
-            <button type="button" ng-click="getUser(detailedInfo); showBlog()">Show Blogs </button>
             <a ng-show="userBlogs" ng-repeat="article in articles | filter:testFilter" ng-filter class="list-group-item">
               <small class="list-group-item-text">
                 Posted on
@@ -90,7 +89,6 @@
               <p class="list-group-item-text" ng-bind="article.content"></p>
             </a>
           </div>
-      </div>
       <style>
       .img {
         position: relative;
