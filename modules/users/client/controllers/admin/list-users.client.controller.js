@@ -58,7 +58,17 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
         }
       }
     }; */
-
+    $scope.date = function(index){
+      $scope.currentUser = $scope.users[index];
+      $scope.gradDate = $scope.currentUser.gradDate.date;
+      $scope.joinDate = $scope.currentUser.joinLab;
+      if ($scope.gradDate !== null && $scope.gradDate !== undefined){
+        $scope.gradDate = $scope.gradDate.substring(0, 10);
+      }
+      if ($scope.joinDate !== null && $scope.joinDate !== undefined){
+        $scope.joinDate = $scope.joinDate.substring(0, 10);
+      }
+    };
     $scope.remove = function () {
       var user = $scope.currentUser;
       if (confirm('Are you sure you want to delete this user?')) {

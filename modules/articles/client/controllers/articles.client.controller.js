@@ -171,7 +171,6 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
     };
     $scope.testFilter = function(article){
     //  console.log('di ' + detailedInfo);
-      console.log($scope.currentUser);
       if($scope.currentUser !== undefined){
         if(article.user.displayName === $scope.currentUser.displayName){
           return true;

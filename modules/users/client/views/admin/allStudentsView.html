@@ -9,19 +9,19 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6"> <!--ADD in ng-controller="UserListController"-->
+  <div class="col-md-8"> <!--ADD in ng-controller="UserListController"-->
     <div class="list-group"> <!-- changed this line -->
       <!-- <a ng-repeat="user in users.admin" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
     <!--  <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
-      <a ng-repeat="user in pagedItems" ng-click="displayDetails($index); showProfile()" class="list-group-item">
+      <a ng-repeat="user in pagedItems" ng-click="displayDetails($index); showProfile(); date($index)" class="list-group-item">
         <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
-        <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-        <p class="list-group-item-text" ng-bind="user.email"></p>
       </a>
     </div>
     <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
   </div>
-  <div class="col-md-6" style="background-color: #d3d3d3">
+  <div class="col-md-4" border-radius="25px" style="background-color: #FFEFCF">
+    <div ng-hide="userProfile"><h4> Please select a user to view their profile</h4></div>
+    <div id="userProfile" ng-show="userProfile">
     <table>
       <tr>
         <th>
@@ -31,14 +31,49 @@
           <h2> {{ detailedInfo.displayName}} </h2>
         </th>
       </tr>
+      <tr>
+        <th><p>Linkedin: </p></th>
+        <td>
+          <p> {{detailedInfo.linkedin.url}} </p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>Major: </p></th>
+        <td>
+          <p>{{detailedInfo.major.major}} </p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>Email: </p></th>
+        <td>
+          <p>{{detailedInfo.primaryEmail.email}} </p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>NON-UF Email: </p></th>
+        <td>
+          <p>{{detailedInfo.secondaryEmail.email}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>Graduation Date: </p></th>
+        <td>
+          <p> {{gradDate}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>Joined Lab: </p></th>
+        <td>
+          <p> {{joinDate}}</p>
+        </td>
+      </tr>
+      <tr>
+        <th><p>Role: </p></th>
+        <td>
+          <p> {{detailedInfo.roles[0]}}</p>
+        </td>
+      </tr>
     </table>
-    <!--  <p>Graduation Date: {{detailedinfo.gradDate.date}}</p>-->
-    <div id="userProfile" ng-show="userProfile">
-      <p> Linkedin: {{detailedInfo.linkedin.url}} </p>
-      <p>Major: {{detailedInfo.major.major}} </p>
-      <p>Email: {{detailedInfo.primaryEmail.email}} </p>
-      <p>NON-UF Email: {{detailedInfo.secondaryEmail.email}}</p>
-      <p>Role: {{detailedInfo.roles}}</p>
       <button type="button" ng-click="remove()">Remove User x </button>
       <div class="col" ng-controller="ArticlesController" ng-init="find()">
       <div class="col-md-6">
