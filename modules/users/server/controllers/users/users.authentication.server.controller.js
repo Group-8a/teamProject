@@ -8,6 +8,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   User = mongoose.model('User'),
+  Student = mongoose.model('Recruiter'),
   config = require(path.resolve('./config/config')),
   nodemailer = require('nodemailer'),
   async = require('async'),
@@ -61,6 +62,18 @@ exports.invite = function(req, res){
       });
     }
     res.json(user);
+  });
+};
+
+exports.student = function(req, res) {
+  var astudent = new Student(req.body.credentials);
+  astudent.save(function (err) {
+    if (err) {
+      console.log(errorHandler.getErrorMessage(err));
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
   });
 };
 
