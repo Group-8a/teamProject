@@ -1,5 +1,11 @@
+<head>
+  <style>
+    td {font-size: 15px;}
+  </style>
+</head>
+
 <section>
-  <div class="page-header" >
+  <div class="page-header">
     <h1>Recruiters</h1>
     <div class="col-xs-12 col-sm-8">
       <div class="input-group">
@@ -9,27 +15,41 @@
            </span>
       </div>
     </div>
-    <br>
+    <br></br>
   </div>
-      <div class="list-group col-xs-12 conl-sm-8">
-        <a ng-repeat="recruiter in vm.recruiters | filter:searchUsers"  ui-sref="recruiters.view({ recruiterId: recruiter._id })" class="list-group-item">
+
+  <!-- Profile -->
+  <div class="list-group col-xs-12 conl-sm-8">
+    <div class="container" style="padding: 0">
+      <div class="col-md-2" style="padding:0" ng-controller="ChangeProfilePictureController">
+        <img ng-src="{{imageURL}}" alt="{{recruiter.firstName}}" class="img-thumbnail user-profile-picture">
+      </div>
+      <a ng-repeat="recruiter in vm.recruiters | filter:searchUsers"  ui-sref="recruiters.view({ recruiterId: recruiter._id })" class="list-group-item">
         <div class="list-group-item-heading">
           <h4  ng-bind="recruiter.firstName"></h4>
           <h4 ng-if="!recruiter.last.lastNameDontShow" >{{recruiter.last.lastName}}</h4>
         </div>
-        <b class="list-group-item-text" ng-if="!recruiter.major.majorDontShow">Major:</b>
-        <p class="list-group-item-text" ng-if="!recruiter.major.majorDontShow" ng-bind="recruiter.major.major"></p>
-
-        <b class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow">Graduation:</b>
-        <p class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow" ng-bind="recruiter.gradDate.date | date:'MMMM-yyyy'"></p>
-
-        <b class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow">E-mail:</b>
-        <p class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow" ng-bind="recruiter.secondaryEmail.email"></p>
-
-        <b class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow">Linkedin:</b>
-        <p class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow" ng-bind="recruiter.linkedin.url"></p>
-
-        </a>
-
-      </div>
+        <table>
+          <tbody>
+            <tr>
+              <td class="list-group-item-text" ng-if="!recruiter.major.majorDontShow" width="120"><b>Major:</b></td>
+              <td class="list-group-item-text" ng-if="!recruiter.major.majorDontShow" ng-bind="recruiter.major.major" width="250"></td>
+            </tr>
+            <tr>
+              <td class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow" width="120"><b>Graduation:</b></td>
+              <td class="list-group-item-text"  ng-if="!recruiter.gradDate.dateDontShow" ng-bind="recruiter.gradDate.date | date:'MMMM-yyyy'"></td>
+            </tr>
+            <tr>
+              <td class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow" width="120"><b>E-mail:</b></td>
+              <td class="list-group-item-text" ng-if="!recruiter.secondaryEmail.secondaryEmailDontShow" ng-bind="recruiter.secondaryEmail.email"></td>
+            </tr>
+            <tr>
+              <td class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow" width="120"><b>Linkedin:</b></td>
+              <td class="list-group-item-text" ng-if="!recruiter.linkedin.linkedinDontShow" ng-bind="recruiter.linkedin.url"></td>
+            </tr>
+          </tbody>
+        </table>
+      </a>
+    </div>
+  </div>
 </section>
