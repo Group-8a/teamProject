@@ -2,7 +2,12 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu);
 
 .navbar-collapse .dropdown-menu{
-  background-color: #0021A5;
+  background-color: #fa4616;
+  border-radius: 20px;
+}
+
+.dropdown-toggle .li :hover {
+  background-color:#0021A5;
 }
 
 .navbar-collapse .navbar-nav .navbar-right{
@@ -58,7 +63,7 @@
 }
 
 .active{
-  color: white;
+  color: #0021A5;
 }
 
 .content {
@@ -124,4 +129,24 @@ p, body {
   border-radius: 20px;
   padding-left: 10px;
   padding-top: 1px;
+}
+
+.list-group .col-md-10 {
+  background: #EBEBEB;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-top: 1px;
+}
+
+.catchAll {
+  background: #EBEBEB;
+  border-radius: 20px;
+  padding-top: 10;
+  border: 10;
+}
+
+.container {
+  padding: 0;
+  margin-left: 50px;
+  margin-right: 50px;
 }
