@@ -118,3 +118,10 @@ p, body {
 .html{
   background: url("https://com-psychiatry-pep.sites.medinfo.ufl.edu/files/2014/07/Century-Tower-APA-Cropped.jpg") !important;
 }
+
+.page-header {
+  background: #EBEBEB;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-top: 1px;
+}
