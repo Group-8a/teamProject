@@ -1,6 +1,6 @@
 <style>
 td{
-  width: 150px;
+  width: 250px;
 }
 </style>
 
@@ -27,20 +27,12 @@ td{
   <div class="col-md-7" border-radius="25px" style="background-color: #FFF; border-radius: 20px; padding: 10px; margin-left:40px; margin-bottom:30px; margin-top:20px;">
     <div ng-hide="userProfile"><h4> Please select a user to view their profile</h4></div>
     <div id="userProfile" ng-show="userProfile">
-      <div class="row">
-        <center>
-          <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px;">
-        </center>
-      </div>
-      <div class="row">
-        <center>
-          <h2>{{ detailedInfo.displayName}}</h2>
-        </center>
-      </div>
+        <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px;height:150px;width:150px;margin-right:20px;margin-top:10px;">
+        <h2>{{ detailedInfo.displayName}}</h2>
       <center>
         <table>
           <tr>
-            <th width="150"><p>Major: </p></th>
+            <th width="100"><p>Major: </p></th>
             <td>
               <p>{{detailedInfo.major.major}} </p>
             </td>
@@ -50,7 +42,7 @@ td{
             </td>
           </tr>
           <tr>
-            <th width="150"><p>UF Email: </p></th>
+            <th width="100"><p>UF Email: </p></th>
             <td>
               <p>{{detailedInfo.primaryEmail.email}} </p>
             </td>
@@ -60,7 +52,7 @@ td{
             </td>
           </tr>
           <tr>
-            <th width="150"><p>Alternate Email: </p></th>
+            <th width="100"><p>Alternate Email: </p></th>
             <td>
               <p>{{detailedInfo.secondaryEmail.email}}</p>
             </td>
@@ -70,7 +62,7 @@ td{
             </td>
           </tr>
           <tr>
-            <th width="150"><p>Role: </p></th>
+            <th width="100"><p>Role: </p></th>
             <td>
               <p> {{detailedInfo.roles[0]}}</p>
             </td>
