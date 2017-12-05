@@ -1,8 +1,38 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu);
 
+a:link {
+  color: #000;
+  text-decoration: none;
+}
+a:active {
+  color: #000;
+  text-decoration: none;
+}
+a:visited {
+  color: #000;
+  text-decoration: none;
+}
+a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.content {
+  background: #ffe6cc;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  background: #DE661E;
+}
+
+.navbar-header {
+  background: #DE661E;
+}
+
 .navbar-collapse .dropdown-menu{
-  background-color: #fa4616;
+  background-color: #DE661E;
   border-radius: 20px;
 }
 
@@ -11,11 +41,11 @@
 }
 
 .navbar-collapse .navbar-nav .navbar-right{
-  background-color: #fa4616;
+  background-color: #DE661E;
 }
 
 .navbar-nav {
-  background-color: #fa4616;
+  background-color: #DE661E;
 }
 
 .navbar .navbar-brand {
@@ -25,11 +55,11 @@
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:active{
   background-color: #0021A5 !important;
-  color: #fa4616 !important;
+  color: #DE661E !important;
 }
 
 .navbar-default {
-  background-color: #fa4616;
+  background-color: #DE661E;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -42,7 +72,7 @@
   }
 
   .navbar-header {
-    background-color: #fa4616;
+    background-color: #DE661E;
   }
 
   .navbar .navbar-brand {
@@ -54,11 +84,11 @@
   }
 
   .navbar-header .navbar-toggle {
-    background-color: #fa4616;
+    background-color: #DE661E;
   }
 
   .navbar-default {
-    background-color: #fa4616;
+    background-color: #DE661E;
   }
 }
 
@@ -106,10 +136,12 @@ a:hover .header-profile-image {
 
 h1, h2, h3, a {
   font-family: 'Ubuntu', serif;
+  color: #000;
 }
 
 p, body {
   font-family: 'Roboto', sans-serif;
+  color: #000;
 }
 
 .well {
@@ -125,21 +157,23 @@ p, body {
 }
 
 .page-header {
-  background: #EBEBEB;
+  background: #FFF;
   border-radius: 20px;
   padding-left: 10px;
   padding-top: 1px;
 }
 
 .list-group .col-md-10 {
-  background: #EBEBEB;
+  background: #ffe6cc;
   border-radius: 20px;
   padding-left: 10px;
   padding-top: 1px;
+  -webkit-box-shadow: 0;
+  box-shadow: 0;
 }
 
 .catchAll {
-  background: #EBEBEB;
+  background: #FFF;
   border-radius: 20px;
   padding-top: 10;
   border: 10;
@@ -149,4 +183,36 @@ p, body {
   padding: 0;
   margin-left: 50px;
   margin-right: 50px;
+}
+
+h1, h2, h3, title {
+  color: #DE661E;
+}
+
+td{
+  width: 200px;
+}
+
+.list-group-item {
+  background: none;
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+  border-bottom-color: #DE661E;
+}
+
+.list-group-item:last-child{
+  border: none;
+}
+
+.list-group {
+  -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+button {
+  background: #DE661E;
+  border-radius: 20px;
+  border: none;
 }

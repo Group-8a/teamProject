@@ -15,22 +15,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a ui-sref="home" class="navbar-brand" style="color: #FFF">MIL</a>
+        <a ui-sref="home" class="navbar-brand" style="color: #ffe6cc">MIL</a>
       </div>
       <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
         <ul class="nav navbar-nav" ng-if="menu.shouldRender(authentication.user);">
           <li class="divider-vertical"></li>
           <li>
-            <a ui-sref="recruiters.list" style="color: #FFF"><span class="glyphicon glyphicon-eye-open"></span> Recruiters</a>
+            <a ui-sref="recruiters.list" style="color: #ffe6cc"><span class="glyphicon glyphicon-eye-open"></span> Members</a>
           </li>
-          <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" style="color: #FFF" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
-            <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button" style="color: #FFF">{{::item.title}}&nbsp;<span class="caret"></span></a>
+          <li ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" style="color: #ffe6cc" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" dropdown="item.type === 'dropdown'">
+            <a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle role="button" style="color: #ffe6cc">{{::item.title}}&nbsp;<span class="caret"></span></a>
             <ul ng-switch-when="dropdown" class="dropdown-menu">
               <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
-                <a ui-sref="{{subitem.state}}" ng-bind="subitem.title" style="color: #FFF" ></a>
+                <a ui-sref="{{subitem.state}}" ng-bind="subitem.title" style="color: #ffe6cc" ></a>
               </li>
             </ul>
-            <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title" style="color: #FFF" ></a>
+            <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title" style="color: #ffe6cc" ></a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
@@ -39,40 +39,40 @@
           </li> -->
           <li class="divider-vertical"></li>
           <li ui-sref-active="active">
-            <a ui-sref="authentication.signin" style="color: #FFF">Sign In</a>
+            <a ui-sref="authentication.signin" style="color: #ffe6cc">Sign In</a>
           </li>
           <li ui-sref-active="active">
-            <a ui-sref="formpage" style="color: #FFF">Sign Up</a>
+            <a ui-sref="formpage" style="color: #ffe6cc">Sign Up</a>
           </li>
           <li class="divider-vertical" ></li>
           <li ui-sref-active="active">
-            <a ui-sref="contactForm" style="color: #FFF">Contact Form</a>
+            <a ui-sref="contactForm" style="color: #ffe6cc">Contact Form</a>
            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
           <li class="dropdown" dropdown>
-            <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" style="color: #FFF">
+            <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" style="color: #ffe6cc">
               <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image" />
               <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" role="menu">
               <li ui-sref-active="active">
-                <a ui-sref="settings.user" style="color: #FFF">My Profile</a>
+                <a ui-sref="settings.user" style="color: #ffe6cc">My Profile</a>
               </li>
               <li ui-sref-active="active">
-                <a ui-sref="settings.profile" style="color: #FFF">Edit Profile</a>
+                <a ui-sref="settings.profile" style="color: #ffe6cc">Edit Profile</a>
               </li>
               <li ui-sref-active="active" ng-show="authentication.user.provider === 'local'">
-                <a ui-sref="settings.password" style="color: #FFF">Change Password</a>
+                <a ui-sref="settings.password" style="color: #ffe6cc">Change Password</a>
               </li>
               <li ui-sref-active="active">
-                <a ui-sref="settings.picture" style="color: #FFF">Change Profile Picture</a>
+                <a ui-sref="settings.picture" style="color: #ffe6cc">Change Profile Picture</a>
               </li>
               <li ui-sref-active="active">
-                <a ui-sref="settings.accounts" style="color: #FFF">Manage Social Accounts</a>
+                <a ui-sref="settings.accounts" style="color: #ffe6cc">Manage Social Accounts</a>
               </li>
               <li>
-                <a href="/api/auth/signout" target="_self" class="btn btn-danger navbar-btn" role="button" style="color: #000"> Signout</a>
+                <a href="/api/auth/signout" target="_self" class="btn btn-danger navbar-btn" role="button" style="color: #000; background-color: #FFF;"> Signout</a>
               </li>
             </ul>
           </li>

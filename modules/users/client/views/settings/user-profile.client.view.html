@@ -7,14 +7,14 @@
 <STYLE type="text/css"></STYLE>
 <section class="row" ng-controller="SettingsController">
 
-  <div class="container" style="margin-left:20px">
+  <div class="container" style="margin-left:20px; margin-top:0px;">
     <div class="page-header">
       <h1><b><center>Profile</center></b></h1>
     </div>
   </div>
 
   <div class="catchAll" style="margin-left:20px">
-    <h2 class="list-group-item-text" style="margin-left:20px" ng-bind="user.displayName"></h2>
+    <b><h2 class="list-group-item-text" style="margin-left:20px" ng-bind="user.displayName"></h2></b>
     <ui-sref="admin.user({userId: user._id})" class="list-group-item" style="border:none; background:none;">
       <div class="col-md-2" style="padding:0" ng-controller="ChangeProfilePictureController">
         <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
@@ -52,7 +52,7 @@
     <div class="container" style="margin-left:5px" style="padding-left: 0">
       <!-- blog -->
       <div class="col-md-6" style="padding-left:0px;">
-        <h2>Blog</h2>
+        <h2><b>Blog</b></h2>
         <div ng-controller="ArticlesController" ng-init="find()">
           <div class="list-group">
             <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
@@ -68,7 +68,7 @@
       </div>
 
       <div class="col-md-6">
-        <h2>New Blog post</h2>
+        <h2><b>New Blog post</b></h2>
         <div ng-controller="ArticlesController">
           <form name="articleForm" class="form-horizontal" ng-submit="create(articleForm.$valid)" novalidate>
             <fieldset>
@@ -82,6 +82,13 @@
               <div class="form-group">
                 <label for="content">Content</label>
                 <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+              </div>
+              <div class="form-group" >
+                <label for="title">Tags: </label>
+                <a ng-repeat="tag in tags">
+                <button type = "button" ng-click = "deleteTags(tag)">{{tag}} x</button>
+                </a>
+                <input type="text" style="width: 150px" placeholder="New Tag" ng-model="newTag"><span class="glyphicon glyphicon-plus-sign" ng-click = "addTags(newTag)"></span>
               </div>
               <div class="form-group">
                 <input type="submit" class="btn btn-default">
