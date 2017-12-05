@@ -4,6 +4,7 @@
   background-image: cover;
 }
 </style>
+
 <html lang="en">
 <head>
   <title>Home Page</title>
@@ -13,18 +14,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<br><br>
-<div class="container-full-bg">
-<div class="jumbotron text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12">
-        <h1>The Machine Intelligence Lab</h1>
-      </div>
-    </div>
+
+<div class="container">
+  <div class="page-header">
+    <h1><b><center><font color="#DE661E">Machine Intelligence Lab</font></center></b></h1>
   </div>
 </div>
-</div>
+
 <div class="container">
   <div id="Carousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -39,7 +35,7 @@
       <div class="item active">
         <img src="https://farm1.staticflickr.com/300/31645359894_a4c919ba60_k.jpg" alt="NaviGator" style="width:100%;">
           <div class="carousel-caption">
-              <h3>Navigator</h3>
+              <h3>NaviGator</h3>
               <p>Autonomous Maritime System</p>
             </div>
       </div>
@@ -91,15 +87,18 @@
 <div class="container">
   <div class="row">
     <div class="col-sm">
-        <h2><b>About</b></h2>
+      <div class="catchAll" style="padding:10px; padding-top:0px;">
+        <h2><b><center><font color="#DE661E">About</font></center></b></h2>
         <p>The Machine Intelligence Laboratory (<b>MIL</b>) provides a synergistic environment dedicated to the study and development of intelligent, autonomous robots. The faculty and students associated with the laboratory conduct research in the theory and realization of machine intelligence covering topics such as machine learning, real-time computer vision, statistical modeling, robot kinematics, autonomous vehicles, teleoperation and human interfaces, robot and nonlinear control, computational intelligence, neural networks, and general robotics. Applications of MIL research include autonomous underwater vehicles (<b>AUVs</b>), autonomous water surface vehicles (<b>ASVs</b>), autonomous land vehicles, autonomous air vehicles (<b>AAVs including quadcopters and micro air vehicles, MAVs</b>), swarm robots, humanoid robots, and autonomous household robots.
         <br><br>
         MIL's SubjuGator is the three time champion autonomous submarine of the RoboSub AUVSI/ONR underwater competition (<b>2005 - 2007</b>), and placed in the top 3 in eleven of the 17 years of the competition (<b>including second place in 2012, 2013, and 2014</b>). In 2013, MIL participated for the first time in the RoboBoat AUVSI/ONR water surface vechicle competition with our PropaGator robot boat; we won! In 2014, we earned second place in the RoboBoat competition. We also won the static division of the 2011 ION Robot Lawnmower competition with MIL's InstiGator robot lawnmower.
         <br><br>
         In the fall of 2005, MIL physically moved next door to CIMAR (<b>The Center for Intelligent Machines and Robotics</b>) in the Mechanical and Aerospace Engineering Department. We relocated our lab facilities and faculty offices adjacent to the CIMAR labs and offices in order to streamline our collaborations. With MIL (<b>from Electrical and Computer Engineering Department</b>) and CIMAR working together, the possibilities are incredible.</p>
+      </div>
     </div>
     <div class="col-sm">
-        <h2><b>Projects</b></h2>
+      <div class="catchAll" style="padding:10px; padding-top:0px;">
+        <h2><b><center><font color="#DE661E">Projects</font></center></b></h2>
         <table class="table text-center table-sm">
           <tbody><tr>
             <td><a href="http://navigatoruf.org" style="color: black"><h3>NaviGator AMS</h3></a>
@@ -117,108 +116,25 @@
         <table class="table text-center table">
           <tbody>
           <tr>
-            <td><h3>InstiGator</h3>
+            <td><h3 style="color: black">InstiGator</h3>
               <p>InstiGator is an autonomous lawn mower designed and built by  undergraduate and graduate students of the Machine Intelligence Lab (<b>MIL</b>). InstiGator has competed twice in Annual ION Robotic Lawn Mower Competitions, earning a second place in 2010 and <b>first place</b> in 2011 (<b>both in the static division</b>).
               </p></td>
-            <td><h3>CongreGators</h3>
+            <td><h3 style="color: black">CongreGators</h3>
               <p>We are developing a swarm of air and ground vehicles, starting with a heterogeneous group (<b>presently three</b>) of hex- and quad-copters and 6 dune buggies...
             </p></td>
           </tr>
         </tbody></table>
-    </div>
-    <div class="col-sm-8 col-sm-offset-2 text-center">
-    <div class="well"
-      <h2><b><a href="https://mil.ufl.edu/ems/">Contact</a></b></h2>
-      <p><span class="glyphicon glyphicon-user"></span> Dr. Schwartz</p>
-      <p><span class="glyphicon glyphicon-phone-alt"> </span> (352) 392-2541</p>
-      <p><span class="glyphicon glyphicon-envelope"> </span> <u>ems@ufl.edu</u></p>
       </div>
-     </div>
+    </div>
+    <div class="catchAll" style="padding:90; border-top:5px">
+      <center>
+        <h2><b><a href="https://mil.ufl.edu/ems/" class="#FFF">Contact</a></b></h2>
+        <p><span class="glyphicon glyphicon-user"></span> Dr. Schwartz</p>
+        <p><span class="glyphicon glyphicon-phone-alt"> </span> (352) 392-2541</p>
+        <p><span class="glyphicon glyphicon-envelope"> </span> <u>ems@ufl.edu</u></p>
+      </center>
+    </div>
     <br><br>
   </div>
 </div>
 </html>
-<!-- <section ng-controller="HomeController">
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/client/img/brand/logo.png" />
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <p class="lead">
-        Open-Source Full-Stack Solution For MEAN Applications
-      </p>
-    </div>
-    <div class="row">
-      <p>
-        <a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
-      </p>
-    </div>
-  </div>
-  <div>
-    <h2>Congrats! You've configured and run the sample application.</h2>
-    <p>MEAN.JS is a web application boilerplate, which means you should start changing everything :-)</p>
-    <p>This sample application tracks users and articles.</p>
-    <ul>
-      <li>
-        Click
-        <em>Sign Up</em> to get started.
-      </li>
-      <li>
-        Configure your app to work with your social accounts, by editing the
-        <em>/config/env/*.js</em> files.
-      </li>
-      <li>
-        Edit your users module.
-      </li>
-      <li>
-        Add new CRUD modules.
-      </li>
-      <li>
-        Have fun...
-      </li>
-    </ul>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <h2><strong>M</strong>ongoDB</h2>
-      <p><a target="_blank" href="http://mongodb.org/">MongoDB</a> is a NoSQL database. MongoDB's <a target="_blank" href="http://docs.mongodb.org/manual/">great manual</a> is the place to get started with NoSQL and MongoDB.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>E</strong>xpress</h2>
-      <p><a target="_blank" href="http://expressjs.com/"> Express</a> is a NodeJS server-side application web framework. Check out <a target="_blank" href="http://expressjs.com/4x/api.html">The ExpressJS API reference for more information</a> or <a target="_blank" href="http://stackoverflow.com/questions/8144214/learning-express-for-node-js">StackOverflow</a> for more info.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>A</strong>ngularJS</h2>
-      <p><a target="_blank" href="http://angularjs.org/">AngularJS</a> is client-side web application framework. The <a target="_blank" href="http://www.thinkster.io/">Thinkster Popular Guide</a> and <a target="_blank" href="https://egghead.io/">Egghead Videos</a> are great resources.</p>
-    </div>
-    <div class="col-md-3">
-      <h2><strong>N</strong>ode.js</h2>
-      <p><a target="_blank" href="http://nodejs.org/">Node.js</a> is a JavaScript run-time, popular for being a web server platform. Node's website and this <a target="_blank" href="http://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">stackOverflow thread</a> offer excellent starting points to get to grasps with node.</p>
-    </div>
-  </div>
-  <div class="well">
-    <h2>MEAN.JS Documentation</h2>
-    <p>
-      Once you're familiar with the foundation technology, check out the MEAN.JS Documentation:
-      <ul>
-        <li><a target="_blank" href="http://meanjs.org/docs.html">MEAN.JS Documentation</a>
-        </li>
-        <!-- <li><a target="_blank" href="http://meanjs.org/generator.html">Yeoman Generator</a>
-				</li>
-        <li><a target="_blank" href="http://meanjs.org/modules.html">Modules</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/changelog.html">Changelog</a>
-        </li>
-        <li><a target="_blank" href="http://meanjs.org/community.html">Community</a>
-        </li>
-        <li><a target="_blank" href="http://blog.meanjs.org">Blog</a>
-        </li>
-      </ul>
-    </p>
-  </div>
-  <br>Enjoy &amp; Keep Us Updated,
-  <br>The MEAN.JS Team.
-</section> -->

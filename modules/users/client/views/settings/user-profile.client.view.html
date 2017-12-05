@@ -4,16 +4,18 @@
   </style>
 </head>
 
-<body>
-  <STYLE type="text/css"></STYLE>
-<section ng-controller="SettingsController">
-  <div class="page-header">
-    <h1><b>Profile</b></h1>
+<STYLE type="text/css"></STYLE>
+<section class="row" ng-controller="SettingsController">
+
+  <div class="container" style="margin-left:20px; margin-top:0px;">
+    <div class="page-header">
+      <h1><b><center>Profile</center></b></h1>
+    </div>
   </div>
 
-  <h2 class="list-group-item-text" ng-bind="user.displayName"></h2>
-  <div class="container" style="padding: 0">
-    <ui-sref="admin.user({userId: user._id})" class="list-group-item" style="border:none">
+  <div class="catchAll" style="margin-left:20px">
+    <b><h2 class="list-group-item-text" style="margin-left:20px" ng-bind="user.displayName"></h2></b>
+    <ui-sref="admin.user({userId: user._id})" class="list-group-item" style="border:none; background:none;">
       <div class="col-md-2" style="padding:0" ng-controller="ChangeProfilePictureController">
         <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
       </div>
@@ -41,57 +43,63 @@
           </tbody>
         </table>
       </div>
-    </div>
     </a>
-  </div>
+    <p></p>
     <a href="settings/profile">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a>
+  </div>
 
-
-
-  <div class="container" style="padding-left: 0">
-    <!-- blog -->
-    <div class="col-md-6" style="padding-left: 0">
-      <h2>Blog</h2>
-      <div ng-controller="ArticlesController" ng-init="find()">
-        <div class="list-group">
-          <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
-            <h3 class="list-group-item-heading" ng-bind="article.title"></h3>
-            <small class="list-group-item-text">
-              <span ng-bind="article.created | date:'mediumDate'"></span>
-            </small>
-            <p class="list-group-item-text" ng-bind="article.content"></p>
-            <small>Tags: <span ng-bind="article.tags"></span></small>
-          </a>
+  <div class="catchAll" style="margin-left:20px; margin-top:30px; margin-bottom: 50px;">
+    <div class="container" style="margin-left:5px" style="padding-left: 0">
+      <!-- blog -->
+      <div class="col-md-6" style="padding-left:0px;">
+        <h2><b>Blog</b></h2>
+        <div ng-controller="ArticlesController" ng-init="find()">
+          <div class="list-group">
+            <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+              <h3 class="list-group-item-heading" ng-bind="article.title"></h3>
+              <small class="list-group-item-text">
+                <span ng-bind="article.created | date:'mediumDate'"></span>
+              </small>
+              <p class="list-group-item-text" ng-bind="article.content"></p>
+              <small>Tags: <span ng-bind="article.tags"></span></small>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
-      <h2>New Blog post</h2>
-      <div ng-controller="ArticlesController">
-        <form name="articleForm" class="form-horizontal" ng-submit="create(articleForm.$valid)" novalidate>
-          <fieldset>
-            <div class="form-group" style="padding-left: 5" show-errors>
-              <label for="title">Title</label>
-              <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
-              <div ng-messages="articleForm.title.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Article title is required.</p>
+      <div class="col-md-6">
+        <h2><b>New Blog post</b></h2>
+        <div ng-controller="ArticlesController">
+          <form name="articleForm" class="form-horizontal" ng-submit="create(articleForm.$valid)" novalidate>
+            <fieldset>
+              <div class="form-group" style="padding-left: 5" show-errors>
+                <label for="title">Title</label>
+                <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                <div ng-messages="articleForm.title.$error" role="alert">
+                  <p class="help-block error-text" ng-message="required">Article title is required.</p>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="content">Content</label>
-              <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-            </div>
-            <div class="form-group">
-              <input type="submit" class="btn btn-default">
-            </div>
-            <div ng-show="error" class="text-danger">
-              <strong ng-bind="error"></strong>
-            </div>
-          </fieldset>
-        </form>
+              <div class="form-group">
+                <label for="content">Content</label>
+                <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+              </div>
+              <div class="form-group" >
+                <label for="title">Tags: </label>
+                <a ng-repeat="tag in tags">
+                <button type = "button" ng-click = "deleteTags(tag)">{{tag}} x</button>
+                </a>
+                <input type="text" style="width: 150px" placeholder="New Tag" ng-model="newTag"><span class="glyphicon glyphicon-plus-sign" ng-click = "addTags(newTag)"></span>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="btn btn-default">
+              </div>
+              <div ng-show="error" class="text-danger">
+                <strong ng-bind="error"></strong>
+              </div>
+            </fieldset>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
-</body>

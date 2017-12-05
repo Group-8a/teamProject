@@ -1,94 +1,94 @@
 <section ng-controller="UserListController">
   <div class="page-header">
-    <div class="row">
-      <div class="col-md-4">
-        <h1>Users</h1>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
-      </div>
+    <h1 style="margin-left:15px">Users</h1>
+    <div class="col-xs-12 col-sm-8">
+      <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()">
     </div>
+    <br></br>
   </div>
-  <div class="col-md-8"> <!--ADD in ng-controller="UserListController"-->
-    <div class="list-group"> <!-- changed this line -->
-      <!-- <a ng-repeat="user in users.admin" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
-    <!--  <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" ng-click="displayDetails($index)" class="list-group-item"> -->
+
+  <div class="col-md-4" style="margin-top:20px;">
+    <div class="list-group" style="background:#FFF;">
       <a ng-repeat="user in pagedItems" ng-click="displayDetails($index); showProfile(); date($index)" class="list-group-item">
         <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
       </a>
     </div>
-    <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+    <center>
+      <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+    </center>
   </div>
-  <div class="col-md-4" border-radius="25px" style="background-color: #FFEFCF">
+
+  <div class="col-md-7" border-radius="25px" style="background-color: #FFF; border-radius: 20px; padding: 10px; margin-left:40px; margin-bottom:30px; margin-top:20px;">
     <div ng-hide="userProfile"><h4> Please select a user to view their profile</h4></div>
     <div id="userProfile" ng-show="userProfile">
-    <table>
-      <tr>
-        <th>
-          <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px" >
-        </th>
-        <th>
-          <h2> {{ detailedInfo.displayName}} </h2>
-        </th>
-      </tr>
-      <tr>
-        <th><p>Linkedin: </p></th>
-        <td>
-          <p> {{detailedInfo.linkedin.url}} </p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>Major: </p></th>
-        <td>
-          <p>{{detailedInfo.major.major}} </p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>Email: </p></th>
-        <td>
-          <p>{{detailedInfo.primaryEmail.email}} </p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>NON-UF Email: </p></th>
-        <td>
-          <p>{{detailedInfo.secondaryEmail.email}}</p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>Graduation Date: </p></th>
-        <td>
-          <p> {{gradDate}}</p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>Joined Lab: </p></th>
-        <td>
-          <p> {{joinDate}}</p>
-        </td>
-      </tr>
-      <tr>
-        <th><p>Role: </p></th>
-        <td>
-          <p> {{detailedInfo.roles[0]}}</p>
-        </td>
-      </tr>
-    </table>
+      <div class="row">
+        <center>
+          <img class="img" ng-src="{{detailedInfo.profileImageURL}}" style=".image: 25px;">
+        </center>
+      </div>
+      <div class="row">
+        <center>
+          <h2>{{ detailedInfo.displayName}}</h2>
+        </center>
+      </div>
+      <center>
+        <table>
+          <tr>
+            <th width="150"><p>Major: </p></th>
+            <td>
+              <p>{{detailedInfo.major.major}} </p>
+            </td>
+            <th width="150"><p>Linkedin: </p></th>
+            <td>
+              <p> {{detailedInfo.linkedin.url}} </p>
+            </td>
+          </tr>
+          <tr>
+            <th width="150"><p>UF Email: </p></th>
+            <td>
+              <p>{{detailedInfo.primaryEmail.email}} </p>
+            </td>
+            <th width="150"><p>Graduation Date: </p></th>
+            <td>
+              <p> {{gradDate}}</p>
+            </td>
+          </tr>
+          <tr>
+            <th width="150"><p>Alternate Email: </p></th>
+            <td>
+              <p>{{detailedInfo.secondaryEmail.email}}</p>
+            </td>
+            <th width="150"><p>Joined Lab: </p></th>
+            <td>
+              <p> {{joinDate}}</p>
+            </td>
+          </tr>
+          <tr>
+            <th width="150"><p>Role: </p></th>
+            <td>
+              <p> {{detailedInfo.roles[0]}}</p>
+            </td>
+          </tr>
+        </table>
+      </center>
+
     <div class="col" ng-controller="ArticlesController" ng-init="find()">
-      <button type="button" ng-click="remove()">Remove User x </button>
-      <button type="button" ng-click="getUser(detailedInfo); showBlog()">Show Blogs </button>
-          <div class="list-group">
-            <a ng-show="userBlogs" ng-repeat="article in articles | filter:testFilter" ng-filter class="list-group-item">
-              <small class="list-group-item-text">
-                Posted on
-                <span ng-bind="article.created | date:'mediumDate'"></span>
-                by
-                <span ng-bind="article.user.displayName"></span>
-              </small>
-              <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
-              <p class="list-group-item-text" ng-bind="article.content"></p>
-            </a>
-          </div>
+      <center>
+        <button type="button" ng-click="remove()"><font color="#FFF">Remove User</font></button>
+        <button type="button" ng-click="getUser(detailedInfo); showBlog()"><font color="#FFF">Show Blogs</font></button>
+      </center>
+      <div class="list-group">
+        <a ng-show="userBlogs" ng-repeat="article in articles | filter:testFilter" ng-filter class="list-group-item">
+          <small class="list-group-item-text">
+            Posted on
+            <span ng-bind="article.created | date:'mediumDate'"></span>
+            by
+            <span ng-bind="article.user.displayName"></span>
+          </small>
+          <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
+          <p class="list-group-item-text" ng-bind="article.content"></p>
+        </a>
+      </div>
       <style>
       .img {
         position: relative;
@@ -100,7 +100,6 @@
       </style>
     </div>
     </div>
-    <!--  <p>Date Joined Lab: {{detailedInfo.joinLab}} </p>-->
   </div>
 
 
