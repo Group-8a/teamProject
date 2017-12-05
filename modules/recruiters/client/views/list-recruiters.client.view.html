@@ -1,6 +1,8 @@
 <head>
   <style>
-    td {font-size: 20px;}
+    td {
+      font-size: 20px;
+    }
   </style>
 </head>
 
@@ -11,7 +13,7 @@
       <div class="input-group">
            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for..." ng-model="searchUsersText">
            <span class="input-group-btn">
-             <button class="btn btn-secondary" type="button">Go!</button>
+             <button class="btn btn-secondary" type="button" style="color:#FFF;">Go!</button>
            </span>
       </div>
     </div>
@@ -19,7 +21,7 @@
   </div>
 
   <!-- Profile -->
-  <div class="list-group col-xs-12 col-sm-8">
+  <div class="list-group col-md-13">
     <div class="catchAll" style="margin:0;">
       <a ng-repeat="recruiter in vm.recruiters | filter:searchUsers"  ui-sref="recruiters.view({ recruiterId: recruiter._id })" class="list-group-item">
         <table style="border-radius: 20px;">

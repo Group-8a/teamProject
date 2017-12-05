@@ -11,13 +11,13 @@
       </em>
     </div>
   </div>
-  <div class="catchAll" style="padding-top:7px; padding-left:10px; padding-right:10px; padding-bottom:0px">
+  <div class="catchAll" style="padding-top:7px; padding-left:10px; padding-right:10px; padding-bottom:0px; min-height:60px;">
     <div class="pull-right" ng-show="authentication.user._id == article.user._id">
       <a class="btn btn-primary" ui-sref="articles.edit({articleId: article._id})">
-        <i class="glyphicon glyphicon-edit"></i>
+        <i class="glyphicon glyphicon-edit" style="color:#DE661E"></i>
       </a>
       <a class="btn btn-primary" ng-click="remove();">
-        <i class="glyphicon glyphicon-trash"></i>
+        <i class="glyphicon glyphicon-trash" style="color:#DE661E"></i>
       </a>
     </div>
     <p class="lead" ng-bind="article.content" style="font-size:20px"></p>

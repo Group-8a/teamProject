@@ -23,7 +23,7 @@
         <table>
           <tbody>
             <tr>
-              <td width="120" height="50"><b>Major: </b></td>
+              <td width=120" height="50"><b>Major: </b></td>
               <td class="list-group-item-text" ng-bind="user.major.major"  width="250"></td>
               <td width="200"><b>Graduation Date: </b></td>
               <td class="list-group-item-text" ng-bind="user.gradDate.date" width="200"></td>
@@ -45,14 +45,14 @@
       </div>
     </a>
     <p></p>
-    <a href="settings/profile">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a>
+    <a href="settings/profile" style="margin-left:50px">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a>
   </div>
 
   <div class="catchAll" style="margin-left:20px; margin-top:30px; margin-bottom: 50px;">
     <div class="container" style="margin-left:5px" style="padding-left: 0">
       <!-- blog -->
       <div class="col-md-6" style="padding-left:0px;">
-        <h2><b>Blog</b></h2>
+        <h2 style="padding-left:20px"><b>Blog</b></h2>
         <div ng-controller="ArticlesController" ng-init="find()">
           <div class="list-group">
             <a ng-repeat="article in articles | filter:filterArticles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
@@ -88,7 +88,8 @@
                 <a ng-repeat="tag in tags">
                 <button type = "button" ng-click = "deleteTags(tag)">{{tag}} x</button>
                 </a>
-                <input type="text" style="width: 150px" placeholder="New Tag" ng-model="newTag"><span class="glyphicon glyphicon-plus-sign" ng-click = "addTags(newTag)"></span>
+                <input type="text" class="rounded" style="width: 150px; margin-bottom:3px; background-color:#ffe6cc" placeholder="New Tag" ng-model="newTag">
+                <span class="glyphicon glyphicon-plus-sign" ng-click = "editTags(newTag, 'add')"></span>
               </div>
               <div class="form-group">
                 <input type="submit" class="btn btn-default">
