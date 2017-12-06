@@ -8,6 +8,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   User = mongoose.model('User'),
+  Student = mongoose.model('Recruiter'),
   config = require(path.resolve('./config/config')),
   nodemailer = require('nodemailer'),
   async = require('async'),
@@ -18,13 +19,12 @@ var noReturnUrls = [
   '/authentication/signup',
   './authentication/invite'
 ];
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Signup
  */
 exports.inviteSignin = function(req, res){
-  var ufid = req.body.ufid;
   var token = req.body.inviteToken;
   User.findOne({ inviteToken: req.body.inviteToken }, 'ufid', function(err, user){
     if (!user){
@@ -32,7 +32,7 @@ exports.inviteSignin = function(req, res){
     }
     else {
       if (user.ufid === req.body.ufid){
-        res.status(200).send('True');
+        res.status(200).send(['True', req.body.inviteToken]);
       }
       else {
         res.status(200).send('Ufid does not match');
@@ -42,22 +42,38 @@ exports.inviteSignin = function(req, res){
 };
 
 exports.invite = function(req, res){
-  var user = new User(req.body);
+  var user = new User(req.body.newUser);
   var token = Math.random().toString(36).substr(2, 5);
-  user.ufid = req.body.ufid;
-  user.email = req.body.email;
+  //user.ufid = req.body.ufid;
+  //user.primaryEmail.email = req.body.pemail;
+  user.primaryEmail.email = req.body.primaryEmail.email;
   user.provider = 'local';
-  user.role = 'user';
+  if(req.body.roles.admin === true){
+    user.roles = ['admin'];
+  }
   user.username = token;
   user.inviteToken = token;
+  user.firstName = "Invited User";
+  user.last.lastName = token;
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     }
-
     res.json(user);
+  });
+};
+
+exports.student = function(req, res) {
+  var astudent = new Student(req.body.credentials);
+  astudent.save(function (err) {
+    if (err) {
+      console.log(errorHandler.getErrorMessage(err));
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
   });
 };
 
@@ -66,11 +82,12 @@ exports.signup = function (req, res) {
   delete req.body.roles;
 
   // Init user and add missing fields
-  var user = new User(req.body);
+
+  var user = new User(req.body.credentials);
 
 
   user.provider = 'local';
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.displayName = user.firstName + ' ' + user.last.lastName;
 
   // Then save the user
   user.save(function (err) {
@@ -94,6 +111,57 @@ exports.signup = function (req, res) {
   });
 };
 
+exports.verifyForm = function (req, res) {
+  var token = req.body.credentials.inviteToken;
+  User.findOne({ inviteToken: req.body.credentials.inviteToken }, function(err, user) {
+    if (err) {
+      res.status(400).send('An error occured');
+    } else if (user === null) {
+      res.status(400).send('Not a valid invite token');
+    } else if (user !== null && user.inviteTokenExpired === true) {
+      res.status(400).send('Invite token has been used already');
+    } else {
+      user.firstName = req.body.credentials.firstName;
+      user.last.lastName = req.body.credentials.last.lastName;
+      user.last.lastNameDontShow = req.body.credentials.last.lastNameDontShow;
+      user.primaryEmail.email = req.body.credentials.primaryEmail.email;
+      user.primaryEmail.emailDontShow = req.body.credentials.primaryEmail.emailDontShow;
+      user.username = req.body.credentials.username;
+      user.secondaryEmail.email = req.body.credentials.secondaryEmail.email;
+      user.secondaryEmail.secondaryEmailDontShow = req.body.credentials.secondaryEmail.secondaryEmailDontShow;
+      user.major.major = req.body.credentials.major.major;
+      user.major.majorDontShow = req.body.credentials.major.majorDontShow;
+      user.password = req.body.credentials.password;
+      user.gradDate.date = req.body.credentials.gradDate.date;
+      user.gradDate.dateDontShow = req.body.credentials.gradDate.dateDontShow;
+      user.linkedin.url = req.body.credentials.linkedin.url;
+      //user.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
+      user.joinLab = req.body.credentials.joinLab;
+      user.displayName = user.firstName + ' ' + user.last.lastName;
+      user.inviteTokenExpired = true;
+
+      user.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          user.password = undefined;
+          user.salt = undefined;
+
+          req.login(user, function (err) {
+            if (err) {
+              res.status(400).send(err);
+            } else {
+              res.json(user);
+            }
+          });
+        }
+
+      });
+    }
+  });
+};
 /**
  * Signin after passport authentication
  */
@@ -300,60 +368,37 @@ exports.removeOAuthProvider = function (req, res, next) {
   });
 };
 
-exports.sendInvite = function (req, res) {
-    //send email
-/*  var user = new User(req.body);
-  user.ufid = req.body.ufid;
-  user.email = req.body.email;
-  user.inviteToken = req.body.initeToken;
-*/
-
-  async.waterfall([
-    function(done){
-      User.findOne({ inviteToken: req.body.inviteToken }, 'email', function(err, user){
-        if (!user){
-          res.status(200).send('no invite token');
-        }
-        else{
-          var emailaddress = user.email;
-          console.log(user);
-          done(user);
-        }
-      });
-    },
-    function(user, done){
-      var httpTransport = 'http://';
-      if (config.secure && config.secure.ssl === true) {
-        httpTransport = 'https://';
-      }
-      res.render(path.resolve('modules/users/server/templates/invite-email'), {
-        url: 'url',
-        token: req.body.inviteToken
-        //invite: token
-      }, function (err, emailHTML, user, done) {
-        done(err, emailHTML);
-      });
-    },
-  // If valid email, send reset email using service
-    function (emailHTML, user, done) {
-      var mailOptions = {
-        to: user.email,
-        from: config.mailer.from,
-        subject: 'Inviation to signup to MIL',
-        html: emailHTML
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        if (!err) {
-          res.send({
-            message: 'An email has been sent to the provided email with further instructions.'
-          });
-        } else {
-          return res.status(400).send({
-            message: 'Failure sending email'
-          });
-        }
-        done(err);
+exports.sendInvite = function (req, res, next) {
+  //var emailhtml = undefined;
+  //console.log('here');
+  User.findOne({ 'primaryEmail.email': req.body.primaryEmail.email }, 'inviteToken', function (err, user) {
+    if (!err && user) {
+      var inviteToken = user.inviteToken;
+    } else {
+      return res.status(400).send({
+        message: 'email is invalid or has expired.'
       });
     }
-  ]);
+  }).then(function (user, inviteToken, email) {
+    var textemail = "Hello! \n \n You have been invited to join MIL! \n Please use the following invite code and url to create a new account: \n" + user.inviteToken +"\n http://localhost:3000/authentication/inviteSignin \n \n \n  Have great day, \n The MIL Team";
+    var mailOptions = {
+      to: req.body.primaryEmail.email,
+      from: config.mailer.from,
+      subject: 'You are invited to MIL!',
+      text: textemail
+    };
+
+    smtpTransport.sendMail(mailOptions, function (err) {
+      if (!err) {
+        res.send({
+          message: 'An email has been sent to the provided email with further instructions.'
+        });
+      } else {
+        console.log(err);
+        return res.status(400).send({
+          message: 'Failure sending email'
+        });
+      }
+    });
+  });
 };

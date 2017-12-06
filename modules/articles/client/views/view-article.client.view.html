@@ -1,22 +1,25 @@
 <section ng-controller="ArticlesController" ng-init="findOne()">
-  <div class="page-header">
-    <h1 ng-bind="article.title"></h1>
+  <div class="catchAll">
+    <div class="page-header">
+      <h1 ng-bind="article.title"></h1>
+      <em class="text-muted">
+        Posted on
+        <span ng-bind="article.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="article.user.displayName"></span>
+        <h5>Tags: <span ng-bind="article.tags"></span></h5>
+      </em>
+    </div>
   </div>
-  <div class="pull-right" ng-show="authentication.user._id == article.user._id">
-    <a class="btn btn-primary" ui-sref="articles.edit({articleId: article._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+  <div class="catchAll" style="padding-top:7px; padding-left:10px; padding-right:10px; padding-bottom:0px; min-height:60px;">
+    <div class="pull-right" ng-show="authentication.user._id == article.user._id">
+      <a class="btn btn-primary" ui-sref="articles.edit({articleId: article._id})">
+        <i class="glyphicon glyphicon-edit" style="color:#DE661E"></i>
+      </a>
+      <a class="btn btn-primary" ng-click="remove();">
+        <i class="glyphicon glyphicon-trash" style="color:#DE661E"></i>
+      </a>
+    </div>
+    <p class="lead" ng-bind="article.content" style="font-size:20px"></p>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="article.created | date:'mediumDate'"></span>
-      by
-      <span ng-bind="article.user.displayName"></span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="article.content"></p>
 </section>

@@ -17,6 +17,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       url: '/',
       templateUrl: 'modules/core/client/views/home.client.view.html'
     })
+    .state('contactForm',{
+      url:'/contactForm',
+      templateUrl: 'modules/core/client/views/contactform.client.view.html'
+    })
     .state('not-found', {
       url: '/not-found',
       templateUrl: 'modules/core/client/views/404.client.view.html',
@@ -31,6 +35,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         ignoreState: true
       }
     })
+
     .state('forbidden', {
       url: '/forbidden',
       templateUrl: 'modules/core/client/views/403.client.view.html',

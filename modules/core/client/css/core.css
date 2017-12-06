@@ -1,3 +1,101 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+
+a:link {
+  color: #000;
+  text-decoration: none;
+}
+a:active {
+  color: #000;
+  text-decoration: none;
+}
+a:visited {
+  color: #000;
+  text-decoration: none;
+}
+a:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.content {
+  background: #ffe6cc;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  background: #DE661E;
+}
+
+.navbar-header {
+  background: #DE661E;
+}
+
+.navbar-collapse .dropdown-menu{
+  background-color: #DE661E;
+  border-radius: 20px;
+}
+
+.dropdown-toggle .li :hover {
+  background-color:#0021A5;
+}
+
+.navbar-collapse .navbar-nav .navbar-right{
+  background-color: #DE661E;
+}
+
+.navbar-nav {
+  background-color: #DE661E;
+}
+
+.navbar .navbar-brand {
+  background-color:  #0021A5;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active{
+  background-color: #0021A5 !important;
+  color: #DE661E !important;
+}
+
+.navbar-default {
+  background-color: #DE661E;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white !important;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    background-color: #0021A5;
+  }
+
+  .navbar-header {
+    background-color: #DE661E;
+  }
+
+  .navbar .navbar-brand {
+    background-color:  #0021A5 !important;
+  }
+
+  .navbar-collapse {
+    background-color: #0021A5;
+  }
+
+  .navbar-header .navbar-toggle {
+    background-color: #DE661E;
+  }
+
+  .navbar-default {
+    background-color: #DE661E;
+  }
+}
+
+.active{
+  color: #0021A5;
+}
+
 .content {
   margin-top: 50px;
 }
@@ -34,4 +132,129 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+
+h1, h2, h3, a {
+  font-family: 'Ubuntu', serif;
+  color: #000;
+}
+
+p, body {
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+}
+
+.well {
+    background: rgba(0, 33, 165, 0.1) !important;
+}
+
+.jumbotron{
+    background: rgba(0, 33, 165, 0.1) !important;
+}
+
+.html{
+  background: url("https://com-psychiatry-pep.sites.medinfo.ufl.edu/files/2014/07/Century-Tower-APA-Cropped.jpg") !important;
+}
+
+.page-header {
+  background: #FFF;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-top: 1px;
+}
+
+.list-group .col-md-10 {
+  background: #ffe6cc;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-top: 1px;
+  -webkit-box-shadow: 0;
+  box-shadow: 0;
+}
+
+.catchAll {
+  background: #FFF;
+  border-radius: 20px;
+  padding-top: 10;
+  border: 10;
+}
+
+.container {
+  padding: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+h1, h2, h3, title {
+  color: #DE661E;
+}
+
+.list-group-item {
+  background: none;
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+  border-bottom-color: #DE661E;
+}
+
+.list-group-item:last-child{
+  border: none;
+}
+
+.list-group {
+  -webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+button {
+  background: #DE661E;
+  border-radius: 20px;
+  border: none;
+}
+
+.btn-default, .btn-primary {
+  background: #FFF;
+  border: none;
+}
+
+.btn-default :hover{
+  background: #DE661E;
+  border: none;
+}
+
+.glyphicon {
+  color: #FFF;
+  border: none;
+  -moz-border-radius: none;
+	-webkit-border-radius: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+input.rounded {
+	border: none;
+	-moz-border-radius: none;
+	-webkit-border-radius: none;
+	border-radius: 10px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	font-size: 12px;
+	padding: 4px 7px;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.form-control {
+  border: none;
+  background: #ffe6cc;
+  border-radius: 10px;
+}
+
+.carousel .carousel-inner{
+  height: 400px;
 }

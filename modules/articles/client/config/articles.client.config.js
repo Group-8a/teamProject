@@ -5,23 +5,23 @@ angular.module('articles').run(['Menus',
   function (Menus) {
     // Add the articles dropdown item
     Menus.addMenuItem('topbar', {
-      title: 'Articles',
+      title: 'Blog Posts',
       state: 'articles',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user','admin']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'articles', {
-      title: 'List Articles',
+      title: 'See Blog Posts',
       state: 'articles.list'
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'articles', {
-      title: 'Create Articles',
+      title: 'Create a Blog Post',
       state: 'articles.create',
-      roles: ['user']
+      roles: ['user', 'admin']
     });
   }
 ]);

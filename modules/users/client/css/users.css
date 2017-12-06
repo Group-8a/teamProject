@@ -11,6 +11,7 @@
   top: 10px;
   right: 10px;
   position: absolute;
+
 }
 .btn-file {
   position: relative;
@@ -33,4 +34,8 @@
 .user-profile-picture {
   min-height: 150px;
   max-height: 150px;
+}
+
+.userInfo {
+  color: blue;
 }

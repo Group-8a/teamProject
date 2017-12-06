@@ -2,38 +2,76 @@
   <h3 class="col-md-12 text-center">Sign Up Form</h3>
   <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
     <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <body>
       <fieldset>
+        <div class="form-group" show-errors>
+          <label for="inviteToken">Invite Token</label>
+          <input type="text" id="inviteToken" name="inviteToken" class="form-control" ng-model="credentials.inviteToken" placeholder="Invite Token" required>
+        </div>
         <div class="form-group" show-errors>
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="First Name" required>
         </div>
         <div class="form-group" show-errors>
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="Last Name" required>
+          <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.last.lastName" placeholder="Last Name" required>
         </div>
         <div class="form-group" show-errors>
-          <label for="gradDate">Graduation Date</label>
-          <input type="number" id="gradDate" name="gradDate" class="form-control"  placeholder="Graduation Date">
+          <input type="checkbox" id="lastNameDontShow" name="lastNameShow" ng-model="credentials.last.lastNameDontShow"> Do not show last name on public website
+        </div>
+        <div class="form-group" show-errors>
+          <label for="gradDate"> Expected Graduation Date</label>
+          <input type="date" id="gradDate" name="gradDate" ng-model="credentials.gradDate.date" class="form-control"  placeholder="Graduation Date">
+        </div>
+        <div class="form-group">
+            <input type="checkbox" ng-model="credentials.gradDate.dateDontShow"> Do not show graduation date on public website
         </div>
         <div class="form-group" show-errors>
           <label for="major">Major</label>
-          <input type="text" id="major" name="major" class="form-control" ng-model="credentials.major" placeholder="Major" lowercase required>
+          <!--<input type="text" id="major" name="major" class="form-control" ng-model="credentials.major.major" placeholder="Major" lowercase required> -->
+          <select ng-model="credentials.major.major">
+            <option value="Electrical Engineering"> Electrical Engineering </option>
+            <option value="Computer Engineering"> Computer Engineering </option>
+            <option value="Computer Science Engineering"> Computer Science Engineering </option>
+            <option value="Computer Science"> Computer Science </option>
+            <option value="Mechanical Engineering"> Mechanical Engineering </option>
+            <option value="Aerospace Engineering"> Aerospace Engineering </option>
+            <option value="Other"> Other </option>
+          </select>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" ng-model="credentials.major.majorDontShow"> Do not show on public website
+        </div>
+        <div class="form-group">
+          <label for = "projects">Projects you have worked on/are currently working on</label>
+          <input type="checkbox" ng-model="credentials.projects.subjuGator">subjuGator</input>
+          <input type="checkbox" ng-model="credentials.projects.naviGator">naviGator</input>
+          <input type="checkbox" ng-model="credentials.projects.propaGator">propaGator</input>
         </div>
         <div class="form-group" show-errors>
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase required>
+          <input type="email" id="email" name="email" class="form-control" ng-model="credentials.primaryEmail.email" placeholder="Email" lowercase required>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" id="emailDontShow" ng-model="credentials.primaryEmail.emailDontShow"> Do not show email on public website
         </div>
         <div class="form-group" show-errors>
-          <label for="alternateEmail">Alternate Email</label>
-          <input type="email" id="alternateEmail" name="alternateEmail" class="form-control" ng-model="credentials.alternateEmail" placeholder="Alternate Email" lowercase required>
+          <label for="alternateEmail">Non-UF email (Gmail recommended)</label>
+          <input type="email" id="alternateEmail" name="alternateEmail" class="form-control" ng-model="credentials.secondaryEmail.email" placeholder="Alternate Email" lowercase required>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="secondaryEmailDontShow" ng-model="credentials.secondaryEmail.secondaryEmailDontShow"> Do not show alternate email on public website
         </div>
         <div class="form-group" show-errors>
           <label for="linkedin">Linkedin</label>
-          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin" placeholder="Linkedin" lowercase required>
+          <input type="text" id="linkedin" name="linkedin" class="form-control" ng-model="credentials.linkedin.url" placeholder="Linkedin" lowercase required>
+        </div>
+        <div class="form group">
+          <input type="checkbox" ng-model="credentials.linkedin.linkedinDontShow"> Do not show linkedin on public website
         </div>
         <div class="form-group" show-errors>
           <label for="joinlab">Date of joining lab</label>
-          <input type="date" id="joinlab" name="joinlab" class="form-control"  placeholder="Date of joining lab">
+          <input type="date" id="joinlab" name="joinlab" class="form-control" ng-model="credentials.joinLab" placeholder="Date of joining lab">
         </div>
          <div class="form-group" show-errors>
           <label for="username">Username</label>
@@ -43,25 +81,15 @@
           <label for="password">Password</label>
           <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="Password" popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
         </div>
-
-        <div class="text-center form-group" ng-hide="uploader.queue.length">
-           <span class="btn btn-default btn-file">
-            Select Image <input type="file" nv-file-select uploader="uploader">
-            </span>
-          </div>
-          <div class="text-center form-group" ng-show"uploader.queue.length">
-            <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
-            <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button><br>
-          </div>
-
+        <div ng-show="error" class="text-center text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
         <div class="text-center form-group">
           <button type="submit" class="btn btn-primary">Sign up</button>
           &nbsp;
         </div>
-        <div ng-show="error" class="text-center text-danger">
-          <strong ng-bind="error"></strong>
-        </div>
       </fieldset>
+    </body>
     </form>
   </div>
 </div>

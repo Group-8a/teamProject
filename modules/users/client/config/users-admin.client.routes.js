@@ -4,11 +4,11 @@
 angular.module('users.admin.routes').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
-      .state('admin.users', {
-        url: '/users',
-        templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'UserListController'
-      })
+      // .state('admin.users', {
+      //   url: '/users',
+      //   templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
+      //   controller: 'UserListController'
+      // })
     /*  .state('admin.user-invite', {
         url: '/invite_user',
         templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
@@ -30,13 +30,13 @@ angular.module('users.admin.routes').config(['$stateProvider',
         url: '/invite_user',
         templateUrl: 'modules/users/client/views/admin/invite-users.client.view.html',
         controller: 'AuthenticationController',
-        resolve: {
+        /*resolve: {
           userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
             return Admin.get({
               userId: $stateParams.userId
             });
           }]
-        }
+        }*/
       })
       .state('admin.user-edit', {
         url: '/users/:userId/edit',
@@ -62,9 +62,15 @@ angular.module('users.admin.routes').config(['$stateProvider',
           }]
         }
       })
-      .state('test', {
-        url: '/test',
-        templateUrl: 'modules/users/client/views/admin/allStudentsView.html',
+      .state('admin.users', {
+        url: '/users',
+        templateUrl:'modules/users/client/views/admin/allStudentsView.html',
+        //controller: 'UserListController'
+        //controller: 'ArticlesController'
+      })
+      .state('profile', {
+        url: '/user',
+        templateUrl: 'modules/users/client/views/admin/user-profile.client.view.html',
         controller: 'UserListController'
       });
 

@@ -1,20 +1,54 @@
 <section ng-controller="ArticlesController" ng-init="find()">
-  <div class="page-header">
-    <h1>Articles</h1>
+  <div class="page-header" style="margin-bottom: 0">
+    <h1><b><center>MIL Blog Posts</center></b></h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="article in articles" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="article.created | date:'mediumDate'"></span>
-        by
-        <span ng-bind="article.user.displayName"></span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
-      <p class="list-group-item-text" ng-bind="article.content"></p>
-    </a>
+
+  <div class="list-group | col-md-10" style="border:none;">
+    <div class="catchAll" style="margin-top:10px; margin-bottom:10px; margin-right:10px; background:#DE661E">
+      <span style="font-size:30px; vertical-align:middle; margin-top: 50px; margin-bottom: 50px; margin-left: 20px; color:#ffe6cc">Filters: </span>
+      <span style="font-size:h2; vertical-align:middle;">
+        <a ng-repeat="tag in tags" ng-click=deleteTags(tag)>
+          <font color="white"><span>&#10006 </span></font><font color="#ffe6cc">{{tag}}</font>
+        </a>
+      </span>
+    </div>
+
+    <div class="catchAll" style="background:#FFF; margin-right:10px;">
+      <a ng-repeat="article in articles | filter:filterByTags" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+
+        <span style="vertical-align:middle;"><h2 class="list-group-item-heading" ng-bind="article.title" style="color:DE661E"></h2></span>
+        <em class="small" style="margin:0px">
+          Posted on
+          <span ng-bind="article.created | date:'mediumDate'"></span>
+          by
+          <span ng-bind="article.user.displayName"></span>
+          <h6>Tags: <span ng-bind="article.tags" style="color:#0021A5"></span></h6>
+        </em>
+
+        <p class="list-group-item-text" ng-bind="article.content"></p>
+      </a>
+    </div>
   </div>
   <div class="alert alert-warning text-center" ng-if="articles.$resolved && !articles.length">
     No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
+  </div>
+  <div class="col-md-2">
+    <table cell-spacing="0">
+      <tr>
+        <th>
+          <h3>Tags</h3>
+        </th>
+      </tr>
+      <tr ng-repeat="tag in commonTags" >
+        <td ng-click=addTags(tag)>
+          <h5><a href = "">{{tag}}</a></h5>
+        </td>
+      </tr>
+      <tr ng-repeat= "article in articles">
+        <td ng-repeat="tags in article.tags | filter:commonTagFilter" ng-click=addTags(tags)>
+          <h5><a href = "">{{tags}}</a></h5>
+        </td>
+      </tr>
+    </div>
   </div>
 </section>

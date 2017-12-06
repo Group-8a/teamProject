@@ -10,6 +10,7 @@ var _ = require('lodash'),
   mongoose = require('mongoose'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
+  Student = mongoose.model('Recruiter'),
   User = mongoose.model('User');
 
 /**
@@ -26,7 +27,7 @@ exports.update = function (req, res) {
     // Merge existing user
     user = _.extend(user, req.body);
     user.updated = Date.now();
-    user.displayName = user.firstName + ' ' + user.lastName;
+    user.displayName = user.firstName + ' ' + user.last.lastName;
 
     user.save(function (err) {
       if (err) {
@@ -50,6 +51,50 @@ exports.update = function (req, res) {
   }
 };
 
+exports.studentUpdate = function (req, res) {
+  console.log(req.body);
+  User.findOne({ '_id': req.body._id }, function(err, user) {
+    if (err) {
+      res.status(400).send('An error occured');
+    } else {
+      var username = req.body.username;
+      Student.findOne({ 'primaryEmail.email' : req.body.primaryEmail.email }, function(err, student){
+        if (err) {
+          res.status(400).send('An error occured');
+        } else if (student === null) {
+          console.log("no student found");
+        } else {
+          student.firstName = req.body.firstName;
+          student.last.lastName = req.body.last.lastName;
+          student.last.lastNameDontShow = req.body.last.lastNameDontShow;
+          student.username = req.body.username;
+          student.secondaryEmail.email = req.body.secondaryEmail.email;
+          student.secondaryEmail.emailDontShow = req.body.secondaryEmail.emailDontShow;
+          student.major.major = req.body.major.major;
+          student.major.majorDontShow = req.body.major.majorDontShow;
+          student.gradDate.date = req.body.gradDate.date;
+          student.gradDate.dateDontShow = req.body.gradDate.dateDontShow;
+          student.linkedin.url = req.body.linkedin.url;
+          student.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
+          student.projects.subjuGator = req.body.projects.ubjuGator;
+          student.projects.propaGator = req.body.projects.propaGator;
+          student.projects.naviGator = req.body.projects.naviGator;
+          student.save(function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            }
+          });
+        }
+
+      });
+
+    }
+  });
+
+
+};
 /**
  * Update profile picture
  */

@@ -15,19 +15,23 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.invite = function (isValid) {
       $scope.error = null;
-
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'userForm');
-
+        $scope.$broadcast('show-errors-check-validity', 'newUserForm');
         return false;
       }
-      $http.post('api/auth/invite', $scope.credentials).success(function (response) {
+      if($scope.newUser.roles === undefined){
+        $scope.newUser.roles = ['user'];
+      }
+      $http.post('api/auth/invite', $scope.newUser).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
       // And redirect to the previous or home page
-        $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
-          $state.go($state.previous.state.name || 'home', $state.previous.params);
+        //console.log($scope.newUser);
+        $http.post('api/auth/sendInvite', $scope.newUser).success(function (response){
+          console.log(response);
+          $state.go('home', $state.previous.params);
         }).error(function(response){
+          console.log(response);
           $scope.error = response.message;
         });
         $state.go($state.previous.state.name || 'home', $state.previous.params);
@@ -36,24 +40,38 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       });
     };
 
+    $scope.checkforinvite = function () {
+      $scope.error = null;
+      $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
+        $state.go($state.previous.state.name || 'home', $state.previous.params);
+      }).error(function(response){
+        $scope.error = response.message;
+      });
+    };
+
     $scope.signup = function (isValid) {
       $scope.error = null;
-
+      $scope.signin(isValid);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
-      console.log("here");
-      $http.post('/api/auth/signup', $scope.credentials).success(function (response) {
+      var test =
+      { "credentials": $scope.credentials,
+        "show": $scope.show };
+      $http.put('/api/auth/signup', test).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
-
+        $http.post('/api/auth/createStudent', test).success(function (response) {
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response;
+        }).error(function (response) {
+          $scope.error = response;
+        });
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {
-        console.log(response.message);
-        $scope.error = response.message;
+        $scope.error = response;
       });
     };
 
@@ -84,12 +102,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
         return false;
       }
-
       $http.post('/api/auth/inviteSignin', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
         console.log(response);
-        if (response === 'True'){
-          $state.go('authentication.signup');
+        if (response[0] === 'True'){
+          $state.go('formpage', {
+            token: response[1]
+          });
         }
         else {
           $scope.error = 'Sorry, invite code and UF id combination does not match our database.';
