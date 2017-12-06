@@ -5,7 +5,7 @@
 </head>
 
 <STYLE type="text/css"></STYLE>
-<section class="row" ng-controller="SettingsController" ng-init="changeDates()">
+<section class="row" ng-controller="SettingsController">
 
   <div class="container" style="margin-left:20px; margin-top:0px;">
     <div class="page-header">
@@ -16,7 +16,7 @@
   <div class="catchAll" style="margin-left:20px">
     <b><h2 class="list-group-item-text" style="margin-left:20px" ng-bind="user.displayName"></h2></b>
     <ui-sref="admin.user({userId: user._id})" class="list-group-item" style="border:none; background:none;">
-      <div class="col-md-2" style="padding:0" ng-controller="ChangeProfilePictureController">
+      <div class="col-md-2" style="padding:0" ng-controller="ChangeProfilePictureController" ng-init="changeDates()">
         <img ng-src="{{imageURL}}" alt="{{user.displayName}}" class="img-thumbnail user-profile-picture">
       </div>
       <div class="col-md-10">
@@ -25,8 +25,8 @@
             <tr>
               <td width="120" height="50"><b>Major: </b></td>
               <td class="list-group-item-text" ng-bind="user.major.major"  width="250"></td>
-              <td height="50"><b>Linkedin:</b></td>
-              <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
+                <td height="50"><b>Linkedin:</b></td>
+                <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
             </tr>
             <tr>
               <td height="50"><b>UF E-mail:</b></td>
@@ -35,20 +35,20 @@
               <td class="list-group-item-text" ng-bind="gradDate" width="200"></td>
             </tr>
             <tr>
-              <td width="200"><b>Alternate E-mail:</b></td>
+              <td width="250"><b>Alternate E-mail:</b></td>
               <td class="list-group-item-text" ng-bind="user.secondaryEmail.email">&nbsp;</td>
-              <td height = "50"><b>Date Joined:</b></td>
+              <td><b>Date Joined:</b></td>
               <td class="list-group-item-text" ng-bind="joinDate">&nbsp;</td>
             </tr>
             <tr>
-              <td><b> Projects: </b></td>
-              <td class="list-group-item-text" ng-bind="projects"></td>
+              <td><b>Projects: </b></td>
+              <td class="list-group-item-text" ng-bind="projects" width="350"></td>
           </tbody>
         </table>
       </div>
     </a>
     <p></p>
-    <b><a href="settings/profile" style="margin-left:50px">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a></b>
+    <a href="settings/profile" style="margin-left:50px">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a>
   </div>
 
   <div class="catchAll" style="margin-left:20px; margin-top:30px; margin-bottom: 50px;">
@@ -77,14 +77,14 @@
             <fieldset>
               <div class="form-group" style="padding-left: 5" show-errors>
                 <label for="title">Title</label>
-                <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                <input name="title" type="text" ng-model="title" id="title" class="form-control2" placeholder="Title" required>
                 <div ng-messages="articleForm.title.$error" role="alert">
                   <p class="help-block error-text" ng-message="required">Article title is required.</p>
                 </div>
               </div>
               <div class="form-group">
                 <label for="content">Content</label>
-                <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+                <textarea name="content" ng-model="content" id="content" class="form-control2" cols="30" rows="10" placeholder="Content"></textarea>
               </div>
               <div class="form-group" >
                 <label for="title">Tags: </label>

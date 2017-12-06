@@ -250,10 +250,14 @@ input.rounded {
 	outline: none;
 	-webkit-appearance: none;
 }
-
-.form-control {
+.form-control2{
   border: none;
   background: #ffe6cc;
+  border-radius: 10px;
+}
+.form-control {
+  border: none;
+  background: #fff;
   border-radius: 10px;
 }
 

@@ -54,7 +54,7 @@ function (RecruitersService, $scope) {
 
   $scope.getProjects = function(recruiter){
     //make project easy to read
-    $scope.projects = [];
+    $scope.projects = ['MIL '];
     //console.log(recruiter.projects);
     if(recruiter.projects.subjuGator === true){
       $scope.projects.push(' subjuGator');
