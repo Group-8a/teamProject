@@ -2,6 +2,11 @@
 .active{
   color: #0021A5;
 }
+
+.dropdown-menu a:hover{
+  background-color: #0021A5;
+}
+
 </style>
 
 
@@ -34,9 +39,6 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
-    <!--      <li ui-sref-active="active">
-            <a ui-sref="authentication.signup">Sign Up</a>
-          </li> -->
           <li class="divider-vertical"></li>
           <li ui-sref-active="active">
             <a ui-sref="authentication.signin" style="color: #ffe6cc">Sign In</a>
@@ -67,9 +69,6 @@
               </li>
               <li ui-sref-active="active">
                 <a ui-sref="settings.picture" style="color: #ffe6cc">Change Profile Picture</a>
-              </li>
-              <li ui-sref-active="active">
-                <a ui-sref="settings.accounts" style="color: #ffe6cc">Manage Social Accounts</a>
               </li>
               <li>
                 <a href="/api/auth/signout" target="_self" class="btn btn-danger navbar-btn" role="button" style="color: #000; background-color: #FFF;"> Signout</a>

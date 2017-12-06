@@ -40,6 +40,10 @@ a:hover {
   background-color:#0021A5;
 }
 
+li a, .dropdown-toggle {
+  color: green;
+}
+
 .navbar-collapse .navbar-nav .navbar-right{
   background-color: #DE661E;
 }
@@ -185,7 +189,7 @@ p, body {
   margin-right: 50px;
 }
 
-h1, h2, h3, title {
+h1, h2, h3 {
   color: #DE661E;
 }
 
