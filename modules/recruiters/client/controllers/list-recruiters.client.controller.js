@@ -11,22 +11,38 @@ function (RecruitersService, $scope) {
   vm.recruiters = RecruitersService.query();
 
   $scope.searchUsers = function(recruiters){
-    var name = recruiters.firstName;
+    var name = recruiters.firstName.toLowerCase();
+    //var projects = recruiters.projects;
     //var major = recruiters.major.major;
     //console.log(recruiters);
     if($scope.searchUsersText !== undefined && $scope.searchUsersText !== ''){
+      $scope.searchUsersText = $scope.searchUsersText.toLowerCase();
       var matched = name.includes($scope.searchUsersText);
       if(matched === true) {
         return true;
       }
+      if('subjugator'.includes($scope.searchUsersText) ===true && recruiters.projects.subjuGator === true){
+        return true;
+      }
+      if('propagator'.includes($scope.searchUsersText) === true && recruiters.projects.propaGator === true){
+        return true;
+      }
+      if('navigator'.includes($scope.searchUsersText) === true && recruiters.projects.naviGator === true){
+        return true;
+      }
+      if('mil'.includes($scope.searchUsersText)){
+        return true;
+      }
       if(recruiters.last.lastNameDontShow === false && recruiters.last.lastName !== null){
-        matched = recruiters.last.lastName.includes($scope.searchUsersText);
+        var lname = recruiters.last.lastName.toLowerCase();
+        matched = lname.includes($scope.searchUsersText);
         if (matched === true){
           return true;
         }
       }
       if(recruiters.major.majorDontShow === false && recruiters.major.major !== null){
-        matched = recruiters.major.major.includes($scope.searchUsersText);
+        var m = recruiters.major.major.toLowerCase();
+        matched = m.includes($scope.searchUsersText);
         if (matched === true){
           return true;
         }
@@ -35,10 +51,11 @@ function (RecruitersService, $scope) {
     }
     return true;
   };
+
   $scope.getProjects = function(recruiter){
     //make project easy to read
     $scope.projects = [];
-    console.log(recruiter.projects);
+    //console.log(recruiter.projects);
     if(recruiter.projects.subjuGator === true){
       $scope.projects.push(' subjuGator');
     }
@@ -48,7 +65,7 @@ function (RecruitersService, $scope) {
     if(recruiter.projects.naviGator === true){
       $scope.projects.push(' naviGator');
     }
-    console.log($scope.projects);
+    //console.log($scope.projects);
   };
 }
 ]);

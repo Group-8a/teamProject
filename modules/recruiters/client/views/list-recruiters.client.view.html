@@ -20,7 +20,7 @@
   <!-- Profile -->
   <div class="list-group col-md-13">
     <div class="catchAll" style="margin:0;">
-      <a ng-repeat="recruiter in vm.recruiters | filter:searchUsers" class="list-group-item">
+      <a ng-repeat="recruiter in vm.recruiters | filter:searchUsers" ng-init="getProjects(recruiter)"class="list-group-item">
         <table style="border-radius: 20px;">
           <tbody>
             <tr>
@@ -34,10 +34,11 @@
               </div>
             </tr>
             <tr>
-              <td class="list-group-item-text" width="200"><b>MIL Projects:</b></td><td>MIL</td>
-              <td ng-if="recruiter.projects.naviGator" width="250">NaviGator </td>
-              <td ng-if="recruiter.projects.propaGator" width="200">PropaGator </td>
-              <td ng-if="recruiter.projects.subjuGator" width="200">SubjuGator </td>
+              <td class="list-group-item-text" width="200"><b>MIL Projects:</b></td>
+              <td class="list-group-item-text">MIL</td>
+              <td class="list-group-item-text" ng-if="recruiter.projects.naviGator" width="250">NaviGator </td>
+              <td class="list-group-item-text" ng-if="recruiter.projects.propaGator" width="200">PropaGator </td>
+              <td class="list-group-item-text" ng-if="recruiter.projects.subjuGator" width="200">SubjuGator </td>
             </tr>
             <tr>
               <td class="list-group-item-text" ng-if="!recruiter.major.majorDontShow" width="150"><b>Major:</b></td>
