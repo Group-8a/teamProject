@@ -85,6 +85,24 @@ var RecruiterSchema = new Schema({
   updated: {
     type: Date
   },
+  projects : {
+    subjuGator: {
+      type: Boolean,
+      default: false
+    },
+    propaGator: {
+      type: Boolean,
+      default: false
+    },
+    naviGator: {
+      type: Boolean,
+      default: false
+    },
+    mil: {
+      type: Boolean,
+      default: true
+    }
+  },
   created: {
     type: Date,
     default: Date.now
