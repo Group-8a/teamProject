@@ -1,0 +1,41 @@
+<section ng-controller="ArticlesController">
+  <div class="page-header">
+    <h1>New Blog Post</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="articleForm" class="form-horizontal" ng-submit="create(articleForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Title</label>
+          <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="articleForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Article title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+        </div>
+        <label for="title">Tags</label>
+        <div class="form-group" >
+          <a ng-repeat="tag in tags">
+          <button type = "button" ng-click = "deleteTags(tag)">{{tag}} x</button>
+          </a>
+          <input type="text" style="width: 150px" placeholder="New Tag" ng-model="newTag"><span class="glyphicon glyphicon-plus-sign" ng-click = "addTags(newTag)"></span>
+        </div>
+        <div class="form-group">
+          <h4> Common Tags: </h4>
+          <a ng-repeat="ctag in commonTags">
+            <button type="button" ng-click = "addTags(ctag)">{{ctag}} +</button>
+          </a>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
