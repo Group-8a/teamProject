@@ -24,19 +24,20 @@ a:hover {
 }
 
 .container-fluid {
-  background: #DE661E;
+  background: #FA4616;
 }
 
 .navbar-header {
-  background: #DE661E;
+  background: #FA4616;
 }
 
 .navbar-collapse .dropdown-menu{
-  background-color: #DE661E;
+  background-color: #0021A5;
   border-radius: 20px;
 }
 
-.dropdown-toggle .li :hover {
+.dropdown-toggle .li :hover
++.droptdown-toggle .li :active{
   background-color:#0021A5;
 }
 
@@ -45,11 +46,11 @@ li a, .dropdown-toggle {
 }
 
 .navbar-collapse .navbar-nav .navbar-right{
-  background-color: #DE661E;
+  background-color: #0021A5;
 }
 
 .navbar-nav {
-  background-color: #DE661E;
+  background-color: #FA4616;
 }
 
 .navbar .navbar-brand {
@@ -63,7 +64,7 @@ li a, .dropdown-toggle {
 }
 
 .navbar-default {
-  background-color: #DE661E;
+  background-color: #FA4616;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -76,7 +77,7 @@ li a, .dropdown-toggle {
   }
 
   .navbar-header {
-    background-color: #DE661E;
+    background-color: #FA4616;
   }
 
   .navbar .navbar-brand {
@@ -88,11 +89,11 @@ li a, .dropdown-toggle {
   }
 
   .navbar-header .navbar-toggle {
-    background-color: #DE661E;
+    background-color: #FA4616;
   }
 
   .navbar-default {
-    background-color: #DE661E;
+    background-color: #FA4616;
   }
 }
 
@@ -156,10 +157,6 @@ p, body {
     background: rgba(0, 33, 165, 0.1) !important;
 }
 
-.html{
-  background: url("https://com-psychiatry-pep.sites.medinfo.ufl.edu/files/2014/07/Century-Tower-APA-Cropped.jpg") !important;
-}
-
 .page-header {
   background: #FFF;
   border-radius: 20px;
@@ -189,8 +186,9 @@ p, body {
   margin-right: 50px;
 }
 
+
 h1, h2, h3 {
-  color: #DE661E;
+  color: #FA4616;
 }
 
 .list-group-item {
@@ -198,7 +196,7 @@ h1, h2, h3 {
   border: none;
   border-bottom-style: solid;
   border-bottom-width: 5px;
-  border-bottom-color: #DE661E;
+  border-bottom-color: #0021A5;
 }
 
 .list-group-item:last-child{
@@ -212,7 +210,7 @@ h1, h2, h3 {
 }
 
 button {
-  background: #DE661E;
+  background: #FA4616;
   border-radius: 20px;
   border: none;
 }
@@ -255,10 +253,23 @@ input.rounded {
 
 .form-control {
   border: none;
-  background: #ffe6cc;
+  background: #B1B3B6;
   border-radius: 10px;
 }
 
 .carousel .carousel-inner{
   height: 400px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+      color:    black !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    black !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color:    black !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    black !important;
 }
