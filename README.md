@@ -1,3 +1,13 @@
+Team 8a Project Notes
+The recruiter module was added to this project. This module connects to a schema in that database that is a more private information view of the full user view. It is important to know that the majority of changes made in the user view should also be updated with the recruiter view. There are some endpoints that exist that allow for updates and creation of the schemas. More endpoints may need to be added as the app is further developed on.
+
+The admin view for this account has the ability to send emails. The template for the emails is stored in this project. When this project is deployed the email template will need to be updated to not redirect the user to the localhost version of the website. When this is done someone can delete this part of the read me.
+
+The majority of updated testing is server side. We have had a lot of trouble getting protractor to run and further work will need to be done on that for E2E testing. 
+
+The articles module was turned into a module used for blog posts. Tags were added to this module.
+
+-----------------------------------------------------------------------------------------------
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/meanjs/mean?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

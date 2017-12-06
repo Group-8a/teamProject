@@ -1,3 +1,11 @@
+<style>
+.form-control {
+  border: none;
+  background: #FFF;
+  border-radius: 10px;
+}
+</style>
+
 <section class="row" ng-controller="EditProfileController">
   <div class="container">
     <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
@@ -101,7 +109,7 @@
             <strong>Profile Saved Successfully</strong>
           </div>
           <div class="text-center form-group">
-            <button type="submit" class="btn btn-primary" style="color:black">Save Profile</button>
+            <button type="submit" class="btn btn-primary">Save Profile</button>
           </div>
 
           <div ng-show="error" class="text-center text-danger">
