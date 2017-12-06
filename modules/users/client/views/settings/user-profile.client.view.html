@@ -5,7 +5,7 @@
 </head>
 
 <STYLE type="text/css"></STYLE>
-<section class="row" ng-controller="SettingsController">
+<section class="row" ng-controller="SettingsController" ng-init="changeDates()">
 
   <div class="container" style="margin-left:20px; margin-top:0px;">
     <div class="page-header">
@@ -25,27 +25,30 @@
             <tr>
               <td width="120" height="50"><b>Major: </b></td>
               <td class="list-group-item-text" ng-bind="user.major.major"  width="250"></td>
-              <td width="200"><b>Graduation Date: </b></td>
-              <td class="list-group-item-text" ng-bind="user.gradDate.date" width="200"></td>
+              <td height="50"><b>Linkedin:</b></td>
+              <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
             </tr>
             <tr>
               <td height="50"><b>UF E-mail:</b></td>
               <td class="list-group-item-text" ng-bind="user.primaryEmail.email">&nbsp;</td>
-              <td><b>Alternate E-mail:</b></td>
-              <td class="list-group-item-text" ng-bind="user.secondaryEmail.email">&nbsp;</td>
+              <td width="200"><b>Graduation Date: </b></td>
+              <td class="list-group-item-text" ng-bind="gradDate" width="200"></td>
             </tr>
             <tr>
-              <td height="50"><b>Linkedin:</b></td>
-              <td class="list-group-item-text" ng-bind="user.linkedin.url">&nbsp;</td>
-              <td><b>Date Joined:</b></td>
-              <td class="list-group-item-text" ng-bind="user.joinLab">&nbsp;</td>
+              <td width="200"><b>Alternate E-mail:</b></td>
+              <td class="list-group-item-text" ng-bind="user.secondaryEmail.email">&nbsp;</td>
+              <td height = "50"><b>Date Joined:</b></td>
+              <td class="list-group-item-text" ng-bind="joinDate">&nbsp;</td>
             </tr>
+            <tr>
+              <td><b> Projects: </b></td>
+              <td class="list-group-item-text" ng-bind="projects"></td>
           </tbody>
         </table>
       </div>
     </a>
     <p></p>
-    <a href="settings/profile" style="margin-left:50px">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a>
+    <b><a href="settings/profile" style="margin-left:50px">Edit Profile <i class="glyphicon glyphicon-edit"></i> </a></b>
   </div>
 
   <div class="catchAll" style="margin-left:20px; margin-top:30px; margin-bottom: 50px;">

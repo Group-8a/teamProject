@@ -15,16 +15,13 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.invite = function (isValid) {
       $scope.error = null;
-
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'newUserForm');
-
         return false;
       }
       if($scope.newUser.roles === undefined){
         $scope.newUser.roles = ['user'];
       }
-
       $http.post('api/auth/invite', $scope.newUser).success(function (response) {
         // If successful we assign the response to the global user model
         //$scope.authentication.user = response;
@@ -45,7 +42,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
     $scope.checkforinvite = function () {
       $scope.error = null;
-
       $http.post('api/auth/sendInvite', $scope.credentials).success(function (response){
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function(response){
@@ -57,9 +53,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $scope.error = null;
       $scope.signin(isValid);
       if (!isValid) {
-
         $scope.$broadcast('show-errors-check-validity', 'userForm');
-
         return false;
       }
       var test =
@@ -68,15 +62,12 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $http.put('/api/auth/signup', test).success(function (response) {
         // If successful we assign the response to the global user model
         $scope.authentication.user = response;
-
         $http.post('/api/auth/createStudent', test).success(function (response) {
           // If successful we assign the response to the global user model
           $scope.authentication.user = response;
-
         }).error(function (response) {
           $scope.error = response;
         });
-
         // And redirect to the previous or home page
         $state.go($state.previous.state.name || 'home', $state.previous.params);
       }).error(function (response) {

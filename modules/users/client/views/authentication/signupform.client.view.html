@@ -42,6 +42,12 @@
         <div class="form-group">
             <input type="checkbox" ng-model="credentials.major.majorDontShow"> Do not show on public website
         </div>
+        <div class="form-group">
+          <label for = "projects">Projects you have worked on/are currently working on</label>
+          <input type="checkbox" ng-model="credentials.projects.subjuGator">subjuGator</input>
+          <input type="checkbox" ng-model="credentials.projects.naviGator">naviGator</input>
+          <input type="checkbox" ng-model="credentials.projects.propaGator">propaGator</input>
+        </div>
         <div class="form-group" show-errors>
           <label for="email">Email</label>
           <input type="email" id="email" name="email" class="form-control" ng-model="credentials.primaryEmail.email" placeholder="Email" lowercase required>

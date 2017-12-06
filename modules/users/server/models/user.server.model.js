@@ -130,6 +130,24 @@ var UserSchema = new Schema({
     type: String,
     required: 'Provider is required'
   },
+  projects : {
+    subjuGator: {
+      type: Boolean,
+      default: false
+    },
+    propaGator: {
+      type: Boolean,
+      default: false
+    },
+    naviGator: {
+      type: Boolean,
+      default: false
+    },
+    mil: {
+      type: Boolean,
+      default: true
+    }
+  },
   providerData: {},
   additionalProvidersData: {},
   roles: {

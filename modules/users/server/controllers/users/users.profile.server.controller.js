@@ -52,6 +52,7 @@ exports.update = function (req, res) {
 };
 
 exports.studentUpdate = function (req, res) {
+  console.log(req.body);
   User.findOne({ '_id': req.body._id }, function(err, user) {
     if (err) {
       res.status(400).send('An error occured');
@@ -75,6 +76,9 @@ exports.studentUpdate = function (req, res) {
           student.gradDate.dateDontShow = req.body.gradDate.dateDontShow;
           student.linkedin.url = req.body.linkedin.url;
           student.linkedin.linkedinDontShow = req.body.linkedin.linkedinDontShow;
+          student.projects.subjuGator = req.body.projects.ubjuGator;
+          student.projects.propaGator = req.body.projects.propaGator;
+          student.projects.naviGator = req.body.projects.naviGator;
           student.save(function (err) {
             if (err) {
               return res.status(400).send({
