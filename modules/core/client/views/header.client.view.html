@@ -2,6 +2,11 @@
 .active{
   color: #0021A5;
 }
+
+.dropdown-menu a:hover{
+  background-color: #0021A5;
+}
+
 </style>
 
 
@@ -34,9 +39,6 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
-    <!--      <li ui-sref-active="active">
-            <a ui-sref="authentication.signup">Sign Up</a>
-          </li> -->
           <li class="divider-vertical"></li>
           <li ui-sref-active="active">
             <a ui-sref="authentication.signin" style="color: #ffffff">Sign In</a>
