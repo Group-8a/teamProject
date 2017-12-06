@@ -189,10 +189,6 @@ h1, h2, h3, title {
   color: #DE661E;
 }
 
-td{
-  width: 200px;
-}
-
 .list-group-item {
   background: none;
   border: none;
@@ -215,4 +211,50 @@ button {
   background: #DE661E;
   border-radius: 20px;
   border: none;
+}
+
+.btn-default, .btn-primary {
+  background: #FFF;
+  border: none;
+}
+
+.btn-default :hover{
+  background: #DE661E;
+  border: none;
+}
+
+.glyphicon {
+  color: #FFF;
+  border: none;
+  -moz-border-radius: none;
+	-webkit-border-radius: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+input.rounded {
+	border: none;
+	-moz-border-radius: none;
+	-webkit-border-radius: none;
+	border-radius: 10px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	font-size: 12px;
+	padding: 4px 7px;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.form-control {
+  border: none;
+  background: #ffe6cc;
+  border-radius: 10px;
+}
+
+.carousel .carousel-inner{
+  height: 400px;
 }
