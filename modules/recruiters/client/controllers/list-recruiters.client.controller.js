@@ -7,6 +7,7 @@ function (RecruitersService, $scope) {
   //RecruitersListController.$inject = ['RecruitersService']
   var vm = this;
   $scope.searchUsersText = undefined;
+  $scope.projects = "hey";
   vm.recruiters = RecruitersService.query();
 
   $scope.searchUsers = function(recruiters){
@@ -33,6 +34,21 @@ function (RecruitersService, $scope) {
       return false;
     }
     return true;
+  };
+  $scope.getProjects = function(recruiter){
+    //make project easy to read
+    $scope.projects = [];
+    console.log(recruiter.projects);
+    if(recruiter.projects.subjuGator === true){
+      $scope.projects.push(' subjuGator');
+    }
+    if(recruiter.projects.propaGator === true){
+      $scope.projects.push(' propaGator');
+    }
+    if(recruiter.projects.naviGator === true){
+      $scope.projects.push(' naviGator');
+    }
+    console.log($scope.projects);
   };
 }
 ]);

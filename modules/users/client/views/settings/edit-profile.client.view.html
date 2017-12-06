@@ -71,7 +71,12 @@
           <div class="form-group">
               <input type="checkbox" ng-model="user.major.majorDontShow"> Do not show major on public website
           </div>
-
+          <label for="projects">Projects you have worked on</label>
+          <div class="form-group">
+            <input type="checkbox" id="projects" ng-model="user.projects.subjuGator">subjuGator</input>
+            <input type="checkbox" id="projects" ng-model="user.projects.naviGator">naviGator</input>
+            <input type="checkbox" id="projects" ng-model="user.projects.propaGator">propaGator</input>
+          </div>
           <div class="form-group" show-errors>
             <label for="gradDate"> Expected Graduation Date</label>
             <input type="date" id="gradDate" name="gradDate" ng-model="user.gradDate.date" class="form-control"  placeholder="Graduation Date">

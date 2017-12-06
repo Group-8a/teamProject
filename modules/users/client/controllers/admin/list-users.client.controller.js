@@ -84,7 +84,20 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
         }
       }
     };
-
+    $scope.getProjects = function(index){
+      var user = $scope.users[index];
+      console.log(user);
+      $scope.projects = ['MIL'];
+      if(user.projects.subjuGator === true){
+        $scope.projects.push(' subjuGator');
+      }
+      if(user.projects.propaGator === true){
+        $scope.projects.push(' propaGator');
+      }
+      if(user.projects.naviGator === true){
+        $scope.projects.push(' naviGator');
+      }
+    };
     $scope.makeAdmin = function () {
       var user = $scope.currentUser;
       if (confirm('Are you sure you want to give this user Administrator priveledges?')) {

@@ -15,7 +15,7 @@ td{
 
   <div class="col-md-4" style="margin-top:20px;">
     <div class="list-group" style="background:#FFF;">
-      <a ng-repeat="user in pagedItems" ng-click="displayDetails($index); showProfile(); date($index)" class="list-group-item">
+      <a ng-repeat="user in pagedItems" ng-click="displayDetails($index); showProfile(); date($index); getProjects($index)" class="list-group-item">
         <h4 class="list-group-item-heading" ng-bind="user.displayName"></h4>
       </a>
     </div>
@@ -31,6 +31,10 @@ td{
         <h2>{{ detailedInfo.displayName}}</h2>
       <center>
         <table>
+          <tr>
+            <th width ="100"><p>Projects: </p></th>
+            <td ng-bind="projects"></td>
+          </tr>
           <tr>
             <th width="100"><p>Major: </p></th>
             <td>
